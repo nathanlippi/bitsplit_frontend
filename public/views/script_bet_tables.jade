@@ -1,5 +1,5 @@
 script.
-  var socket = io.connect(window.location.hostname);
+  var socket = io.connect(!{socket_address});
   socket.on("refresh", function (json) {
     window.location.reload();
   });

@@ -1,16 +1,19 @@
 var express = require('express');
 var app     = express();
 var server  = require("http").createServer(app);
+var io = require("socket.io").listen(server);
+
+var jade_values = {socket_address: '"bitsplit.it:80"'};
 
 app.get('/', function(req, res) {
-  res.render("index1.jade");
+  res.render("index1.jade", jade_values);
 });
 
 // Will catch any route without a dot, and map it to a jade file, if it exists.
 app.get(/^\/([^.]*)$/, function(req, res) {
   var file = req.params[0]+".jade";
 
-  res.render(file, function(err, html) {
+  res.render(file, jade_values, function(err, html) {
     if (err) {
         return res.render('404');
     }
