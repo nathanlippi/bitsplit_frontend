@@ -26,6 +26,6 @@ Change a jade file, and the changes should be immediately available when you ref
 ## Contact
 nathan.lippi@gmail.com
 
-## TODO:
+## TODO
 * Simple, easy-to-understand design.
 * Implement the UI for betting.
