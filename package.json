@@ -1,0 +1,25 @@
+{
+  "name": "bitsplit_frontend",
+  "version": "0.0.0",
+  "description": "Frontend for bitpsplit.it.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nathanlippi/bitsplit_frontend.git"
+  },
+  "keywords": [
+    "bitcoin"
+  ],
+  "author": "Nathan Lippi",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/nathanlippi/bitsplit_frontend/issues"
+  },
+  "homepage": "https://github.com/nathanlippi/bitsplit_frontend",
+  "dependencies": {
+    "express": "~3.4.8"
+  }
+}
