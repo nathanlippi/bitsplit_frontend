@@ -1,0 +1,34 @@
+extends tpl
+
+block content
+    .jumbotron.jumbotron-headline.bg-color-usd
+      .container.jumbotron-text
+        table#big-info-table
+          tr
+            td
+              h1 Jackpot size&colon;
+            td
+              h1
+                span#jackpot-amount.font-color-bitcoin.no-symbol
+          tr
+            td
+              h1 Average split time&colon;
+            td
+              h1
+                span.highlight
+                  span.split-time-minutes &period;&period;&period;
+                  |  minutes
+          tr
+            td
+              h1 Top contributor gets&colon;
+            td
+              h1
+                span.font-color-bitcoin.no-symbol half
+        include ctas
+    .container
+      include bet_tables
+      hr
+      footer
+
+block scripts
+  include script_bet_tables

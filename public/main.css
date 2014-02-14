@@ -1,0 +1,158 @@
+@font-face {
+  font-family: 'Alpha Echo';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/alpha_echo.ttf);
+}
+
+html, body {
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    background-color: white;
+}
+
+#big-info-table h1 {
+    text-align: left !important;
+    margin-left: 15px;
+}
+
+.btn-cta {
+    margin-top: 40px !important;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px 44px;
+    border: 1px solid #356fa3;
+    border-radius: 8px;
+    background: #56b5ff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#56b5ff), to(#356fa3));
+    background: -moz-linear-gradient(top, #56b5ff, #356fa3);
+    background: linear-gradient(to bottom, #56b5ff, #356fa3);
+    -webkit-box-shadow: #4fa7f5 0px 0px 20px 0px;
+    -moz-box-shadow: #4fa7f5 0px 0px 20px 0px;
+    box-shadow: #4fa7f5 0px 0px 20px 0px;
+    text-shadow: #214666 1px 1px 6px;
+    font-size: 45px;
+    font-family: "Alpha Echo";
+    font-weight: normal !important;
+    color: #ffffff;
+    text-decoration: none;
+}
+.btn-cta:hover,
+.btn-cta:focus {
+    border: 1px solid #428bcc;
+    background: #67d9ff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#67d9ff), to(#4085c4));
+    background: -moz-linear-gradient(top, #67d9ff, #4085c4);
+    background: linear-gradient(to bottom, #67d9ff, #4085c4);
+    color: #ffffff;
+    text-decoration: none;
+}
+.btn-cta:active {
+    background: #356fa3;
+    background: -webkit-gradient(linear, left top, left bottom, from(#356fa3), to(#356fa3));
+    background: -moz-linear-gradient(top, #356fa3, #356fa3);
+    background: linear-gradient(to bottom, #356fa3, #356fa3);
+}
+
+
+.navbar-brand {
+    font-family: "Kaushan Script";
+}
+
+
+#chart {
+    padding: 0px;
+    background-color: black;
+}
+
+.jumbotron-headline {
+    border-bottom: 1px solid darkgreen;
+}
+
+.jumbotron .jumbotron-text h1 , .jumbotron-text h2 , .jumbotron-text a {
+    font-weight: 700;
+    margin: 10px auto;
+    text-align: center;
+    text-shadow: 0 0 5px black ,0 0 1px black;
+}
+.tall {
+    min-height: 100% !important;
+}
+
+h2.left {
+    text-align: left !important;
+    margin-bottom: 49px;
+    text-shadow: none;
+}
+
+.jumbotron-text {
+    margin-top: 25px;
+}
+
+.highlight {
+    color: white;
+    text-shadow: none;
+    text-shadow: 0 0 1px white ,0 0 10px black;
+}
+
+.font-color-bitcoin {
+    color: gold;
+    text-shadow:0 0 8px gold,0 0 5px black;
+}
+.font-color-bitcoin-win {
+    color: green;
+    text-shadow: none;
+    font-weight: 900;
+}
+.font-color-bitcoin-lose {
+    color: red;
+    text-shadow: none;
+    font-weight: 900;
+}
+.font-color-bitcoin-neutral {
+    color: gray;
+    text-shadow: none;
+    font-weight: 900;
+}
+
+
+p.font-color-bitcoin:before {
+    content: "฿";
+    /* font-awesome bitcoin symbol */
+}
+.font-color-bitcoin.no-symbol:before {
+    content: "";
+}
+
+
+.bg-color-bitcoin {
+    background-color: #FFD801;
+}
+
+.font-color-usd {
+    color: #85BB65;
+    text-shadow:0 0 50px #85BB65,0 0 10px #85BB65;
+}
+.bg-color-usd {
+    background-color: #85BB65;
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNjOWRlOTYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI0NCUiIHN0b3AtY29sb3I9IiM4YWI2NmIiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMzk4MjM1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-radial-gradient(center, ellipse cover, #c9de96 0%, #8ab66b 44%, #398235 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#c9de96), color-stop(44%,#8ab66b), color-stop(100%,#398235)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, #c9de96 0%,#8ab66b 44%,#398235 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, #c9de96 0%,#8ab66b 44%,#398235 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+}
+
+.font-color-light {
+    color: white;   
+}
+.bg-color-light {
+    color: white;   
+}

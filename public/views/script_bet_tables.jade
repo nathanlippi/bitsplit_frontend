@@ -1,0 +1,17 @@
+script.
+  var socket = io.connect(window.location.hostname);
+  socket.on("refresh", function (json) {
+    window.location.reload();
+  });
+  socket.on("config", function (json) {
+    refresh_config(json);
+  });
+  socket.on("current_stats", function (json) {
+    refresh_current_stats(json);
+  });
+  socket.on("past_winners", function (json) {
+    refresh_past_winners(json);
+  });
+  socket.on("current_bets", function (json) {
+    refresh_current_bets(json);
+  });

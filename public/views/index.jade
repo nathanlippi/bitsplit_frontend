@@ -1,0 +1,27 @@
+extends tpl
+
+block content
+    .jumbotron.jumbotron-headline.bg-color-usd
+      .container.jumbotron-text
+        h1
+          | The&nbsp;
+          span#jackpot-amount.font-color-bitcoin.no-symbol
+          |  jackpot&apos;s average split time is 
+          span.highlight
+            span.split-time-minutes &period;&period;&period;
+            |  minutes
+          | &period;&period;&period;
+        h1
+          | When it splits&comma; the
+          span.highlight  top contributor
+          |  gets
+          span.font-color-bitcoin.no-symbol  half
+          | &period;&period;&period;
+        include ctas
+    .container
+      include bet_tables
+      hr
+      footer
+
+block scripts
+  include script_bet_tables

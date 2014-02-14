@@ -1,0 +1,67 @@
+extends tpl
+
+block content
+    .jumbotron.jumbotron-headline.bg-color-usd
+      .container.jumbotron-text
+        h1 Betting interface coming soon!
+    .container
+      // Example row of columns
+      .row.info-row
+        .col-md-6
+          h2 This Round&apos;s Top Contributors
+          #current_top_contributors.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th Rank
+                  th User
+                  th Contribution
+              tbody
+          // End table-responsive
+        .col-md-6
+          h2 Current Bets
+          #current_bets.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th ID
+                  th User
+                  th Timestamp
+                  th Amount
+              tbody
+          // End table-responsive
+        .col-md-12
+          h2 Past Winners
+          #past_winners.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th User
+                  th Contribution
+                  th Payout
+              tbody
+          // End table-responsive
+      hr
+      footer
+    // /container
+    //
+
+
+block scripts
+  script.
+    var socket = io.connect(window.location.hostname);
+    socket.on("refresh", function (json) {
+      window.location.reload();
+    });
+    socket.on("config", function (json) {
+      refresh_config(json);
+    });
+    socket.on("current_stats", function (json) {
+      refresh_current_stats(json);
+    });
+    socket.on("past_winners", function (json) {
+      refresh_past_winners(json);
+    });
+    socket.on("current_bets", function (json) {
+      refresh_current_bets(json);
+    });
