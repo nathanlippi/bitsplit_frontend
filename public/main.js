@@ -21,7 +21,7 @@ function refresh_current_stats(current_stats)
     }
     $("#current-winning-contribution").html("<i class='fa fa-btc'></i>"+to_btc(current_winning_contribution));
     $("#jackpot-amount").html("<i class='fa fa-btc'></i>"+to_btc(current_stats.jackpot));
-    $("#prize-amount").html(to_btc(current_stats.prize));
+    $("#prize-amount").html("<i class='fa fa-btc'></i>"+to_btc(current_stats.prize));
 
     for(var ii = 0; ii < current_stats.contributors.length && ii < 10; ii++)
     {
