@@ -1,19 +1,22 @@
-extends tpl
+extends tpl_full_page
 
-block content
-    .jumbotron.tall.bg-color-usd
-      .container.jumbotron-text
-        h1 How to play
-        br
-        h2.left  There&apos;s one communal Bitcoin jackpot which will split at an unknown time.
-        h2.left It will split
-          i  on average
-          |  every 15 minutes.
-        h2.left When it splits, whoever has contributed the most to the jackpot since its last split, will get 50% of the jackpot.
-        h2.left 48% goes back into the jackpot, and 2% goes to the house.
-        h2.left Bet responsibly, and good luck!
+block content_full
+  h2.left Players place bets; their chance of winning the prize is 
+    a(href="/math#skew") disproportionately higher with higher contributions
+    |  to the pot.
+  h2.left You can check out the tables on the 
+    a(href="/") landing page 
+    | to see the current chances for each player to win.
 
-        p(style='text-align:center;')
-          a.btn.btn-primary.btn-cta(role='button', href='/play')
-            span.highlight Play Now
-    .container
+  h2.left The prize amount is calculated by adding (current contributions + left-over contributions from last jackpot) and dividing by two.
+
+  h2.left The house's cut is 2%.
+
+  h2.left Bet responsibly, and good luck!
+
+  p(style='text-align:center;')
+    a.btn.btn-primary.btn-cta(role='button', href='/math#')
+      span.highlight See The Math
+  p(style='text-align:center;')
+    a.btn.btn-primary.btn-cta(role='button', href='/play')
+      span.highlight Play Now

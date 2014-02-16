@@ -1,0 +1,59 @@
+extends tpl
+
+block head
+  link(href='http://fonts.googleapis.com/css?family=Bitter', rel='stylesheet', type='text/css')
+  link(href='http://fonts.googleapis.com/css?family=PT+Sans', rel='stylesheet', type='text/css')
+
+  style.
+    body {
+      font-family: "PT Sans";
+    }
+    .jumbotron-text {
+      margin-top: 50px;
+    }
+    .jumbotron-text h1, .jumbotron-text h2 {
+      // text-align: left !important;
+      font-family: "Bitter" !important;
+      color: white;
+      margin-bottom: 30px !important;
+    }
+    .font-color-bitcoin {
+      font-family: "Bitter" !important;
+    }
+    .highlight {
+      text-shadow: none;
+    }
+    .btn-cta {
+      margin-left: 30px !important;
+      margin-right: 30px !important;
+      margin-top: 55px !important;
+      font-family: "Bitter";
+      font-weight: 900 !important;
+    }
+
+block content
+    .jumbotron.jumbotron-headline.bg-color-usd
+      .container.jumbotron-text
+        h1 BitSplit
+        // h2 A weighted lottery where fortune favors the bold.
+        h2 A lottery weighted to favor the bold.
+
+        // h1 Jackpot size&colon;&nbsp;&nbsp;
+        //   span#jackpot-amount.font-color-bitcoin.no-symbol
+        br
+        br
+        br
+        h1.left Prize&colon;&nbsp;&nbsp;
+          span#prize-amount.font-color-bitcoin.no-symbol 
+        h1.left Next Winner&colon;&nbsp;&nbsp;
+          span.font-color-bitcoin
+            span.split-time-minutes &period;&period;&period;
+            |  min countdown
+        include ctas
+    .container
+      include bet_tables2
+      hr
+      footer
+
+block scripts
+  include script_bet_tables
