@@ -83,8 +83,17 @@ body {
     min-height: 100% !important;
 }
 
-h2.left {
+.left {
     text-align: left !important;
+}
+.center {
+    text-align: center !important;
+}
+.right {
+    text-align: right !important;
+}
+
+h2.left {
     margin-bottom: 49px;
     text-shadow: none;
 }
