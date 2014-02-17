@@ -5,47 +5,8 @@ block content
       .container.jumbotron-text
         h1 Betting interface coming soon!
     .container
-      // Example row of columns
-      .row.info-row
-        .col-md-6
-          h2 This Round&apos;s Top Contributors
-          #current_top_contributors.table-responsive
-            table.table.table-striped
-              thead
-                tr
-                  th Rank
-                  th User
-                  th Contribution
-              tbody
-          // End table-responsive
-        .col-md-6
-          h2 Current Bets
-          #current_bets.table-responsive
-            table.table.table-striped
-              thead
-                tr
-                  th ID
-                  th User
-                  th Timestamp
-                  th Amount
-              tbody
-          // End table-responsive
-        .col-md-12
-          h2 Past Winners
-          #past_winners.table-responsive
-            table.table.table-striped
-              thead
-                tr
-                  th User
-                  th Contribution
-                  th Payout
-              tbody
-          // End table-responsive
-      hr
-      footer
-    // /container
-    //
-
+      include bet_tables
+   
 
 block scripts
   include script_bet_tables

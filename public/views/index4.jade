@@ -17,9 +17,6 @@ block head
       color: white;
       margin-bottom: 30px !important;
     }
-    .font-color-bitcoin {
-      font-family: "Bitter" !important;
-    }
     .highlight {
       text-shadow: none;
     }
@@ -35,23 +32,19 @@ block content
     .jumbotron.jumbotron-headline.bg-color-usd
       .container.jumbotron-text
         h1 BitSplit
-        // h2 A weighted lottery where fortune favors the bold.
-        h2 A lottery weighted to favor the bold.
-
-        // h1 Jackpot size&colon;&nbsp;&nbsp;
-        //   span#jackpot-amount.font-color-bitcoin
+        h2 A lottery that statistically favors higher contributions.
         br
         br
         br
         h1.left Prize&colon;&nbsp;&nbsp;
-          span#prize-amount.font-color-bitcoin 
+          span#prize-amount.font-color-bitcoin.glow 
         h1.left Next Winner&colon;&nbsp;&nbsp;
-          span.font-color-bitcoin
+          span.font-color-bitcoin.glow
             span.split-time-minutes &period;&period;&period;
             |  min countdown
         include ctas
     .container
-      include bet_tables2
+      include bet_tables
       hr
       footer
 

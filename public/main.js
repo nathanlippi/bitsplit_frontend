@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 function refresh_current_stats(current_stats)
 {
-    var table_id = "#current_top_contributors table tbody";
+    var table_id = "#current_contenders table tbody";
     $(table_id).html("");
 
     var current_winning_contribution = 0;
@@ -25,13 +25,12 @@ function refresh_current_stats(current_stats)
 
     for(var ii = 0; ii < current_stats.contributors.length && ii < 10; ii++)
     {
-        var font_color = "bitcoin-symbol font-color-bitcoin-";
-        font_color += ii === 0 ? "win" : "lose";
+        var font_color = "bitcoin-symbol font-color-bitcoin";
 
         var str  = "<tr>";
-        str     += "<td>"+(ii+1)+"</td>";
         str     += "<td>"+current_stats.contributors[ii].user_id+"</td>";
         str     += "<td class='"+font_color+"'>"+to_btc(current_stats.contributors[ii].contribution)+"</td>";
+        str     += "<td>"+to_btc(current_stats.contributors[ii].win_probability)+"</td>";
         str     += "</tr>";
 
         $(table_id).append(str);
