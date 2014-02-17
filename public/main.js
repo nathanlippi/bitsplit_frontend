@@ -25,7 +25,7 @@ function refresh_current_stats(current_stats)
 
     for(var ii = 0; ii < current_stats.contributors.length && ii < 10; ii++)
     {
-        var font_color = "font-color-bitcoin font-color-bitcoin-";
+        var font_color = "bitcoin-symbol font-color-bitcoin-";
         font_color += ii === 0 ? "win" : "lose";
 
         var str  = "<tr>";
@@ -47,8 +47,8 @@ function refresh_past_winners(past_winners)
     {
         var str  = "<tr>";
         str     += "<td>"+past_winners[ii].user_id+"</td>";
-        str     += "<td class='font-color-bitcoin font-color-bitcoin-neutral'>"+to_btc(past_winners[ii].contribution)+"</td>";
-        str     += "<td class='font-color-bitcoin font-color-bitcoin-win'>"+to_btc(past_winners[ii].payout)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(past_winners[ii].contribution)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-win'>"+to_btc(past_winners[ii].payout)+"</td>";
         str     += "</tr>";
 
         $(table_id).append(str);
@@ -65,7 +65,7 @@ function refresh_current_bets(current_bets) {
         str     += "<td>"+current_bets[ii].user_id+"</td>";
         str     += "<td>"+current_bets[ii].user_id+"</td>";
         str     += "<td>Timestamp</td>";
-        str     += "<td class='font-color-bitcoin font-color-bitcoin-neutral'>"+to_btc(current_bets[ii].amount)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(current_bets[ii].amount)+"</td>";
         str     += "</tr>";
 
         $(id).append(str);
