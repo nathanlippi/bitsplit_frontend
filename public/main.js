@@ -27,10 +27,27 @@ function refresh_current_stats(current_stats)
     {
         var font_color = "bitcoin-symbol font-color-bitcoin";
 
+        var contributor          = current_stats.contributors[ii];
+        var percent_contribution = contributor.percent.total_contribution * 100;
+        var percent_win_chance   = contributor.percent.win_chance * 100;
+
+        var font_odds   = "font-color-bitcoin-lose";
+        var odds_symbol = "<";
+        if(percent_win_chance > percent_contribution) {
+            font_odds   = "font-color-bitcoin-win";
+            odds_symbol = ">";
+        }
+        else if(percent_win_chance === percent_contribution) {
+            font_odds   = "font-color-bitcoin-neutral";
+            odds_symbol = "=";
+        }
+
         var str  = "<tr>";
         str     += "<td>"+current_stats.contributors[ii].user_id+"</td>";
         str     += "<td class='"+font_color+" font-weight-heavy'>"+to_btc(current_stats.contributors[ii].contribution)+"</td>";
-        str     += "<td class='percentage-symbol'>"+to_btc(current_stats.contributors[ii].win_probability)+"</td>";
+        str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_win_chance.toPrecision(3)+"</td>";
+        str     += "<td>"+odds_symbol+"</td>";
+        str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_contribution.toPrecision(3)+"</td>";
         str     += "</tr>";
 
         $(table_id).append(str);
@@ -51,23 +68,6 @@ function refresh_past_winners(past_winners)
         str     += "</tr>";
 
         $(table_id).append(str);
-    }
-}
-
-function refresh_current_bets(current_bets) {
-     var id = "#current_bets table tbody";
-     $(id).html("");
-
-    for(var ii = 0; ii < current_bets.length && ii < 10; ii++)
-    {
-        var str  = "<tr>";
-        str     += "<td>"+current_bets[ii].user_id+"</td>";
-        str     += "<td>"+current_bets[ii].user_id+"</td>";
-        str     += "<td>Timestamp</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(current_bets[ii].amount)+"</td>";
-        str     += "</tr>";
-
-        $(id).append(str);
     }
 }
 
