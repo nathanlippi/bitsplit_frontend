@@ -1,14 +1,12 @@
 # BitSplit: A lottery that statistically favors higher contributions.
 
-## This is the open-source frontend for <http://bitsplit.it>
+## This is the open-source frontend for <http://bitsplit.it>.
 
-Our concept could use the work of a designer or two with an eye towards **simple**, **clear design** and **streamlinedm user experience**.
+Our concept could use the work of a designer or two with an eye towards **simple**, **clear design** and **streamlined user experience**.
 
 If you feel like making some changes or tweaks, or just offering suggestions, we'd be more than happy to get your feedback.
 
 I would be willing to offer a percentage of the revenue from this website to designers who make the design prettier, easier to use, and more functional.
-
-We can talk numbers, if you are interested.
 
 ## Installation
 * git clone https://github.com/nathanlippi/bitsplit_frontend.git
