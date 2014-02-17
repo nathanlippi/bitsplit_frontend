@@ -1,11 +1,8 @@
-# The open-source frontend for <http://bitsplit.it>
+# BitSplit: A lottery that statistically favors higher contributions.
 
+## This is the open-source frontend for <http://bitsplit.it>
 
-Bitsplit takes a unique approach to online betting -- players make bets, and whoever has contributed the most when jackpot randomly splits will get half the jackpot.
-
-48% goes back into the jackpot, 2% goes to the house (and maybe you if you feel like contributing).
-
-Our novel concept, while moving forward, could use some work of a designer or two with an eye towards **simple**, **clear design** and **good user experience**.
+Our concept could use the work of a designer or two with an eye towards **simple**, **clear design** and **streamlinedm user experience**.
 
 If you feel like making some changes or tweaks, or just offering suggestions, we'd be more than happy to get your feedback.
 
