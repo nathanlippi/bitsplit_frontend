@@ -28,6 +28,16 @@ body {
     text-align: right !important;
 }
 
+.font-weight-light {
+    font-weight: 100 !important;
+}
+.font-weight-normal {
+    font-weight: 400 !important;
+}
+.font-weight-heavy {
+    font-weight: 900 !important;
+}
+
 .navbar-brand {
     font-family: "Kaushan Script";
 }
@@ -112,6 +122,9 @@ h2.left {
 
 .bitcoin-symbol:before {
     content: "฿";
+}
+.percentage-symbol:after {
+    content: "%";
 }
 
 /* Start CTAs */

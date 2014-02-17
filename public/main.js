@@ -29,8 +29,8 @@ function refresh_current_stats(current_stats)
 
         var str  = "<tr>";
         str     += "<td>"+current_stats.contributors[ii].user_id+"</td>";
-        str     += "<td class='"+font_color+"'>"+to_btc(current_stats.contributors[ii].contribution)+"</td>";
-        str     += "<td>"+to_btc(current_stats.contributors[ii].win_probability)+"</td>";
+        str     += "<td class='"+font_color+" font-weight-heavy'>"+to_btc(current_stats.contributors[ii].contribution)+"</td>";
+        str     += "<td class='percentage-symbol'>"+to_btc(current_stats.contributors[ii].win_probability)+"</td>";
         str     += "</tr>";
 
         $(table_id).append(str);
