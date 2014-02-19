@@ -8,12 +8,28 @@ $(document).ready(function() {
         $("#logo_split").html("");
         $("#logo_split2").html("&nbsp;");
       });
+
+   // Refreshes our countdown timer
+   setInterval(function() {
+       if(typeof window.next_split_ms !== "number") {
+         return false;
+       }
+       var next_split_ms = window.next_split_ms;
+       var seconds_left  =
+           Math.floor((next_split_ms - new Date().getTime())/1000);
+
+       // TODO: This should check for < 0, not the pretty-time formatter
+       var pretty_time = seconds_to_pretty_time(seconds_left);
+       $('.split-countdown-timer').html(pretty_time);
+   }, 500);
 });
 
 function refresh_current_stats(current_stats)
 {
     var table_id = "#current_contenders table tbody";
     $(table_id).html("");
+
+    window.next_split_ms = current_stats.timestamp.end;
 
     var current_winning_contribution = 0;
     if(current_stats.contributors[0]) {
@@ -76,6 +92,21 @@ function refresh_config(config_data) {
     if(typeof config_data.split_n_minutes !== "undefined") {
         $(".split-time-minutes").html(config_data.split_n_minutes);
     }
+}
+
+function seconds_to_pretty_time(time_seconds) {
+    var m = 0;
+    var s = 0;
+    if(time_seconds > 0) {
+      m = Math.floor(time_seconds / 60);
+      s = time_seconds - m*60;
+    }
+    return zeroPad(m, 2)+":"+zeroPad(s, 2);
+}
+
+function zeroPad(num, places) {
+  var zero = places - num.toString().length + 1;
+  return new Array(+(zero > 0 && zero)).join("0") + num;
 }
 
 function to_btc(satoshis) {
