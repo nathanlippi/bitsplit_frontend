@@ -12,6 +12,7 @@ html, body {
 
 body {
     background-color: white;
+    font-family: "PT Sans";
 }
 
 .tall {
@@ -51,6 +52,7 @@ body {
     margin: 10px auto;
     text-align: center;
     text-shadow: 0 0 5px black ,0 0 1px black;
+    font-family: "Bitter";
 }
 h2.left {
     margin-bottom: 49px;
@@ -63,21 +65,19 @@ h2.left {
 
 .highlight {
     color: white;
-    text-shadow: none;
-    text-shadow: 0 0 1px white ,0 0 10px black;
 }
 
 .font-color-usd {
-    color: #85BB65;
-    text-shadow:0 0 50px #85BB65,0 0 10px #85BB65;
+    color: #85BB65 !important;
+    /* text-shadow:0 0 50px #85BB65,0 0 10px #85BB65; */
 }
 
 .font-color-light {
-    color: white;   
+    color: white !important;
 }
 
 .font-color-bitcoin {
-    color: gold;
+    color: gold !important;
 }
 .font-color-bitcoin.glow {
     text-shadow:0 0 8px gold,0 0 5px black;
@@ -129,6 +129,10 @@ h2.left {
 
 /* Start CTAs */
 .btn-cta {
+    font-family: "Bitter";
+    margin: 30px !important;
+    font-weight: 900 !important;
+
     margin-top: 40px !important;
     display: inline-block;
     text-align: center;
@@ -143,10 +147,9 @@ h2.left {
     -webkit-box-shadow: #4fa7f5 0px 0px 20px 0px;
     -moz-box-shadow: #4fa7f5 0px 0px 20px 0px;
     box-shadow: #4fa7f5 0px 0px 20px 0px;
-    text-shadow: #214666 1px 1px 6px;
+    text-shadow: none !important;
     font-size: 45px;
-    font-family: "Alpha Echo";
-    font-weight: normal !important;
+
     color: #ffffff;
     text-decoration: none;
 }
