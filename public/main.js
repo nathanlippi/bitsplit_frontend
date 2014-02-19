@@ -87,6 +87,12 @@ function refresh_past_winners(past_winners)
     }
 }
 
+function place_bet(satoshis) {
+  $.post("/bet_current_jackpot", {amount: satoshis}, function(res) {
+
+  });
+}
+
 function refresh_config(config_data) {
     console.log(config_data);
     if(typeof config_data.split_n_minutes !== "undefined") {

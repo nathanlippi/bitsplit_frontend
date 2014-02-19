@@ -38,16 +38,19 @@ block content
            row.info-row
              form(role="form")
                .form-group
-                 input.form-control.center-block(type="number", step=".01", placeholder="Amount in BTC",style="width:50%;")
+                 input#bet_amount.form-control.center-block(type="number", step=".01", placeholder="Amount in BTC",style="width:50%;")
              .center
                a.btn.btn-primary.btn-cta(role='button', href='#', style="margin-right:10px;")
-                 span.highlight Place Bet
+                 span.highlight(onclick="place_bet($('#bet_amount').val())") Place Bet
          .col-md-3#account_info.tall
-           h2 Account
-           h2 balance
+           h2 Balance
            h1.font-color-bitcoin
              i.fa.fa-btc
              | ∞
+           br
+           h2 User
+           h2.font-color-bitcoin !{user_id}
+           br
            .center
              a.btn.btn-primary(role='button', href='#', style='margin-right:5px;') Deposit
              a.btn.btn-primary(role='button', href='#') Withdraw
