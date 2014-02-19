@@ -1,9 +1,57 @@
+// http://stackoverflow.com/questions/19089384/twitter-bootstrap-3-two-columns-full-height
+
 extends tpl
+
+block head
+  style.
+    #account_info, #bet_interface {
+      background: white;
+      padding: 30px;
+    }
+
+    #account_info {
+      border-left: 1px solid black;
+    }
+    #bet_interface {
+    }
+
+    #bet_interface row.info-row {
+        margin-bottom: 10px !important;
+    }
+
 
 block content
     .jumbotron.jumbotron-headline.bg-color-usd
       .container.jumbotron-text
-        h1 Betting interface coming soon!
+        // h1 Betting interface coming soon!
+        row.info-row
+         .col-md-9#bet_interface
+           row.info-row.tall
+             .col-md-6
+               h2 Chance of Winning
+               h2 0%
+             .col-md-6
+               h2 % of Contributions
+               h2 0%
+           // Spacer row
+           row.info-row &nbsp;
+           row.info-row
+             form(role="form")
+               .form-group
+                 input.form-control.center-block(type="number", step=".01", placeholder="Amount in BTC",style="width:50%;")
+             .center
+               a.btn.btn-primary.btn-cta(role='button', href='#', style="margin-right:10px;")
+                 span.highlight Place Bet
+         .col-md-3#account_info.tall
+           h2 Account
+           h2 balance
+           h1.font-color-bitcoin
+             i.fa.fa-btc
+             | ∞
+           .center
+             a.btn.btn-primary(role='button', href='#', style='margin-right:5px;') Deposit
+             a.btn.btn-primary(role='button', href='#') Withdraw
+
     .container
       include bet_tables
    
