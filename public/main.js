@@ -77,10 +77,19 @@ function refresh_past_winners(past_winners)
 
     for(var ii = 0; ii < past_winners.length && ii < 10; ii++)
     {
+        var player      = past_winners[ii];
+
+        var win_or_lose = "win";
+        if(player.payout === player.contribution) {
+            win_or_lose = "neutral";
+        } else if(player.contribution > player.payout) {
+            win_or_lose = "lose";
+        }
+
         var str  = "<tr>";
         str     += "<td>"+past_winners[ii].user_id+"</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(past_winners[ii].contribution)+"</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-win'>"+to_btc(past_winners[ii].payout)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(player.contribution)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc(player.payout)+"</td>";
         str     += "</tr>";
 
         $(table_id).append(str);
