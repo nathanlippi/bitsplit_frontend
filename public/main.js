@@ -29,7 +29,7 @@ function refresh_current_stats(current_stats)
     var table_id = "#current_contenders table tbody";
     $(table_id).html("");
 
-    window.next_split_ms = current_stats.timestamp.end;
+    window.next_split_ms = current_stats.next_split_ms;
 
     var current_winning_contribution = 0;
     if(current_stats.contributors[0]) {
