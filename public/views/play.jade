@@ -4,7 +4,7 @@ extends tpl
 
 block head
   style.
-    #account_info, #bet_interface {
+    #other_info, #account_info, #bet_interface {
       background: white;
       padding: 30px;
     }
@@ -25,15 +25,16 @@ block content
       .container.jumbotron-text
         // h1 Betting interface coming soon!
         row.info-row
-         .col-md-9#bet_interface
-           row.info-row.tall
-             .col-md-6
-               h2 Chance of Winning
-               h2 0%
-             .col-md-6
-               h2 % of Contributions
-               h2 0%
-           // Spacer row
+         .col-md-3#other_info
+           h2 Prize
+             br
+             span#prize-amount.font-color-bitcoin
+           br
+           h2 Next Winner
+             br
+             span.font-color-bitcoin
+               span.split-countdown-timer ...
+         .col-md-6#bet_interface
            row.info-row &nbsp;
            row.info-row
              form(role="form")
