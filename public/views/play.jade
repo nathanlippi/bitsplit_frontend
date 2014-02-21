@@ -40,8 +40,8 @@ block content
                .form-group
                  input#bet_amount_btc.form-control.center-block(type="number", step=".01", placeholder="Amount in BTC",min=".0001",style="width:50%;")
              .center
-               a.btn.btn-primary.btn-cta(role='button', href='#', style="margin-right:10px;")
-                 span.highlight(onclick="place_bet(to_satoshis($('#bet_amount_btc').val()))") Place Bet
+               a.btn.btn-primary.btn-cta(role='button', href='#', style="margin-right:10px;", onclick="place_bet(to_satoshis($('#bet_amount_btc').val()))")
+                 span.highlight Place Bet
          .col-md-3#account_info.tall
            h2 Balance
            h1.font-color-bitcoin
