@@ -41,13 +41,19 @@ function refresh_current_stats(current_stats)
     $("#jackpot-amount").html("<i class='fa fa-btc'></i>"+to_btc(current_stats.jackpot));
     $("#prize-amount").html("<i class='fa fa-btc'></i>"+to_btc(current_stats.prize));
 
+    var current_user_id = $("#user_id").html();
+    current_player_percent_win_chance = 0;
+    current_player_contribution       = 0;
+
     for(var ii = 0; ii < current_stats.contributors.length && ii < 10; ii++)
     {
         var font_color = "bitcoin-symbol font-color-bitcoin";
 
         var contributor          = current_stats.contributors[ii];
-        var percent_contribution = contributor.percent.total_contribution * 100;
-        var percent_win_chance   = contributor.percent.win_chance * 100;
+        var contribution         = to_btc(contributor.contribution);
+        var percent_contribution = (contributor.percent.total_contribution * 100);
+        var percent_win_chance   = (contributor.percent.win_chance * 100);
+        var user_id              = contributor.user_id;
 
         var font_odds   = "font-color-bitcoin-lose";
         var odds_symbol = "<";
@@ -60,16 +66,28 @@ function refresh_current_stats(current_stats)
             odds_symbol = "=";
         }
 
+        // Convert to string of specific length, for display
+        percent_win_chance   = percent_win_chance.toPrecision(3);
+        contribution         = contribution.toPrecision(3);
+        percent_contribution = percent_contribution.toPrecision(3);
+
+        if(current_user_id === user_id) {
+            current_player_percent_win_chance = percent_win_chance;
+            current_player_contribution       = contribution;
+        }
+
         var str  = "<tr>";
-        str     += "<td>"+current_stats.contributors[ii].user_id+"</td>";
-        str     += "<td class='"+font_color+" font-weight-heavy'>"+to_btc(current_stats.contributors[ii].contribution)+"</td>";
-        str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_win_chance.toPrecision(3)+"</td>";
+        str     += "<td>"+user_id+"</td>";
+        str     += "<td class='"+font_color+" font-weight-heavy'>"+contribution+"</td>";
+        str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_win_chance+"</td>";
         str     += "<td>"+odds_symbol+"</td>";
-        str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_contribution.toPrecision(3)+"</td>";
+        str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_contribution+"</td>";
         str     += "</tr>";
 
         $(table_id).append(str);
     }
+    $("#player_chance_of_winning").html(current_player_percent_win_chance);
+    $("#player_contribution").html(current_player_contribution);
 }
 
 function refresh_past_winners(past_winners)

@@ -34,6 +34,16 @@ block content
              br
              span.font-color-bitcoin
                span.split-countdown-timer ...
+           br
+           h2 Contribution
+             br
+             h2.font-color-bitcoin
+               i.fa.fa-btc
+               span#player_contribution.font-color-bitcoin 0
+           br
+           h2 Win Chance
+             br
+             span#player_chance_of_winning.font-color-bitcoin.percentage-symbol 0
          .col-md-6#bet_interface
            row.info-row &nbsp;
            row.info-row
@@ -50,7 +60,7 @@ block content
              | ∞
            br
            h2 User
-           h2.font-color-bitcoin !{user_id}
+           h2#user_id.font-color-bitcoin !{user_id}
            br
            .center
              a.btn.btn-primary(role='button', href='#', style='margin-right:5px;') Deposit
