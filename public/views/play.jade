@@ -9,22 +9,26 @@ block head
       padding: 30px;
     }
 
-    #account_info {
-      border-left: 1px solid black;
-    }
     #bet_interface {
+      border-left: 1px solid black;
+      border-right: 1px solid black;
     }
 
-    #bet_interface row.info-row {
-        margin-bottom: 10px !important;
+    #top-table {
+        display: block;
+        overflow: hidden;
     }
 
+    #top-table [class*="col-"]{
+        margin-bottom: -99999px;
+        padding-bottom: 99999px;
+    }
 
 block content
     .jumbotron.jumbotron-headline.bg-color-usd
       .container.jumbotron-text
         // h1 Betting interface coming soon!
-        row.info-row
+        row.info-row#top-table
          .col-md-3#other_info
            h2 Prize
              br
