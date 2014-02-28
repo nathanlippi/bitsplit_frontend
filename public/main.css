@@ -1,3 +1,14 @@
+#login {
+    background: white;
+    height: 300px;
+    width: 485px;
+    z-index: 1002;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 @font-face {
   font-family: 'Alpha Echo';
   font-style: normal;

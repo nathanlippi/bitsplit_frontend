@@ -41,7 +41,7 @@ function refresh_current_stats(current_stats)
     $("#jackpot-amount").html("<i class='fa fa-btc'></i>"+to_btc(current_stats.jackpot));
     $("#prize-amount").html("<i class='fa fa-btc'></i>"+to_btc(current_stats.prize));
 
-    var current_user_id = $("#user_id").html();
+    var current_user = $("#user").html();
     current_player_percent_win_chance = 0;
     current_player_contribution       = 0;
 
@@ -53,7 +53,7 @@ function refresh_current_stats(current_stats)
         var contribution         = to_btc(contributor.contribution);
         var percent_contribution = (contributor.percent.total_contribution * 100);
         var percent_win_chance   = (contributor.percent.win_chance * 100);
-        var user_id              = contributor.user_id;
+        var user                 = contributor.user;
 
         var font_odds   = "font-color-bitcoin-lose";
         var odds_symbol = "<";
@@ -71,13 +71,13 @@ function refresh_current_stats(current_stats)
         contribution         = contribution.toPrecision(3);
         percent_contribution = percent_contribution.toPrecision(3);
 
-        if(current_user_id === user_id) {
+        if(current_user === user.name) {
             current_player_percent_win_chance = percent_win_chance;
             current_player_contribution       = contribution;
         }
 
         var str  = "<tr>";
-        str     += "<td>"+user_id+"</td>";
+        str     += "<td>"+user.name+"</td>";
         str     += "<td class='"+font_color+" font-weight-heavy'>"+contribution+"</td>";
         str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_win_chance+"</td>";
         str     += "<td>"+odds_symbol+"</td>";
@@ -99,6 +99,11 @@ function refresh_past_winners(past_winners)
     {
         var player      = past_winners[ii];
 
+        var user_name = "";
+        if(typeof player.user !== "undefined") {
+          user_name = player.user.name;
+        }
+
         var win_or_lose = "win";
         if(player.payout === player.contribution) {
             win_or_lose = "neutral";
@@ -107,7 +112,7 @@ function refresh_past_winners(past_winners)
         }
 
         var str  = "<tr>";
-        str     += "<td>"+past_winners[ii].user_id+"</td>";
+        str     += "<td>"+user_name+"</td>";
         str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(player.contribution)+"</td>";
         str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc(player.payout)+"</td>";
         str     += "</tr>";
@@ -128,6 +133,14 @@ function refresh_config(config_data) {
         $(".split-time-minutes").html(config_data.split_n_minutes);
     }
 }
+
+var user = {
+  create: function(user_name) {
+    $.post("/user/create", {user_name: user_name}, function(res) {
+       window.location.reload();
+    });
+  }
+};
 
 function seconds_to_pretty_time(time_seconds) {
     var m = 0;
