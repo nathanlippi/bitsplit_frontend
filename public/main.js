@@ -1,3 +1,13 @@
+bootstrap_alert = {};
+bootstrap_alert.warning = function(message, fadeout_ms) {
+  if(typeof fadeout_ms !== "number") {
+    fadeout_ms = 4000;
+  }
+
+  $('#alert').html('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span>'+message+'</span></div>')
+  .delay(200).fadeIn().delay(fadeout_ms).fadeOut();
+};
+
 $(document).ready(function() {
     // Split logo animation
     $(".navbar-brand").on("mouseover", function() {
@@ -122,9 +132,7 @@ function refresh_past_winners(past_winners)
 }
 
 function place_bet(satoshis) {
-  $.post("/bet_current_jackpot", {amount: satoshis}, function(res) {
-
-  });
+  socket.emit("bet:current_jackpot", satoshis);
 }
 
 function refresh_config(config_data) {
@@ -134,13 +142,24 @@ function refresh_config(config_data) {
     }
 }
 
+function update_personal_stats(personal_stats) {
+    $("#user_balance").html(to_btc(personal_stats.balance));
+}
+
 var user = {
   create: function(user_name) {
-    $.post("/user/create", {user_name: user_name}, function(res) {
-       window.location.reload();
-    });
+    socket.emit("user:create", user_name);
+  },
+  add_to_balance: function(satoshis) {
+    socket.emit("user:add_to_balance", satoshis);
   }
 };
+
+$("#deposit").on("click", function(e) {
+  e.preventDefault();
+  var amt = window.prompt("How many satoshis will you add to your balance?", 0);
+  user.add_to_balance(amt);
+});
 
 function seconds_to_pretty_time(time_seconds) {
     var m = 0;

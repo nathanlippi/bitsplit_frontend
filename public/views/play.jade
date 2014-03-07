@@ -64,15 +64,15 @@ block content
                  span.highlight Place Bet
          .col-md-3#account_info.tall
            h2 Balance
-           h1.font-color-bitcoin
+           h2.font-color-bitcoin
              i.fa.fa-btc
-             | ∞
+             span#user_balance ...
            br
            h2 User
            h2#user.font-color-bitcoin !{user_name}
            br
            .center
-             a.btn.btn-primary(role='button', href='#', style='margin-right:5px;') Deposit
+             a#deposit.btn.btn-primary(role='button', style='margin-right:5px;') Deposit
              a.btn.btn-primary(role='button', href='#') Withdraw
 
     .container
