@@ -107,24 +107,30 @@ function refresh_past_winners(past_winners)
 
     for(var ii = 0; ii < past_winners.length && ii < 10; ii++)
     {
-        var player      = past_winners[ii];
+        var jackpot = past_winners[ii];
+        var dsbs    = jackpot.disbursements;
+        var user    = {name: ""};
 
-        var user_name = "";
-        if(typeof player.user !== "undefined") {
-          user_name = player.user.name;
+        if(typeof jackpot.user !== "undefined") {
+          user = jackpot.user;
         }
 
         var win_or_lose = "win";
-        if(player.payout === player.contribution) {
+        if(jackpot.contribution === dsbs.winner) {
             win_or_lose = "neutral";
-        } else if(player.contribution > player.payout) {
+        } else if(jackpot.contribution > dsbs.winner) {
             win_or_lose = "lose";
         }
 
         var str  = "<tr>";
-        str     += "<td>"+user_name+"</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(player.contribution)+"</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc(player.payout)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(dsbs.total)+"</td>"; // Size
+        str     += "<td>"+user.name+"</td>"; // Winner name
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(jackpot.contribution)+"</td>"; // Winner contribution
+
+        // Disbursements
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc(dsbs.winner)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(dsbs.next_jackpot)+"</td>"; // Next Jackpot
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(dsbs.house)+"</td>"; // House
         str     += "</tr>";
 
         $(table_id).append(str);
