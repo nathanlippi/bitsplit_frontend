@@ -163,8 +163,8 @@ var user = {
 
 $("#deposit").on("click", function(e) {
   e.preventDefault();
-  var amt = window.prompt("How many satoshis will you add to your balance?", 0);
-  user.add_to_balance(amt);
+  var amt = window.prompt("How many Bitcoins will you add to your balance?", 0);
+  user.add_to_balance(to_satoshis(amt));
 });
 
 function seconds_to_pretty_time(time_seconds) {
