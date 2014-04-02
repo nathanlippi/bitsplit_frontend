@@ -23,3 +23,9 @@
           a(href='#') Verification
         li
           a(href='#') API
+      ul.nav.navbar-nav.navbar-right
+        li
+          span(style="color:white") Currency: 
+          select(id="currency_type",onchange="change_currency_type($(this).val());" style='margin-top:15px;')
+            option(value="fake") Fake
+            option(value="btc") Bitcoin
