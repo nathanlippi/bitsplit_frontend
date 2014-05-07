@@ -158,7 +158,8 @@ var CurrencyModifierVirtualCurrency = CurrencyModifier.extend({
       {
         prompt       : false,
         currencyType : self.currencyType,
-        additional   : {addr: "XYZ_123_ABC"}
+        // TODO: Get this from personal stats
+        additional   : {addr: personalStats.depositAddr}
       });
   },
   withdraw: function(callback) {
@@ -429,7 +430,7 @@ function to_satoshis(btc) {
 function change_currency_type(currencyType) {
   socket.emit("user:change_currency_type", currencyType);
   // TODO: Wait for callback
-  change_currency_type_ui(personal_stats.currencyType);
+  change_currency_type_ui(currencyType);
 }
 function change_currency_type_ui(currencyType) {
   $("select#currency_type").val(currencyType);
@@ -443,8 +444,10 @@ function refresh_config(config_data) {
     }
 }
 function update_personal_stats(personal_stats) {
-    $("#user_balance").html(to_btc(personal_stats.balance));
-    change_currency_type_ui(personal_stats.currencyType);
+  personalStats = personal_stats;
+
+  $("#user_balance").html(to_btc(personalStats.balance));
+  change_currency_type_ui(personalStats.currencyType);
 }
 
 var user = {
