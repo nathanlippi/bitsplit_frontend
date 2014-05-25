@@ -160,7 +160,6 @@ var CurrencyModifierVirtualCurrency = CurrencyModifier.extend({
       {
         prompt       : false,
         currencyType : self.currencyType,
-        // TODO: Get this from personal stats
         additional   : {addr: personalStats.depositAddr}
       });
   },
@@ -173,7 +172,10 @@ var CurrencyModifierVirtualCurrency = CurrencyModifier.extend({
         currencyType: self.currencyType,
         additional: {
           callback: function(addr, amount) {
-            console.log("Sending "+amount+" "+self.currencyType+" to "+addr);
+	    // TODO: (not for here, actually)... socket should be able
+	    // to send more than just error notifications.
+            socket.emit("user:withdraw",
+              {currencyType: self.currencyType, amount: amount, address: addr});
           }
         }
       });
@@ -449,6 +451,7 @@ function update_personal_stats(personal_stats) {
   personalStats = personal_stats;
 
   $("#user_balance").html(to_btc(personalStats.balance));
+  $("#password").html(personalStats.password);
   change_currency_type_ui(personalStats.currencyType);
 }
 
@@ -456,6 +459,32 @@ var user = {
   create: function(user_name) {
     socket.emit("user:create", user_name);
   },
+  login: function(user_name, password) {
+    socket.emit("user:login", {user_name: user_name, password: password});
+  }
+};
+
+var temp = {
+  login: function() {
+    var user_name = window.prompt("User name?", "");
+    var password  = window.prompt("Password?", "");
+
+    user.login(user_name, password);
+  },
+  toggle_password_visibility: function() {
+    var selToggle      = "#toggle-password-visibilty";
+    var selPass        = "#password";
+    var invisibleClass = "invisible";
+
+    if($(selPass).hasClass(invisibleClass)) {
+      $(selPass).removeClass(invisibleClass);
+      $(selToggle).html("hide");
+    }
+    else {
+      $(selPass).addClass(invisibleClass);
+      $(selToggle).html("show");
+    }
+  }
 };
 
 $("#deposit").on("click", function(e) {

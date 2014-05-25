@@ -205,3 +205,8 @@ h2.left {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
+#toggle-password-visibilty {
+  opacity: 0.8;
+  text-decoration : underline;
+}

@@ -70,6 +70,10 @@ block content
            br
            h2 User
            h2#user.font-color-bitcoin !{user_name}
+           h2(onclick="temp.toggle_password_visibility();") Password (
+             span#toggle-password-visibilty show
+             | )
+           h2#password.font-color-bitcoin.invisible
            br
            .center
              a#deposit.btn.btn-primary(role='button', style='margin-right:5px;') Deposit
