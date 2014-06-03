@@ -369,14 +369,20 @@ $(document).ready(function() {
       if(currentTimeLeft > lastTimeLeft) {
         maxTimeLeft = currentTimeLeft;
       }
-      lastTimeLeft = currentTimeLeft;
 
-      var percentage = (1 - currentTimeLeft/maxTimeLeft)*100;
-      $(".bigcounter").css("width", percentage.toString()+"%");
+      // Update timer every second
+      if(Math.abs((currentTimeLeft - lastTimeLeft) / 1000) >= 1)
+      {
+        lastTimeLeft = currentTimeLeft;
 
-      $("#nextRoundTime").html(seconds_to_pretty_time(Math.round(currentTimeLeft/1000)));
+        var percentage = (1 - currentTimeLeft/maxTimeLeft)*100;
+        $(".bigcounter").css("width", percentage.toString()+"%");
 
-  }, 30);
+        $("#nextRoundTime")
+          .html(seconds_to_pretty_time(Math.round(currentTimeLeft/1000)));
+     }
+
+  }, 100);
 });
 
 
