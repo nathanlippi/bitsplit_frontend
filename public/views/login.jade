@@ -1,4 +1,4 @@
-extends index4
+extends index
 
 append head
   style.
@@ -20,15 +20,19 @@ append head
     }
 
 append content
-    .jumbotron.tall.jumbotron-headline
-      .container.jumbotron-text
-        .overlay
-        #login.absolute-center
-          h3.center Welcome to BitSplit
-          hr
-          form(role="form")
-           .form-group.center
-             input#new_user_name.form-control.center-block(type="text", placeholder="Enter Your Name", style="width:50%;")
-             a.btn.btn-primary(role='button', href='#', style="margin-right:10px;width:50%;", onclick="user.create($('#new_user_name').val())")
-               span.highlight Confirm
-          // a(href="/login")  Log in
+  .overlay
+  .modal-dialog.modal-lg.absolute-center#login
+    .modal-content
+      .modal-header
+        h4#myModalLabel.modal-title(style="display:inline;") Welcome to
+        img(src='https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P', style="height:50px;")
+        h5#myModalLabel(style="text-align:center;") The Thinking Man's Lottery
+      .modal-body
+        form(role="form")
+         .form-group.center
+           input#new_user_name.form-control.center-block(type="text", placeholder="Choose Your User Name", style="width:70%;margin-bottom:10px;", data-toggle="tooltip", data-placement="top", title="")
+           a.btn.btn-primary.center-block(role='button', href='#', style="width:70%;margin-bottom:10px;", onclick="user.create($('#new_user_name').val())")
+             span.highlight Confirm
+           a(onclick="temp.login()", style="margin-left:15%;") Sign In
+      .modal-footer
+        br

@@ -1,189 +1,518 @@
-@font-face {
-  font-family: 'Alpha Echo';
-  font-style: normal;
-  font-weight: 400;
-  src: url(fonts/alpha_echo.ttf);
+/* Make something awesome! */
+.transparent {
+  background-color:rgba(34, 34, 34, 0);
 }
 
-html, body {
-    height: 100%;
-    min-height: 100%;
+.gameview {
+  padding:0 6%;
+  margin-top:8%;
 }
 
 body {
-    background-color: white;
-    font-family: "PT Sans";
+  background-color: #207E81;
 }
 
-.tall {
-    min-height: 100% !important;
+#bg {
+  position: fixed; 
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+}
+#bg img {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  min-width: 50%;
+  min-height: 50%;
 }
 
-.left {
-    text-align: left !important;
-}
-.center {
-    text-align: center !important;
-}
-.right {
-    text-align: right !important;
+#bitsplitnav {
+ padding: 0 6% 0 0;
+ margin-top:3%;
+ border:0;
 }
 
-.font-weight-light {
-    font-weight: 100 !important;
-}
-.font-weight-normal {
-    font-weight: 400 !important;
-}
-.font-weight-heavy {
-    font-weight: 900 !important;
+.navbar-inverse .navbar-nav>li>a {
+  font-size: 16px;
+  font-family: "Helvetica Neue";
+  color: rgba(157, 241, 250, 0.9) !important;
+
+  padding:8px 16px;
+
+  cursor:pointer;
+  font-weight: 200;
+  letter-spacing: 1px;
+  opacity: 0.9;
 }
 
-.navbar-brand {
-    font-family: "Kaushan Script";
+.navbar-inverse .navbar-nav>li>a:hover,.navbar-inverse .navbar-nav>li>a:focus  {
+  font-family: "Helvetica Neue";
+  color: rgba(157, 241, 250, 1.0) !important;
+ 
+  border-bottom:1px solid rgba(157, 241, 250, 0.5);
+  padding:8px 16px;
+  
+  font-weight: 200;
+  letter-spacing: 1px;
+  opacity: 1;
 }
 
-.jumbotron-headline {
-    border-bottom: 1px solid darkgreen;
+.navbar-inverse .navbar-nav>.active>a {
+  background : none;
+  border : 1px solid rgba(157, 241, 250, 0.55) !important;
+  border-radius : 6px;
 }
 
-.jumbotron .jumbotron-text h1 , .jumbotron-text h2 , .jumbotron-text a {
-    font-weight: 700;
-    margin: 10px auto;
+.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+  background:none;
+  border: 1px solid rgba(157, 241, 250, 1.00) !important;
+  border-radius:6px;
+}
+
+.btn-group-transparent > .btn {
+  background: none;
+  border: none;
+  color: #F6E0B8;
+  background-color: rgba(235, 235, 235, 0);
+}
+
+.btn-group-riskscale > .btn {
+background: none;
+/* border: none; */
+color: rgba(3, 3, 3, 0.79);
+/* background-color: rgba(246, 224, 184, 0.85); */
+border-color: #020202;
+}
+
+.bitsplitbetnav {
+  padding: 0 0%;
+  margin-bottom: 0%;
+  padding-bottom: 0%;
+  background: rgba(39, 20, 0, 0.33);
+  padding-top: 0%;
+}
+
+div.navbar-header {
+margin-top: -30px;
+}
+
+#gameslider {
+  padding-top: 11%;
+}
+
+.dl-horizontal dt {
+    text-overflow: inherit;
+    white-space: normal;
+}
+
+table.table.table-condensed.transltable {
+    width: 84%;
+    margin-left: 8%;
+    background: rgba(2, 22, 21, 0.43);
+}
+tr {
+}
+thead {
+    background: rgba(34, 34, 34, 0.57);
+    color: #42A098;
+    font-weight: normal;
+    font-size: 10px;
+    /* padding-left: 10px; */
+    /* text-align: center; */
+}
+tbody {
+}
+tbody {}
+.table>thead>tr>th {
+    border-bottom: 0;
+    font-size: 11px;
+    /* padding-left: 14px; */
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-align: center;
-    text-shadow: 0 0 5px black ,0 0 1px black;
-    font-family: "Bitter";
 }
-h2.left {
-    margin-bottom: 49px;
-    text-shadow: none;
-}
-
-.jumbotron-text {
-    margin-top: 25px;
-}
-
-.highlight {
-    color: white;
-}
-
-.font-color-usd {
-    color: #85BB65 !important;
-    /* text-shadow:0 0 50px #85BB65,0 0 10px #85BB65; */
-}
-
-.font-color-light {
-    color: white !important;
-}
-
-.font-color-bitcoin {
-    color: gold !important;
-}
-.font-color-bitcoin.glow {
-    text-shadow:0 0 8px gold,0 0 5px black;
-}
-
-.font-color-bitcoin-win {
-    color: green;
-    text-shadow: none;
-    font-weight: 900;
-}
-.font-color-bitcoin-lose {
-    color: red;
-    text-shadow: none;
-    font-weight: 900;
-}
-.font-color-bitcoin-neutral {
-    color: gray;
-    text-shadow: none;
-    font-weight: 900;
-}
-
-.bg-color-light {
-    color: white;   
-}
-
-.bg-color-bitcoin {
-    background-color: #FFD801;
-}
-
-.bg-color-usd {
-    background-color: #85BB65;
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNjOWRlOTYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI0NCUiIHN0b3AtY29sb3I9IiM4YWI2NmIiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMzk4MjM1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-radial-gradient(center, ellipse cover, #c9de96 0%, #8ab66b 44%, #398235 100%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#c9de96), color-stop(44%,#8ab66b), color-stop(100%,#398235)); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover, #c9de96 0%,#8ab66b 44%,#398235 100%); /* IE10+ */
-    background: radial-gradient(ellipse at center, #c9de96 0%,#8ab66b 44%,#398235 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
-}
-
-.bitcoin-symbol:before {
-    content: "฿";
-}
-.percentage-symbol:after {
-    content: "%";
-}
-
-/* Start CTAs */
-.btn-cta {
-    font-family: "Bitter";
-    margin: 30px !important;
-    font-weight: 900 !important;
-
-    margin-top: 40px !important;
-    display: inline-block;
+.table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 1em;
+    /* padding-left: 14px; */
+    padding-top: 9px;
+    padding-bottom: 8px;
     text-align: center;
-    vertical-align: middle;
-    padding: 12px 44px;
-    border: 1px solid #356fa3;
-    border-radius: 8px;
-    background: #56b5ff;
-    background: -webkit-gradient(linear, left top, left bottom, from(#56b5ff), to(#356fa3));
-    background: -moz-linear-gradient(top, #56b5ff, #356fa3);
-    background: linear-gradient(to bottom, #56b5ff, #356fa3);
-    -webkit-box-shadow: #4fa7f5 0px 0px 20px 0px;
-    -moz-box-shadow: #4fa7f5 0px 0px 20px 0px;
-    box-shadow: #4fa7f5 0px 0px 20px 0px;
-    text-shadow: none !important;
-    font-size: 45px;
-
-    color: #ffffff;
-    text-decoration: none;
-}
-.btn-cta:hover,
-.btn-cta:focus {
-    border: 1px solid #428bcc;
-    background: #67d9ff;
-    background: -webkit-gradient(linear, left top, left bottom, from(#67d9ff), to(#4085c4));
-    background: -moz-linear-gradient(top, #67d9ff, #4085c4);
-    background: linear-gradient(to bottom, #67d9ff, #4085c4);
-    color: #ffffff;
-    text-decoration: none;
-}
-.btn-cta:active {
-    background: #356fa3;
-    background: -webkit-gradient(linear, left top, left bottom, from(#356fa3), to(#356fa3));
-    background: -moz-linear-gradient(top, #356fa3, #356fa3);
-    background: linear-gradient(to bottom, #356fa3, #356fa3);
-}
-/* End CTAs */
-
-#big-info-table h1 {
-    text-align: left !important;
-    margin-left: 15px;
 }
 
-#past_winners #disbursements {
-  background: #eee;
+div.modal-header {
+    background: rgba(34, 104, 107, 1);
+    color: #A4D8D3;
+    font-weight: 100;
+    border-bottom: 0;
+}
+div.modal-body {
+    background: white;
+}
+div.modal-content {
+    background: none;
+}
+div.modal-footer {
+    background: rgba(223, 223, 223, 1);
+    margin-top: 0;
+}
+.modal-title {
+    font-size: 1.7em;
+    text-align: center;
+}
+
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+    
+    color:#333;
+    
+}
+h4.fadedtext {
+color: #ffffff;
+opacity: 0.4;
+width: 86%;
+margin-left: 8%;
+margin-top: 10%;
+font-weight: 200;
+letter-spacing: 0px;
+margin-bottom: 5%;
+}
+
+.table-responsive {
+border: none;
+}
+
+
+path.slice{
+  stroke-width:2px;
+}
+
+polyline{
+  opacity: .3;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}
+
+h4#currenrndsize {
+    margin-top: 102px;
+    margin-bottom: 2px;
+    color: #96530C;
+    font-size: 16px;
+}
+#potprize {
+    font-size: 40px;
+    margin-top: 0;
+    font-weight: bold;
+    color: #702000;
+    letter-spacing: -3px;
+}
+
+div.row.summary {
+width: 88%;
+border-bottom: 1px solid rgba(157, 241, 250, 0.31);
+margin-bottom: 0px;
+padding-bottom: 5px;
+padding-top: 8px;
+} 
+
+.bitbank >ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-group-transparent > .btn {
+    background-color: #333;
+    background: #333;
+}
+a.btn.btn-default {}
+div.bitbank div.btn-group.btn-group-lg.btn-group-transparent {
+    background: rgba(0, 0, 0, 0.21);
+    border-radius: 4px;
+}
+div.bitbank div.btn-group.btn-group-lg.btn-group-transparent > btn-default {
+    
+    
+}
+.bitbank {
+    background: rgba(0, 0, 0, 0.31);
+    padding: 2% 3%;
+    color: #fff;
+    /* max-width: 260px; */
+    text-align: center;
+    height: 164px;
+    padding-top: 12px;
+}
+.btcchance {
+    padding: 2% 2%;
+    /* width: 54%; */
+    background: rgba(22, 22, 22, 0.77);
+    /* padding-top: 3%; */
+    padding-top: 23px;
+    height: 164px;
+    color: #797979;
+    text-align: center;
+}
+.btcbet {
+    background: rgba(5, 61, 61, 0.85); 
+    padding: 2% 3%; color: #fff;
+    /* min-width: 225px; */
+    float: right;
+    height: 164px;
+    padding-top: 18px;
+}
+div.bigcounter {
+    background: linear-gradient(-180deg, #FAE187 1%, #ECC43D 100%);
+    height: 8px;
+    width: 33%;
+    position: relative;
+    margin-top: -3px;
+}
+span.countertop {
+    background: linear-gradient(-180deg, #FAE187 1%, #ECC43D 100%);
+
+    /* width: 20px; */
+    /* height: 20px; */
+    /* margin-top: -5px; */
+    /* border-radius: 50%; */
+    /* position: absolute; */
+    /* right: -8px; */
+
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    position: absolute;
+    right: -8px;
+
+    display: block;
+    float: right;
+    z-index: 999;
+    border-top: 1px solid rgba(252, 241, 197, 1);
+    box-shadow: -1px 0px 0px rgba(36, 22, 5, 0.34);
+}
+
+.btccost {
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+.bitsplitbetnav > h2 {
+    margin-top: 10px;
+}
+
+h2 {
+    margin-top: 17px;
+    margin-bottom: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 33px;
+    letter-spacing: -1px;
+    color: #FFEBA9; 
+    border: 1px dotted rgba(255, 235, 169, 0.6); padding: 7px; margin-top: 10px;
+}
+.btcbet > input.form-control.input-lg {
+    background: rgba(26, 26, 26, 0.19);
+    border: 1px dotted rgba(157, 241, 250, 0.6);
+    font-size: 29px;
+    margin-bottom: 7px;
+    margin-top: 6px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -1px;
+    color: rgba(157, 241, 250, 1.0);
+    border-radius: 0;
+    height: 49px;
+}
+
+h1.summarybig.lightyellow.text-right {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    letter-spacing: -1px;
+    color: #FFEBA9;
+    margin-top: 13px;
+    /* margin-bottom: 30px; */
+    /* border-bottom: 1px solid; */
+    width: 70%;
+    float: left;
+}
+h4.summarysmall.golden.text-right {
+    width: 30%;
+    float: left;
+    font-size: 17px;
+    margin-top: 17PX;
+}
+
+.montlarge {
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 24px; 
+    letter-spacing: 0px;
+    
+    text-transform: uppercase;
+    line-height: 1.21;
+}
+
+.nosidemargin {
+
+margin-left: 0;
+
+
+margin-right: 0;
+
+
+padding-right: 0;
+
+padding-left: 0;
+
+}
+
+
+.btn-group-riskscale {
+    background: linear-gradient(-90deg, #FFF25F 1%, #FA3200 100%);
+    border-radius: 6px;
+    background: linear-gradient(-90deg,#5FFF92 1%,  #FFF25F 50%, #FA3200 100%);
+}
+a.btn.btn-success.btn-lg.btn-block.montlarge {
+    background: linear-gradient(-180deg,#4DDD4D 1%, #47a447 100%);
+    border: none;
+    color: #FFF;
+}
+/* div.betchart svg { */
+/*     margin-left: -18px; */
+/* } */
+div.row.netposition {
+    width: 88%;
+    padding-right: 6%;
+    padding-left: 1%;
+}
+div.row.netposition.loss {
+    background: rgb(124, 6, 6);
+}
+
+div.row.netposition.profit {
+background: rgb(0, 148, 0);
+color: #fff;
+}
+
+div.row.netposition h4.summarysmall.golden {
+    font-size: 17px;
+    width: 41%;
+    float: left;
+    padding-left: 10px;
+    padding-top: 8px;
+    color: rgba(255, 255, 255, 0.98);
+}
+div.row.netposition h1.summarybig.lightyellow.text-right {
+    font-size: 32px;
+    float: right;
+    width: 50%;
+    color: rgba(255, 255, 255, 1);
+}
+h4.summary {
+    font-size: 16px;
+    text-transform: uppercase;
+    opacity: 0;
+    margin-top: 30px;
+    width: 85%;
+    text-align: right;
+}
+div.row.summary:first-child {}
+div.row.summary:first-child {
+    /* border-top: 1px solid rgba(0, 45, 49, 0.41); */
+    margin-top: 50px;
+    padding-bottom: 0px;
+    padding-top: 3px;
+}
+div.row.summary:first-child h1 {
+    font-size: 60px;
+}
+
+tr.yourposition {
+  background: rgb(166, 229, 236);
+  color: #333;
+  background: linear-gradient(-180deg,rgb(204, 247, 252) 1%, rgb(166, 229, 236) 100%);
+}
+
+div.row.summary:first-child h4 {
+  margin-top: 35px;
+}
+
+/****************************************************************
+ * Chart CSS
+ ****************************************************************/
+
+.chart {
   text-align: center;
 }
-#past_winners #winner {
-  background: #eee;
-  border-right: 1px dotted black;
-  text-align: center;
+
+.charttarget {
+  background: #F7D45E;
+  border-radius: 57%;
+  height: 260px;
+  width: 260px;
+  position: absolute;
+  top: 98px;
+  left: 50%;
+  /* Oval 1: */
+  margin-left: -140px;
+  background-image: -o-linear-gradient(-117deg, #FAE187 1%, #ECC43D 100%);
+  background-image: -moz-linear-gradient(-117deg, #FAE187 1%, #ECC43D 100%);
+  background-image: -ms-linear-gradient(-117deg, #FAE187 1%, #ECC43D 100%);
+  background-image: linear-gradient(-207deg, #FAE187 1%, #ECC43D 100%);
+
+  font-family: 'Montserrat', sans-serif;
+  -webkit-box-shadow: 0 0px 5px rgba(39, 119, 116, 0.26);
+  box-shadow: 0 0px 5px rgba(39, 119, 116, 0.26);
+  border-top: 2px solid rgba(252, 241, 197, 0.86);
+  border-bottom: 2px solid rgba(252, 241, 197, 0.86);
+}
+
+div.betchart svg {
+    margin-left: -18px;
+}
+
+.betchart svg g.arc {
+  fill : rgba(57, 151, 153, 0.34);
+}
+/* .betchart svg g.arc:nth-child(3n+0) { */
+.betchart svg g.arc:nth-child(odd) {
+  fill : rgba(57, 151, 153, 0.64);
+}
+
+.betchart svg g.arc:hover {
+  stroke: white;
+}
+.betchart svg g.arc.current-player {
+  fill: #a6e5ec;
+}
+
+polyline{
+  opacity: .3;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}
+
+/****************************************************************
+ * Other new CSS
+ ****************************************************************/
+
+// This class should be used to change currency symbol before when currency type
+// changes
+.currency {
+
+}
+
+.my_balance {
+
+}
+.my_balance:before {
+  content: "฿";
+}
+#potprize:before {
+  content: "฿";
+}
+.my_current_bet:before { // Doesn't work because this is an input form
+  content: "฿";
+}
+
+.my_win_chance:after {
+  content: "%";
 }
 
 #alert {
@@ -196,17 +525,138 @@ h2.left {
 }
 
 #login {
-    background: white;
-    height: 300px;
-    width: 485px;
-    z-index: 1002;
-
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+  height: 300px;
+  width: 485px;
+  z-index: 10002;
 }
 
-#toggle-password-visibilty {
+.absolute-center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+.overlay {
+    position:fixed;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.5;
+    display: block;
+    z-index: 10000;
+}
+.overlay-solid {
+    position:fixed;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    background-color: white;
+    opacity: 1;
+    display: block;
+    z-index: 10001;
+
+    pointer-events: none;
+}
+
+a.my_user_name.welcome:not(:empty):before {
+  content: "Welcome back, ";
+  color: white;
+}
+a.my_user_name.bet_greeting:not(:empty):before {
+  content: "Current Bet, ";
+  color: white;
+}
+
+#pastwinners #disbursements {
+  text-align: center;
+}
+#pastwinners #winner {
+  border-right: 1px dotted black;
+  border-left: 1px dotted black;
+  text-align: center;
+}
+
+li a[data-toggle="pill"] {
+  color: #ffffff;
+  opacity: 0.5;
+  font-weight: 200;
+  letter-spacing: 0px;
+  margin-bottom: 6px;
+  background: rgba(5, 61, 61, 0.15) !important;
+}
+li.active a[data-toggle="pill"] {
+  opacity: 0.7;
+  background: rgba(5, 61, 61, 0.85) !important;
+}
+li:not(.active) a[data-toggle="pill"]:hover {
+  opacity: 0.6;
+  background: rgba(5, 61, 61, 0.5) !important;
+}
+
+a.btn.btn-currency {
+  color: #ffffff;
+  opacity: 0.7;
+  font-weight: 200;
+  letter-spacing: 0px;
+  /* margin-bottom: 60px !important; */
+  margin: 0px 2px;
+  background: rgba(5, 61, 61, 0.15) !important;
+}
+a.btn.btn-currency.active {
   opacity: 0.8;
-  text-decoration : underline;
+  background: rgba(5, 61, 61, 0.85) !important;
+}
+a.btn.btn-currency:not(.active):hover {
+  opacity: 0.75;
+  background: rgba(5, 61, 61, 0.5) !important;
+  border-bottom: 0px solid black !important;
+}
+
+table#pastwinners>thead>tr>th {
+  border-top: 1px dotted black;
+}
+
+#nextRoundTitle {
+  font-weight: 700;
+  margin-top: 25px;
+  font-size: 0.9em;
+}
+#nextRoundTime {
+
+}
+
+.btccost .btn:not(:empty):not([percentage="custom"]):before {
+  content : "฿ ";
+  color   : #FAE187
+}
+#bet_buttons {
+  border-spacing: 6px;
+}
+#bet_buttons .btn:not([percentage="custom"]):after {
+  content : " of prize";
+  font-weight: normal;
+}
+.btn-group-riskscale .btn {
+  font-weight: 700;
+}
+
+#custom_bet_input {
+    background: rgba(22, 22, 22, 0.3);
+    padding: 2% 3%; color: #fff;
+    padding-left: 10px;
+}
+
+#logo, .pointer-events-none {
+  pointer-events: none;
+}
+
+#toggle-password-visibility {
+  text-decoration: underline;
+  display: inline;
+}
+
+#right_panel .info {
+  color: #428bca;
 }

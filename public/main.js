@@ -1,4 +1,5 @@
 var personalStats;
+var currentStats;
 
 /* Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
@@ -6,7 +7,7 @@ var personalStats;
  *
  * http://ejohn.org/blog/simple-javascript-inheritance
  */
-(function(){
+(function() {
   var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
   // The base Class implementation (does nothing)
@@ -286,63 +287,147 @@ var BitSplit = {
 };
 
 bootstrap_alert = {};
-bootstrap_alert.warning = function(message, fadeout_ms) {
+bootstrap_alert.custom = function(type, message, fadeout_ms) {
+  console.log("CALLING W/ MSG: "+message);
+
   if(typeof fadeout_ms !== "number") {
     fadeout_ms = 4000;
   }
 
-  $('#alert').html('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span>'+message+'</span></div>')
-  .delay(200).fadeIn().delay(fadeout_ms).fadeOut();
+  var sel = "#alert";
+  if(!$(sel).length) {
+    $("body").append("<span id='alert'></span>");
+  }
+
+  // TODO: Sounds like when two of these are called close together there will be
+  // extra popups.
+  $(sel).html('<div class="alert alert-'+type+' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span>'+message+'</span></div>')
+    .delay(200)
+    .fadeIn()
+    .delay(fadeout_ms)
+    .fadeOut();
+};
+bootstrap_alert.warning = function(message, fadeout_ms) {
+  bootstrap_alert.custom("danger", message, fadeout_ms);
+};
+bootstrap_alert.success = function(message, fadeout_ms) {
+  bootstrap_alert.custom("success", message, fadeout_ms);
 };
 
 $(document).ready(function() {
-    // Split logo animation
-    $(".navbar-brand").on("mouseover", function() {
-        $("#logo_split").html("&nbsp;");
-        $("#logo_split2").html("");
-      });
-    $(".navbar-brand").on("mouseout", function() {
-        $("#logo_split").html("");
-        $("#logo_split2").html("&nbsp;");
-      });
+  var new_user_name = '#new_user_name';
+  $(new_user_name).on("paste keyup", function() {
+    var user_name = $(new_user_name).val();
 
-   // Refreshes our countdown timer
-   setInterval(function() {
-       if(typeof window.next_split_ms !== "number") {
-         return false;
-       }
-       var next_split_ms = window.next_split_ms;
-       var seconds_left  =
-           Math.floor((next_split_ms - new Date().getTime())/1000);
+    $.get("/api/1/isUserNameAvailable/"+user_name, function(res)
+    {
+      if(typeof res.user_name !== "string") {
+        return console.log("Malformed response.");
+      }
 
-       // TODO: This should check for < 0, not the pretty-time formatter
-       var pretty_time = seconds_to_pretty_time(seconds_left);
-       $('.split-countdown-timer').html(pretty_time);
-   }, 500);
+      var name_now = $(new_user_name).val();
+      if(name_now !== res.user_name) {
+        return console.log("Name request is an old one.");
+      }
+      if(!res.is_available)
+      {
+        $(new_user_name)
+          .attr("title", res.msg)
+          .tooltip('fixTitle')
+          .tooltip("show")
+          .removeClass("has-success")
+          .addClass("has-error");
+
+        return;
+      }
+      $(new_user_name)
+        .tooltip("hide")
+        .removeClass("has-error")
+        .addClass("has-success");
+    });
+  });
+
+  // Refreshes our countdown timer
+  var maxTimeLeft, lastTimeLeft;
+  setInterval(function() {
+      var next_split_ms   = window.next_split_ms;
+      var currentTimeLeft =
+        Math.floor((next_split_ms - new Date().getTime()));
+
+      if(typeof window.next_split_ms !== "number") {
+        return false;
+      }
+
+      if(typeof lastTimeLeft !== "number") {
+        lastTimeLeft = currentTimeLeft;
+      }
+      if(typeof maxTimeLeft !== "number") {
+        maxTimeLeft = currentTimeLeft;
+      }
+
+      // Reset max time left to accomodate changing round lengths.
+      if(currentTimeLeft > lastTimeLeft) {
+        maxTimeLeft = currentTimeLeft;
+      }
+      lastTimeLeft = currentTimeLeft;
+
+      var percentage = (1 - currentTimeLeft/maxTimeLeft)*100;
+      $(".bigcounter").css("width", percentage.toString()+"%");
+
+      $("#nextRoundTime").html(seconds_to_pretty_time(Math.round(currentTimeLeft/1000)));
+
+  }, 30);
 });
+
+
+function refresh_bet_buttons() {
+  // Update all the bet buttons with matching amounts
+  if(typeof currentStats === null) return false;
+
+  var prize = currentStats.prize;
+
+  $(".btccost .btn").each(function(i, el) {
+    var percentage       = $(el).attr("percentage");
+
+    if(percentage === "custom")
+      return;
+
+    var bet_amt_satoshis = Math.round(prize*percentage/100);
+
+    $(el).html(to_btc_str(bet_amt_satoshis));
+  });
+}
 
 function refresh_current_stats(current_stats)
 {
-    var table_id = "#current_contenders table tbody";
+    currentStats = current_stats;
+
+    var table_id = "table#currentbets tbody";
     $(table_id).html("");
 
-    var trts = current_stats.time_remaining_to_split;
-    var latency = 250; // Assumption
+    var trts             = current_stats.time_remaining_to_split;
+    var latency          = 150; // Assumption
     window.next_split_ms = new Date().getTime()+trts-latency;
 
     var current_winning_contribution = 0;
     if(current_stats.contributors[0]) {
         current_winning_contribution = current_stats.contributors[0].contribution;
     }
-    $("#current-winning-contribution").html("<i class='fa fa-btc'></i>"+to_btc(current_winning_contribution));
-    $("#jackpot-amount").html("<i class='fa fa-btc'></i>"+to_btc(current_stats.jackpot));
-    $("#prize-amount").html("<i class='fa fa-btc'></i>"+to_btc(current_stats.prize));
+    $("#current-winning-contribution").html("<i class='fa fa-btc'></i>"+to_btc_str(current_winning_contribution));
+    $("#jackpot-amount").html("<i class='fa fa-btc'></i>"+to_btc_str(current_stats.jackpot));
+    $("#potprize").html("<i class='fa fa-btc'></i>"+to_btc_str(current_stats.prize));
 
-    var current_user = $("#user").html();
+    refresh_bet_buttons();
+
+    var current_user = personalStats.name;
     current_player_percent_win_chance = 0;
     current_player_contribution       = 0;
 
-    for(var ii = 0; ii < current_stats.contributors.length && ii < 10; ii++)
+    var chartData   = []; // Put current player at beginning of the array
+    var myChartItem = null;
+
+    var max_rows = 7;
+    for(var ii = 0; ii < current_stats.contributors.length && ii < max_rows; ii++)
     {
         var font_color = "bitcoin-symbol font-color-bitcoin";
 
@@ -365,34 +450,78 @@ function refresh_current_stats(current_stats)
 
         // Convert to string of specific length, for display
         percent_win_chance   = percent_win_chance.toPrecision(3);
-        contribution         = contribution.toPrecision(3);
         percent_contribution = percent_contribution.toPrecision(3);
 
+        var chartItem =
+          {win_chance: percent_win_chance, contribution: contribution};
+
         if(current_user === user.name) {
-            current_player_percent_win_chance = percent_win_chance;
-            current_player_contribution       = contribution;
+          current_player_percent_win_chance = percent_win_chance;
+          current_player_contribution       = contribution;
+
+          myChartItem = chartItem;
+        }
+        else {
+          chartData.push(chartItem);
         }
 
         var str  = "<tr>";
         str     += "<td>"+user.name+"</td>";
-        str     += "<td class='"+font_color+" font-weight-heavy'>"+contribution+"</td>";
-        str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_win_chance+"</td>";
-        str     += "<td>"+odds_symbol+"</td>";
-        str     += "<td class='percentage-symbol "+font_odds+"'>"+percent_contribution+"</td>";
+        str     += "<td>"+percent_win_chance+"%</td>";
+        str     += "<td>"+btc_format(contribution)+"</td>";
+        str     += "<td>"+percent_contribution+"%</td>";
         str     += "</tr>";
 
         $(table_id).append(str);
     }
-    $("#player_chance_of_winning").html(current_player_percent_win_chance);
-    $("#player_contribution").html(current_player_contribution);
+
+    if(myChartItem !== null)
+    {
+      CHART.setHighlightFirstSegment(true);
+      chartData.unshift(myChartItem);
+    }
+    else
+    {
+      CHART.setHighlightFirstSegment(false);
+    }
+
+    if(!chartData.length) {
+      chartData = [{win_chance: 1, contribution: 1}];
+    }
+
+    CHART.setData(chartData);
+    CHART.refresh();
+
+    $(".my_win_chance").html(current_player_percent_win_chance);
+    $("#my_contribution").html(btc_format(current_player_contribution));
+}
+
+// Assuming that this is the end of the round when it is called
+// Need to set up a new event
+// TODO: Actually we only need the id of the finished round...
+function end_round(end_round_object) {
+  // Based on winner, etc., different message will be displayed
+  var sel = "#endofround";
+  var sel_content = sel+" .modal-body";
+
+  $(sel_content).html("<h1>Round Over!</h1>");
+  $(sel).modal({show: true, backdrop: false});
+
+  // TODO: If there was a winner, highlight the row in the table, switch to that
+  // table.
+  var timeout_ms = 3000;
+  setTimeout(function() {
+    $(sel).modal('hide');
+  }, timeout_ms);
 }
 
 function refresh_past_winners(past_winners)
 {
-    var table_id = "#past_winners table tbody";
+    var table_id = "table#pastwinners tbody";
     $(table_id).html("");
 
-    for(var ii = 0; ii < past_winners.length && ii < 10; ii++)
+    var max_rows = 7;
+    for(var ii = 0; ii < past_winners.length && ii < max_rows; ii++)
     {
         var jackpot = past_winners[ii];
         var dsbs    = jackpot.disbursements;
@@ -410,14 +539,14 @@ function refresh_past_winners(past_winners)
         }
 
         var str  = "<tr>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(dsbs.total)+"</td>"; // Size
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.total)+"</td>"; // Size
         str     += "<td>"+user.name+"</td>"; // Winner name
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(jackpot.contribution)+"</td>"; // Winner contribution
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(jackpot.contribution)+"</td>"; // Winner contribution
 
         // Disbursements
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc(dsbs.winner)+"</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(dsbs.next_jackpot)+"</td>"; // Next Jackpot
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc(dsbs.house)+"</td>"; // House
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc_str(dsbs.winner)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.next_jackpot)+"</td>"; // Next Jackpot
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.house)+"</td>"; // House
         str     += "</tr>";
 
         $(table_id).append(str);
@@ -425,10 +554,36 @@ function refresh_past_winners(past_winners)
 }
 
 function to_btc(satoshis) {
-    return satoshis/Math.pow(10,8);
+  return satoshis/Math.pow(10,8);
 }
+function btc_format(btc_num)
+{
+  btc = btc_num.noExponents();
+
+  // If does not have dot, add one.
+  if(btc.indexOf(".") === -1) {
+    btc += ".0";
+  }
+  var required_digits_after_dot = 8;
+  var num_digits_after_dot      = btc.length - btc.indexOf(".") - 1;
+  var diff                      = required_digits_after_dot - num_digits_after_dot;
+
+  // Add missing digits
+  // http://stackoverflow.com/questions/1877475/repeat-character-n-times
+ if(diff > 0) {
+    btc += Array(diff+1).join("0");
+  }
+  return btc;
+}
+
+// BTC formatted to all 8 digits
+function to_btc_str(satoshis) {
+  var btc_num = to_btc(satoshis);
+  return btc_format(btc_num);
+}
+
 function to_satoshis(btc) {
-    return btc*Math.pow(10,8);
+  return Math.round(btc*Math.pow(10,8));
 }
 
 function change_currency_type(currencyType) {
@@ -442,7 +597,6 @@ function change_currency_type_ui(currencyType) {
 }
 
 function refresh_config(config_data) {
-    console.log(config_data);
     if(typeof config_data.split_n_minutes !== "undefined") {
         $(".split-time-minutes").html(config_data.split_n_minutes);
     }
@@ -450,9 +604,26 @@ function refresh_config(config_data) {
 function update_personal_stats(personal_stats) {
   personalStats = personal_stats;
 
-  $("#user_balance").html(to_btc(personalStats.balance));
-  $("#password").html(personalStats.password);
-  change_currency_type_ui(personalStats.currencyType);
+  var currencyType = personalStats.currencyType;
+  var balance  = 0;
+  var password = "";
+  var name     = "";
+
+  change_currency_type_ui(currencyType);
+
+  if(personalStats.name !== null) {
+    balance  = personalStats.balance;
+    password = personalStats.password;
+    name     = personalStats.name;
+  }
+  $(".my_balance").html(to_btc_str(balance));
+  $("#password").html(password);
+  $(".my_user_name").html(name);
+
+  // TODO: DRY
+  var sel = "a.btn.btn-currency";
+  $(sel).removeClass("active");
+  $(sel+"."+currencyType).addClass("active");
 }
 
 var user = {
@@ -487,15 +658,6 @@ var temp = {
   }
 };
 
-$("#deposit").on("click", function(e) {
-  e.preventDefault();
-  BitSplit.UI.currency.deposit();
-});
-$("#withdraw").on("click", function(e) {
-  e.preventDefault();
-  BitSplit.UI.currency.withdraw();
-});
-
 function seconds_to_pretty_time(time_seconds) {
     var m = 0;
     var s = 0;
@@ -509,3 +671,73 @@ function zeroPad(num, places) {
   var zero = places - num.toString().length + 1;
   return new Array(+(zero > 0 && zero)).join("0") + num;
 }
+
+/*
+ * Misc Scripts (document ready, etc.)
+ *
+ */
+$(document).ready(function() {
+  $('#bitsplitgames').royalSlider({
+     controlNavigation : 'bullets'
+   });
+
+  // Fade overlay which hides the jumble before royalSlider is activated.
+  $(".overlay-solid").fadeOut(3500);
+
+  CHART.init("div.betchart");
+});
+
+$("#deposit").on("click", function(e) {
+  e.preventDefault();
+  BitSplit.UI.currency.deposit();
+});
+$("#withdraw").on("click", function(e) {
+  e.preventDefault();
+  BitSplit.UI.currency.withdraw();
+});
+
+$("#bet_buttons").on("click", ".btn", function() {
+  if(typeof currentStats === null) return false;
+
+  var percentage = $(this).attr("percentage");
+  var sel        = ".btccost .btn[percentage='"+percentage+"']";
+
+  var amt = $(sel).html();
+
+  if(percentage === "custom") {
+    amt = $("#custom_bet_input").val();
+  }
+
+  // Test if is number
+  BitSplit.currency.bet(amt, function(err, res) {
+    bootstrap_alert.success("Placing bet: "+amt, 1000);
+  });
+});
+
+
+var sel = "a.btn.btn-currency";
+$(sel).click(function(e) {
+  $(sel).removeClass("active");
+  $(this).addClass("active");
+});
+
+
+
+// http://stackoverflow.com/questions/16139452/how-to-convert-big-negative-scientific-notation-number-into-decimal-notation-str
+Number.prototype.noExponents= function() {
+    var data= String(this).split(/[eE]/);
+    if(data.length== 1) return data[0]; 
+
+    var  z= '', sign= this<0? '-':'',
+    str= data[0].replace('.', ''),
+    mag= Number(data[1])+ 1;
+
+    if(mag<0){
+        z= sign + '0.';
+        while(mag++) z += '0';
+        return z + str.replace(/^\-/,'');
+    }
+    mag -= str.length;  
+    while(mag--) z += '0';
+    return str + z;
+};
