@@ -13,23 +13,24 @@ var CHART = (function()
     COMBINED             : 2
   };
 
+  var pot_prize;
   var innerRadius_min, outerRadius_normal, outerRadius_max;
-  var width                         = 450;
+  var width                         = 350;
   var height                        = width;
-  // var outerRadiusInnerRadiusRatio   = 0.5;
-  // var innerCirclePercentageOfScreen = 0.4;
 
-  function resize() {
-    // innerRadius_min    =
-    //   Math.ceil((height/2)*innerCirclePercentageOfScreen);
-    // outerRadius_normal =
-    //   innerRadius_min+Math.ceil(innerRadius_min*outerRadiusInnerRadiusRatio);
-    // outerRadius_max    =
-    //   (Math.min(width, height) / 2) - innerRadius_min;
+  function resize(outerRadius)
+  {
+    var ratio       = 0.625;
 
-    innerRadius_min    = 125;
-    outerRadius_max    = 200;
-    outerRadius_normal = 200;
+    if(typeof outerRadius !== "number") {
+      outerRadius = width/2;
+    }
+    width  = outerRadius * 2;
+    height = width;
+
+    outerRadius_max    = outerRadius;
+    outerRadius_normal = outerRadius;
+    innerRadius_min    = Math.round(outerRadius*ratio);
   }
 
   function sqr(x) { return x*x; }
@@ -52,6 +53,28 @@ var CHART = (function()
     svg = d3.select(selector).append("svg")
       .attr("width", width)
       .attr("height", height);
+
+    circle = svg.append("circle")
+       .attr("cx", width/2)
+       .attr("cy", height/2)
+       .attr("r", innerRadius_min)
+       .attr("class", "chart_center")
+       .attr("id", "chart_center");
+
+    var title =
+      svg.append("text")
+        .attr("x", width/2) // This number should not be fixed (+20)
+        .attr("y", height/2 - 30)
+        .attr("id", "currenrndsize")
+        .attr("text-anchor", "middle")
+        .text("Current Round Size");
+
+    pot_prize =
+      svg.append("text")
+        .attr("x", width/2)
+        .attr("y", height/2 + 20) // This number should not be fixed (+20)
+        .attr("id", "potprize")
+        .attr("text-anchor", "middle");
   }
 
    // chartData: [{contribution: 3, win_chance: 9} ...]
@@ -159,6 +182,11 @@ var CHART = (function()
 
   function transition() {
     var my_data = get_my_data();
+
+    svg
+      .attr("width", width)
+      .attr("height", height);
+
     var arcs    =
       svg.selectAll(".arc")
         .data(my_data);
@@ -174,6 +202,9 @@ var CHART = (function()
         .each(function(d, i) { this._current = d; });
     arcs
       .exit().remove();
+
+    circle
+      .attr("r", innerRadius_min);
 
     // Should really be done with .enter???
     if(highlightFirstSegment) {
@@ -251,9 +282,13 @@ var CHART = (function()
     setData : function(data) {
       chartData = data;
     },
+    setPotPrize: function(amount) {
+      pot_prize.text("฿"+amount);
+    },
     refresh : function() {
       transition();
     },
+    resize: resize,
     VIEWS : VIEWS
   };
 })();

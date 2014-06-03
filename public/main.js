@@ -421,7 +421,8 @@ function refresh_current_stats(current_stats)
     }
     $("#current-winning-contribution").html("<i class='fa fa-btc'></i>"+to_btc_str(current_winning_contribution));
     $("#jackpot-amount").html("<i class='fa fa-btc'></i>"+to_btc_str(current_stats.jackpot));
-    $("#potprize").html("<i class='fa fa-btc'></i>"+to_btc_str(current_stats.prize));
+
+    CHART.setPotPrize(to_btc_str(current_stats.prize));
 
     refresh_bet_buttons();
 
@@ -690,7 +691,11 @@ $(document).ready(function() {
   // Fade overlay which hides the jumble before royalSlider is activated.
   $(".overlay-solid").fadeOut(3500);
 
-  CHART.init("div.betchart");
+  var sel = "div.betchart";
+  CHART.init(sel);
+
+  var r = Math.round(Math.min($(sel).height(), $(sel).width()) / 2);
+  CHART.resize(r - 5); // -5 is to take padding, etc., into account
 });
 
 $("#deposit").on("click", function(e) {
