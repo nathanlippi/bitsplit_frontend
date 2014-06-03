@@ -13,24 +13,26 @@ var CHART = (function()
     COMBINED             : 2
   };
 
-  var pot_prize;
-  var innerRadius_min, outerRadius_normal, outerRadius_max;
+  var pot_prize, pot_title;
+  var innerRadius_min, outerRadius;
   var width                         = 350;
   var height                        = width;
 
-  function resize(outerRadius)
+  function resize(outerRadius_local)
   {
     var ratio       = 0.625;
 
     if(typeof outerRadius !== "number") {
-      outerRadius = width/2;
+      outerRadius_local = width/2;
     }
-    width  = outerRadius * 2;
+    outerRadius = Math.floor(outerRadius_local);
+
+    width  = Math.ceil(outerRadius*2);
     height = width;
 
-    outerRadius_max    = outerRadius;
-    outerRadius_normal = outerRadius;
-    innerRadius_min    = Math.round(outerRadius*ratio);
+    innerRadius_min    = Math.floor(outerRadius*ratio);
+
+    console.log(width, height, outerRadius, innerRadius_min);
   }
 
   function sqr(x) { return x*x; }
@@ -55,26 +57,35 @@ var CHART = (function()
       .attr("height", height);
 
     circle = svg.append("circle")
-       .attr("cx", width/2)
-       .attr("cy", height/2)
+       .attr("cx", outerRadius)
+       .attr("cy", outerRadius)
        .attr("r", innerRadius_min)
        .attr("class", "chart_center")
        .attr("id", "chart_center");
 
-    var title =
+    pot_title =
       svg.append("text")
-        .attr("x", width/2) // This number should not be fixed (+20)
-        .attr("y", height/2 - 30)
         .attr("id", "currenrndsize")
         .attr("text-anchor", "middle")
         .text("Current Round Size");
 
     pot_prize =
       svg.append("text")
-        .attr("x", width/2)
-        .attr("y", height/2 + 20) // This number should not be fixed (+20)
         .attr("id", "potprize")
-        .attr("text-anchor", "middle");
+        .attr("text-anchor", "middle")
+        .text("Current Round Size");
+
+    set_pot_text_position();
+  }
+
+  function set_pot_text_position() {
+    pot_prize
+      .attr("x", outerRadius)
+      .attr("y", outerRadius + 20); // This number should not be fixed (+20)
+
+    pot_title
+      .attr("x", outerRadius) // This number should not be fixed
+      .attr("y", outerRadius - 30);
   }
 
    // chartData: [{contribution: 3, win_chance: 9} ...]
@@ -133,7 +144,7 @@ var CHART = (function()
     var innerRadius_fn, outerRadius_fn;
 
     if(my_view === VIEWS.COMBINED) {
-      maxOuterRadius = outerRadius_max;
+      maxOuterRadius = outerRadius;
       minInnerRadius = innerRadius_min;
 
       innerRadius_fn = function() { return innerRadius_min; };
@@ -142,11 +153,11 @@ var CHART = (function()
     else if(my_view === VIEWS.PERCENT_CONTRIBUTION ||
             my_view === VIEWS.WIN_CHANCE)
     {
-      maxOuterRadius = outerRadius_normal;
+      maxOuterRadius = outerRadius;
       minInnerRadius = innerRadius_min;
 
       innerRadius_fn = function() { return innerRadius_min; };
-      outerRadius_fn = function() { return outerRadius_normal; };
+      outerRadius_fn = function() { return outerRadius; };
     }
 
     var circle_area    = Math.PI*(sqr(maxOuterRadius) - sqr(minInnerRadius));
@@ -187,6 +198,11 @@ var CHART = (function()
       .attr("width", width)
       .attr("height", height);
 
+    circle
+     .attr("r", innerRadius_min)
+     .attr("cx", outerRadius)
+     .attr("cy", outerRadius);
+
     var arcs    =
       svg.selectAll(".arc")
         .data(my_data);
@@ -194,7 +210,8 @@ var CHART = (function()
     arcs
       .enter().append("g")
         .attr("class", "arc")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+        .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")")
+        // .attr("transform", function(d) { return "translate("+d.cx+","+d.cy+")"; })
         .append("path")
         .attr("d", arc)
         // store the initial angles
@@ -203,8 +220,10 @@ var CHART = (function()
     arcs
       .exit().remove();
 
-    circle
-      .attr("r", innerRadius_min);
+    arcs
+      .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
+
+    set_pot_text_position();
 
     // Should really be done with .enter???
     if(highlightFirstSegment) {
@@ -288,7 +307,11 @@ var CHART = (function()
     refresh : function() {
       transition();
     },
-    resize: resize,
+    resize: function(outerRadius) {
+      resize(outerRadius);
+
+      transition();
+    },
     VIEWS : VIEWS
   };
 })();
