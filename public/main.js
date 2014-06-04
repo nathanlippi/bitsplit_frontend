@@ -314,7 +314,15 @@ bootstrap_alert.success = function(message, fadeout_ms) {
   bootstrap_alert.custom("success", message, fadeout_ms);
 };
 
+
+
+
+
 $(document).ready(function() {
+
+
+
+
   var new_user_name = '#new_user_name';
   $(new_user_name).on("paste keyup", function() {
     var user_name = $(new_user_name).val();
@@ -363,6 +371,7 @@ $(document).ready(function() {
       }
       if(typeof maxTimeLeft !== "number") {
         maxTimeLeft = currentTimeLeft;
+
       }
 
       // Reset max time left to accomodate changing round lengths.
@@ -512,14 +521,32 @@ function end_round(end_round_object) {
   var sel_content = sel+" .modal-body";
 
   $(sel_content).html("<h1>Round Over!</h1>");
+  $("#bitsplitgames").addClass('animated fadeOut');
+  $(sel).addClass('animated tada');
+  $(sel).css(
+    {
+      position: 'absolute'
+    });
+
+    $(sel).css(
+    {
+      left: ($(window).width() - $('#endofround').outerWidth()) / 2,
+      top: ($(window).height() - $('#endofround').outerHeight()) / 2
+    });
   $(sel).modal({show: true, backdrop: false});
+   
+
+  
 
   // TODO: If there was a winner, highlight the row in the table, switch to that
   // table.
   var timeout_ms = 3000;
   setTimeout(function() {
     $(sel).modal('hide');
+
   }, timeout_ms);
+   $("#bitsplitgames").delay(1900).removeClass('fadeOut');
+   $("#bitsplitgames").delay(1900).addClass('fadeIn');
 }
 
 function refresh_past_winners(past_winners)
@@ -558,6 +585,8 @@ function refresh_past_winners(past_winners)
 
         $(table_id).append(str);
     }
+
+     $("#bitsplitgames").addClass('animated fadeIn');
 }
 
 function to_btc(satoshis) {
@@ -687,15 +716,47 @@ $(document).ready(function() {
   $('#bitsplitgames').royalSlider({
      controlNavigation : 'bullets'
    });
+  $(window).resize(function()
+  {
+    $('#gameslider').css(
+    {
+      position: 'absolute'
+    });
 
+    $('#gameslider').css(
+    {
+      left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
+      top: ($(window).height() - $('#gameslider').outerHeight()) / 2
+    });
+
+    $('#endofround').css(
+    {
+      position: 'absolute'
+    });
+
+    $('#endofround').css(
+    {
+      left: ($(window).width() - $('#endofround').outerWidth()) / 2,
+      top: ($(window).height() - $('#endofround').outerHeight()) / 2
+    });
+  });
+
+  // call `resize` to center elements
+  $(window).resize();
   // Fade overlay which hides the jumble before royalSlider is activated.
-  $(".overlay-solid").fadeOut(3500);
+  // $(".overlay-solid").fadeOut(300);
+
+//   $("div#endofround").center(true);
+// $("#gameslider").center(true);
+  $('.overlay-solid').delay(1300).addClass('animated fadeOut');
+  $('#bg').addClass('animated fadeIn');
 
   var sel = "div.betchart";
   CHART.init(sel);
 
   var r = Math.round(Math.min($(sel).height(), $(sel).width()) / 2);
   CHART.resize(r - 5); // -5 is to take padding, etc., into account
+  CHART.resize(250);
 });
 
 $("#deposit").on("click", function(e) {
