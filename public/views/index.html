@@ -6,10 +6,13 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="alertify.js"></script>
     <script src="d3.v3.min.js"></script>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="royalslider.css">
     <link rel="stylesheet" href="skins/minimal-white/rs-minimal-white.css">
+    <link rel="stylesheet" href="alertify.core.css">
+    <link rel="stylesheet" href="alertify.bootstrap.css">
     <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   </head>
   <body>
@@ -31,6 +34,97 @@
             <!-- a#signinbtn(href='#signin', data-toggle='modal', data-target='#signin') Sign In--><a id="signinbtn" href="#signin" onclick="temp.login();">Sign In</a>
           </li>
         </ul>
+      </div>
+    </div>
+    <!-- http://www.bootply.com/petrb/104740-->
+    <div id="chat" class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="panel panel-primary">
+            <div class="panel-heading"><span class="glyphicon glyphicon-comment"></span>Chat
+              <div class="btn-group pull-right">
+                <button id="chat_close" type="button" class="close pull-right">&times;</button>
+              </div>
+              <!--   button.btn.btn-default.btn-xs.dropdown-toggle(type='button', data-toggle='dropdown')-->
+              <!--     span.glyphicon.glyphicon-chevron-down-->
+              <!--   ul.dropdown-menu.slidedown-->
+              <!--     li-->
+              <!--       a(href='http://www.jquery2dotnet.com')-->
+              <!--         span.glyphicon.glyphicon-refresh-->
+              <!--         | Refresh-->
+              <!--     li-->
+              <!--       a(href='http://www.jquery2dotnet.com')-->
+              <!--         span.glyphicon.glyphicon-ok-sign-->
+              <!--         | Available-->
+              <!--     li-->
+              <!--       a(href='http://www.jquery2dotnet.com')-->
+              <!--         span.glyphicon.glyphicon-remove-->
+              <!--         | Busy-->
+              <!--     li-->
+              <!--       a(href='http://www.jquery2dotnet.com')-->
+              <!--         span.glyphicon.glyphicon-time-->
+              <!--         | Away-->
+              <!--     li.divider-->
+              <!--     li-->
+              <!--       a(href='http://www.jquery2dotnet.com')-->
+              <!--         span.glyphicon.glyphicon-off-->
+              <!--         | Sign Out-->
+            </div>
+            <div class="panel-body">
+              <ul id="chat_body" class="chat">
+                <!-- li.left.clearfix-->
+                <!--   .chat-body.clearfix-->
+                <!--     .header-->
+                <!--       strong.primary-font Jack Sparrow-->
+                <!--     p-->
+                <!--       | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare-->
+                <!--       | dolor&comma; quis ullamcorper ligula sodales&period;-->
+              </ul>
+            </div>
+            <!--     li.right.clearfix-->
+            <!--       span.chat-img.pull-right-->
+            <!--         img.img-circle(src='http://placehold.it/50/FA6F57/fff&text=ME', alt='User Avatar')-->
+            <!--       .chat-body.clearfix-->
+            <!--         .header-->
+            <!--           small.text-muted-->
+            <!--             span.glyphicon.glyphicon-time-->
+            <!--             | 13 mins ago-->
+            <!--           strong.pull-right.primary-font Bhaumik Patel-->
+            <!--         p-->
+            <!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare-->
+            <!--           | dolor&comma; quis ullamcorper ligula sodales&period;-->
+            <!--     li.left.clearfix-->
+            <!--       span.chat-img.pull-left-->
+            <!--         img.img-circle(src='http://placehold.it/50/55C1E7/fff&text=U', alt='User Avatar')-->
+            <!--       .chat-body.clearfix-->
+            <!--         .header-->
+            <!--           strong.primary-font Jack Sparrow-->
+            <!--           small.pull-right.text-muted-->
+            <!--             span.glyphicon.glyphicon-time-->
+            <!--             | 14 mins ago-->
+            <!--         p-->
+            <!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare-->
+            <!--           | dolor&comma; quis ullamcorper ligula sodales&period;-->
+            <!--     li.right.clearfix-->
+            <!--       span.chat-img.pull-right-->
+            <!--         img.img-circle(src='http://placehold.it/50/FA6F57/fff&text=ME', alt='User Avatar')-->
+            <!--       .chat-body.clearfix-->
+            <!--         .header-->
+            <!--           small.text-muted-->
+            <!--             span.glyphicon.glyphicon-time-->
+            <!--             | 15 mins ago-->
+            <!--           strong.pull-right.primary-font Bhaumik Patel-->
+            <!--         p-->
+            <!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare-->
+            <!--           | dolor&comma; quis ullamcorper ligula sodales&period;-->
+            <div class="panel-footer">
+              <div class="input-group">
+                <input id="btn-input" type="text" placeholder="Type your message here..." class="form-control input-sm"><span class="input-group-btn">
+                  <button id="btn-chat" class="btn btn-warning btn-sm">Send</button></span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="overlay-solid"></div>
@@ -184,22 +278,10 @@
           <h4 class="info my_user_name text-left"></h4>
           <h4 class="text-left">Password (<span id="toggle-password-visibility" onclick="temp.toggle_password_visibility();">show</span>)</h4>
           <h4 id="password" class="info invisible text-left"></h4>
+          <h4 id="chat_toggle" class="text-left">Show Chat</h4>
         </div>
       </div>
     </section>
-    <!-- End round Modal-->
-    <div id="endofround" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade pointer-events-none">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">End of Round</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer"></div>
-        </div>
-      </div>
-    </div>
     <!-- FAQ Modal-->
     <div id="howitworks" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
       <div class="modal-dialog modal-lg">
@@ -329,7 +411,7 @@
       var socket = io.connect("https://bitsplit.it:443");
       
       socket.on("error", function (json) {
-        bootstrap_alert.warning(json.msg, 3000);
+        alertify.error(json.msg, "", 3000);
       });
       socket.on("refresh", function (json) {
         window.location.reload();
@@ -351,6 +433,9 @@
       });
       socket.on("jackpot_split", function (json) {
         end_round();
+      });
+      socket.on("chat_message", function (json) {
+        add_message_to_chat(json.user_name, json.msg);
       });
       
     </script>

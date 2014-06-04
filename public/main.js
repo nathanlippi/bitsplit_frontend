@@ -286,34 +286,6 @@ var BitSplit = {
   }
 };
 
-bootstrap_alert = {};
-bootstrap_alert.custom = function(type, message, fadeout_ms) {
-  console.log("CALLING W/ MSG: "+message);
-
-  if(typeof fadeout_ms !== "number") {
-    fadeout_ms = 4000;
-  }
-
-  var sel = "#alert";
-  if(!$(sel).length) {
-    $("body").append("<span id='alert'></span>");
-  }
-
-  // TODO: Sounds like when two of these are called close together there will be
-  // extra popups.
-  $(sel).html('<div class="alert alert-'+type+' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span>'+message+'</span></div>')
-    .delay(200)
-    .fadeIn()
-    .delay(fadeout_ms)
-    .fadeOut();
-};
-bootstrap_alert.warning = function(message, fadeout_ms) {
-  bootstrap_alert.custom("danger", message, fadeout_ms);
-};
-bootstrap_alert.success = function(message, fadeout_ms) {
-  bootstrap_alert.custom("success", message, fadeout_ms);
-};
-
 $(document).ready(function() {
   var new_user_name = '#new_user_name';
   $(new_user_name).on("paste keyup", function() {
@@ -507,19 +479,11 @@ function refresh_current_stats(current_stats)
 // Need to set up a new event
 // TODO: Actually we only need the id of the finished round...
 function end_round(end_round_object) {
-  // Based on winner, etc., different message will be displayed
-  var sel = "#endofround";
-  var sel_content = sel+" .modal-body";
+  var msg = "<b>Round Over!</b>";
 
-  $(sel_content).html("<h1>Round Over!</h1>");
-  $(sel).modal({show: true, backdrop: false});
+  console.log("Ending round...");
 
-  // TODO: If there was a winner, highlight the row in the table, switch to that
-  // table.
-  var timeout_ms = 3000;
-  setTimeout(function() {
-    $(sel).modal('hide');
-  }, timeout_ms);
+  alertify.log(msg, "", 4000);
 }
 
 function refresh_past_winners(past_winners)
@@ -695,7 +659,7 @@ $(document).ready(function() {
   CHART.init(sel);
 
   var r = Math.round(Math.min($(sel).height(), $(sel).width()) / 2);
-  CHART.resize(r - 5); // -5 is to take padding, etc., into account
+  CHART.resize(r); // -5 is to take padding, etc., into account
 });
 
 $("#deposit").on("click", function(e) {
@@ -721,7 +685,8 @@ $("#bet_buttons").on("click", ".btn", function() {
 
   // Test if is number
   BitSplit.currency.bet(amt, function(err, res) {
-    bootstrap_alert.success("Placing bet: "+amt, 1000);
+    var msg = "Placing bet: "+amt;
+    alertify.success(msg, "", 2000);
   });
 });
 
@@ -752,3 +717,57 @@ Number.prototype.noExponents= function() {
     while(mag--) z += '0';
     return str + z;
 };
+
+////////////////////////////////////////////////////////////////
+// Chat stuff
+
+var chat_sel = "#chat";
+$("#chat_close").click(function() {
+  $(chat_sel).hide();
+});
+$("#chat_toggle").click(function() {
+
+  var msg = "Hide Chat";
+  if($(chat_sel).is(":visible")) {
+    msg = "Show Chat";
+  }
+  $(chat_sel).toggle();
+  $("#chat_toggle").html(msg);
+});
+
+
+
+
+$("#btn-chat").click(function() {
+  send_chat_msg();
+});
+
+$("#btn-input").keyup(function (e) {
+  if (e.keyCode == 13) { // Enter
+    send_chat_msg();
+  }
+});
+
+function send_chat_msg()
+{
+  var sel = "#btn-input";
+  var msg = $(sel).val();
+
+  $(sel).val("");
+
+   socket.emit("user:send_chat_message", {msg: msg});
+ }
+
+
+ function add_message_to_chat(user_name, message) {
+   var str;
+
+   str  = "<li class='left clearfix'>";
+   str += "<div class='chat-body clearfix'>";
+   str += "<div class='header'><strong class='primary-font'>"+user_name+"</strong></div>";
+   str += "<p>"+message+"</p>";
+   str += "</div>";
+   str += "</li>";
+
+   $("#chat_body").append(str);
+ }

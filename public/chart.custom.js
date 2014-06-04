@@ -30,15 +30,12 @@ var CHART = (function()
     width  = Math.ceil(outerRadius*2);
     height = width;
 
-    innerRadius_min    = Math.floor(outerRadius*ratio);
-
-    console.log(width, height, outerRadius, innerRadius_min);
+    innerRadius_min  = Math.floor(outerRadius*ratio);
   }
 
   function sqr(x) { return x*x; }
 
   function get_class(d, i) {
-    // return i === 0 && highlightFirstSegment ? "arc current-player" : "arc";
     return "arc current-player";
   }
 
@@ -211,7 +208,6 @@ var CHART = (function()
       .enter().append("g")
         .attr("class", "arc")
         .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")")
-        // .attr("transform", function(d) { return "translate("+d.cx+","+d.cy+")"; })
         .append("path")
         .attr("d", arc)
         // store the initial angles
