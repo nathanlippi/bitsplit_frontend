@@ -387,13 +387,6 @@ function refresh_current_stats(current_stats)
     var latency          = 150; // Assumption
     window.next_split_ms = new Date().getTime()+trts-latency;
 
-    var current_winning_contribution = 0;
-    if(current_stats.contributors[0]) {
-        current_winning_contribution = current_stats.contributors[0].contribution;
-    }
-    $("#current-winning-contribution").html("<i class='fa fa-btc'></i>"+to_btc_str(current_winning_contribution));
-    $("#jackpot-amount").html("<i class='fa fa-btc'></i>"+to_btc_str(current_stats.jackpot));
-
     CHART.setPotPrize(to_btc_str(current_stats.prize));
 
     refresh_bet_buttons();
@@ -447,7 +440,7 @@ function refresh_current_stats(current_stats)
         var str  = "<tr>";
         str     += "<td>"+user.name+"</td>";
         str     += "<td>"+percent_win_chance+"%</td>";
-        str     += "<td>"+btc_format(contribution)+"</td>";
+        str     += "<td>"+btc_format_with_style(contribution)+"</td>";
         str     += "<td>"+percent_contribution+"%</td>";
         str     += "</tr>";
 
@@ -510,14 +503,14 @@ function refresh_past_winners(past_winners)
         }
 
         var str  = "<tr>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.total)+"</td>"; // Size
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.total)+"</td>"; // Size
         str     += "<td>"+user.name+"</td>"; // Winner name
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(jackpot.contribution)+"</td>"; // Winner contribution
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(jackpot.contribution)+"</td>"; // Winner contribution
 
         // Disbursements
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc_str(dsbs.winner)+"</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.next_jackpot)+"</td>"; // Next Jackpot
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.house)+"</td>"; // House
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc_str_with_style(dsbs.winner)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.next_jackpot)+"</td>"; // Next Jackpot
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.house)+"</td>"; // House
         str     += "</tr>";
 
         $(table_id).append(str);
