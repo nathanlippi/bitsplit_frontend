@@ -251,24 +251,40 @@ var currencyUI = (function(Currencies) {
   function deposit() {
     self.Currencies.deposit(function(err, res) {
       if(res.prompt) {
-        var amount =
-          window.prompt("How many (fake) bitcoins will you add to your balance?", 0);
-        res.additional.callback(to_satoshis(amount));
+        var msg = "How many (fake) bitcoins will you add to your balance?";
+
+        alertify.prompt(msg, function (e, amount) {
+            if (e) { // user clicked "ok"
+              res.additional.callback(to_satoshis(amount));
+            }
+        }, 0);
       }
       else {
-        alert("Your Bitcoin deposit address is: "+res.additional.addr);
+        alertify.alert("Your Bitcoin deposit address is: <b>"+res.additional.addr+"</b>");
       }
     });
   }
 
   function withdraw() {
     self.Currencies.withdraw(function(err, res) {
-      if(res.prompt) {
-        var addr = window.prompt("Which "+res.currencyType+" address would you like to withdraw to?");
-        var amount = window.prompt("Which "+res.currencyType+" amount?");
-        return res.additional.callback(addr, amount);
+      if(res.prompt)
+      {
+        var msg_addr = "Which "+res.currencyType+" address would you like to withdraw to?";
+        var msg_amt  = "Which "+res.currencyType+" amount?";
+
+        alertify.prompt(msg_addr, function (e, addr) {
+          if (!e) return false;
+
+          alertify.prompt(msg_amt, function (e, amount) {
+              if (!e) return false;
+
+              return res.additional.callback(addr, amount);
+          }, 0);
+        }, "");
       }
-      return alert(res.additional.message);
+      if(res.additional.message) {
+        return alertify.alert(res.additional.message);
+      }
     });
   }
 
@@ -628,10 +644,15 @@ var user = {
 
 var temp = {
   login: function() {
-    var user_name = window.prompt("User name?", "");
-    var password  = window.prompt("Password?", "");
+    alertify.prompt("What is your user name?", function (e, user_name) {
+      if (!e) return false;
 
-    user.login(user_name, password);
+      alertify.prompt("What is your password?", function (e, password) {
+          if (!e) return false;
+
+          user.login(user_name, password);
+      }, "");
+    }, "");
   },
   toggle_password_visibility: function() {
     var selToggle      = "#toggle-password-visibilty";
