@@ -372,7 +372,7 @@ function refresh_bet_buttons() {
 
     var bet_amt_satoshis = Math.round(prize*percentage/100);
 
-    $(el).html(to_btc_str(bet_amt_satoshis));
+    $(el).html(to_btc_str_with_style(bet_amt_satoshis));
   });
 }
 
@@ -547,10 +547,36 @@ function btc_format(btc_num)
   return btc;
 }
 
+// Essentially makes the satoshis number darker, and the BTC numbers lighter
+// So with the following number:
+// 0.00150000
+// Lighter: 0.00
+// Darker : 150000
+function btc_format_with_style(btc_num) {
+  btc = btc_format(btc_num);
+
+  if(btc_num <= 0) {
+    lighter = btc;
+    darker  = "";
+  }
+  else {
+    var regex = /^([0.]*)([1-9][0-9.]*)?$/;
+    match = regex.exec(btc);
+
+    lighter = match[1];
+    darker  = match[2];
+  }
+  return "<span class='btc_lighter'>"+lighter+"</span>"+darker;
+}
+
 // BTC formatted to all 8 digits
 function to_btc_str(satoshis) {
   var btc_num = to_btc(satoshis);
   return btc_format(btc_num);
+}
+function to_btc_str_with_style(satoshis) {
+  var btc_num = to_btc(satoshis);
+  return btc_format_with_style(btc_num);
 }
 
 function to_satoshis(btc) {
@@ -587,7 +613,8 @@ function update_personal_stats(personal_stats) {
     password = personalStats.password;
     name     = personalStats.name;
   }
-  $(".my_balance").html(to_btc_str(balance));
+  $(".my_balance").html(to_btc_str_with_style(balance));
+
   $("#password").html(password);
   $(".my_user_name").html(name);
 
