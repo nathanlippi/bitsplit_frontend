@@ -472,7 +472,7 @@ function refresh_current_stats(current_stats)
     CHART.refresh();
 
     $(".my_win_chance").html(current_player_percent_win_chance);
-    $("#my_contribution").html(btc_format(current_player_contribution));
+    $("#my_contribution").html(btc_format_with_style(current_player_contribution));
 }
 
 // Assuming that this is the end of the round when it is called
