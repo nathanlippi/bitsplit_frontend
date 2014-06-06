@@ -376,20 +376,29 @@ $(document).ready(function() {
 
 function refresh_bet_buttons() {
   // Update all the bet buttons with matching amounts
-  if(typeof currentStats === null) return false;
-
-  var prize = currentStats.prize;
-
   $(".btccost .btn").each(function(i, el) {
-    var percentage       = $(el).attr("percentage");
+    var percentage = $(el).attr("percentage");
 
     if(percentage === "custom")
       return;
 
-    var bet_amt_satoshis = Math.round(prize*percentage/100);
+    var bet_amt_satoshis = get_bet_amount_from_percentage(percentage);
+
+    if(bet_amt_satoshis === false) return;
 
     $(el).html(to_btc_str_with_style(bet_amt_satoshis));
   });
+}
+
+// percentage: 0-100
+function get_bet_amount_from_percentage(percentage) {
+  if(typeof currentStats === null) return false;
+
+  var prize = currentStats.prize;
+
+  var bet_amt_satoshis = Math.round(prize*percentage/100);
+
+  return bet_amt_satoshis;
 }
 
 function refresh_current_stats(current_stats)
@@ -717,16 +726,15 @@ $("#bet_buttons").on("click", ".btn", function() {
 
   var percentage = $(this).attr("percentage");
   var sel        = ".btccost .btn[percentage='"+percentage+"']";
+  var amt        = $("#custom_bet_input").val();
 
-  var amt = $(sel).html();
-
-  if(percentage === "custom") {
-    amt = $("#custom_bet_input").val();
+  if(percentage !== "custom") {
+    amt = to_btc(get_bet_amount_from_percentage(percentage));
   }
 
-  // Test if is number
+  // TODO: Test if is number
   BitSplit.currency.bet(amt, function(err, res) {
-    var msg = "Placing bet: "+amt;
+    var msg = "Placing bet: "+to_btc_str_with_style(to_satoshis(amt));
     alertify.success(msg, "", 2000);
   });
 });
