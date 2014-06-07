@@ -82,6 +82,7 @@ body {
   border: none;
   color: #F6E0B8;
   background-color: rgba(235, 235, 235, 0);
+  font-size: 16px;
 }
 
 .btn-group-riskscale > .btn {
@@ -203,8 +204,11 @@ polyline{
 
 #currenrndsize {
     fill: #96530C;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -1px;
+    text-transform: uppercase;
 }
 #potprize {
     font-size: 30px;
@@ -222,11 +226,12 @@ h4#currenrndsize {
     font-size: 16px;
 }
 #potprize {
-    font-size: 40px;
+    font-size: 45px;
     margin-top: 0;
     font-weight: bold;
     color: #702000;
-    letter-spacing: -3px;
+    letter-spacing: -4px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 div#endofround {
@@ -269,10 +274,14 @@ div.bitbank div.btn-group.btn-group-lg.btn-group-transparent > btn-default {
     /* width: 54%; */
     background: rgba(22, 22, 22, 0.77);
     /* padding-top: 3%; */
-    padding-top: 23px;
-    height: 164px;
-    color: #797979;
+    padding-top: 20px;
+    /* height: 164px; */
+    color: rgba(219, 216, 138, 0.97);
     text-align: center;
+    padding-bottom: 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .btcbet {
     background: rgba(5, 61, 61, 0.85); 
@@ -319,8 +328,8 @@ span.countertop {
 }
 
 .btccost {
-    margin-top: 20px;
-    margin-bottom: 12px;
+    margin-top: 7px;
+    margin-bottom: 0px;
 }
 .bitsplitbetnav > h2 {
     margin-top: 10px;
@@ -570,6 +579,24 @@ polyline{
     pointer-events: none;
 }
 
+.bitbank p {
+display: inline;
+}
+
+p#chat_toggle {
+position: absolute;
+left: 10px;
+/* width: 110px; */
+background: rgba(27, 27, 27, 0.41);
+padding-left: 14px;
+/* margin-left: 10px; */
+margin-top: -45px;
+padding: 5px 23px;
+color: white;
+border-radius: 4px;
+text-align: center;
+}
+
 a.my_user_name.welcome:not(:empty):before {
   content: "Welcome back, ";
   color: white;
@@ -640,23 +667,31 @@ table#pastwinners>thead>tr>th {
 
 .btccost .btn:not(:empty):not([percentage="custom"]):before {
   content : "฿ ";
-  color   : #FAE187
-}
+  color: rgba(250, 225, 135, 0.22);}
 #bet_buttons {
   border-spacing: 6px;
 }
 #bet_buttons .btn:not([percentage="custom"]):after {
   content : " of prize";
   font-weight: normal;
+  font-size: 15px;
+  opacity: 0.7;
+  color: rgba(0, 0, 0, 0.67);
 }
 .btn-group-riskscale .btn {
   font-weight: 700;
 }
 
 #custom_bet_input {
-    background: rgba(22, 22, 22, 0.3);
-    padding: 2% 3%; color: #fff;
+    background: rgba(22, 22, 22, 0.44);
+    padding: 7% 3%; 
+    color: #FFEBA9;
     padding-left: 10px;
+    border: 1px dotted rgba(255, 235, 169, 0.6);
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: center;
+    height: 35px;
 }
 
 #logo, .pointer-events-none {
@@ -677,12 +712,14 @@ table#pastwinners>thead>tr>th {
  * Chat
  ****************/
 #chat {
-  position: absolute;
-  top: 0;
-  left: 0;
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
   z-index: 10001;
 
   display: none;
+  width: 86%;
+  margin-left: 8%;
 }
 
 .chat
@@ -695,13 +732,13 @@ table#pastwinners>thead>tr>th {
 .chat li
 {
     margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dotted #B3A9A9;
+    padding-bottom: 11px;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.36);
 }
 
 .chat li.left .chat-body
 {
-    margin-left: 60px;
+    margin-left: 10px;
 }
 
 .chat li.right .chat-body
@@ -713,7 +750,7 @@ table#pastwinners>thead>tr>th {
 .chat li .chat-body p
 {
     margin: 0;
-    color: #777777;
+    color: #FFEC87;
 }
 
 .panel .slidedown .glyphicon, .chat .glyphicon
@@ -750,6 +787,50 @@ table#pastwinners>thead>tr>th {
 }
 
 .btc_lighter {
-  opacity: 0.7;
+  opacity: 0.2;
 }
 
+.panel-primary>.panel-heading {
+    background: rgba(0, 0, 0, 0.24);
+    border: none;
+}
+div.panel.panel-primary {
+    background: rgba(22, 22, 22, 0.31);
+    border: none;
+    /* margin-top: 100px; */
+}
+div.panel-footer {
+    background: rgba(31, 31, 31, 0.52);
+    border-top: none;
+}
+
+input#btn-input {
+    background: rgba(0, 0, 0, 0.35);
+    border: none;
+    padding: 15px 15px;
+}
+
+#bet_buttons > a.btn.btn-success {
+    font-size: 28px;
+    padding: 6px 0px 7px 0px;
+    border-radius: 5px;
+    border-top: 1px solid rgba(176, 219, 176, 0.78);
+    border-left: 1px solid rgba(191, 216, 155, 0.78);
+    border-right: 3px solid rgba(0, 0, 0, 0.52);
+    border-bottom: 5px solid rgba(0, 0, 0, 0.27);
+    color: #FFFA86;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+span.primary-font {
+    float: left;
+    margin-right: 11px;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+#bet_buttons > a.btn.btn-success:last-child {
+font-size: 22px;
+padding-top: 11px;
+}

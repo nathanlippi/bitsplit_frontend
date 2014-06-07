@@ -555,8 +555,8 @@ function end_round(end_round_object) {
     $(sel).modal('hide');
 
   }, timeout_ms);
-   $("#bitsplitgames").delay(1900).removeClass('fadeOut');
-   $("#bitsplitgames").delay(1900).addClass('fadeIn');
+   $("#bitsplitgames").delay(1900).removeClass('animated fadeOut');
+   $("#bitsplitgames").delay(1900).addClass('animted fadeIn');
    alertify.log(msg, "", 4000);
 }
 
@@ -772,16 +772,6 @@ $(document).ready(function() {
       top: ($(window).height() - $('#gameslider').outerHeight()) / 2
     });
 
-    $('#endofround').css(
-    {
-      position: 'absolute'
-    });
-
-    $('#endofround').css(
-    {
-      left: ($(window).width() - $('#endofround').outerWidth()) / 2,
-      top: ($(window).height() - $('#endofround').outerHeight()) / 2
-    });
   });
 
   // call `resize` to center elements
@@ -791,7 +781,7 @@ $(document).ready(function() {
 
 //   $("div#endofround").center(true);
 // $("#gameslider").center(true);
-  $('.overlay-solid').delay(1300).addClass('animated fadeOut');
+  
   $('#bg').addClass('animated fadeIn');
 
   var sel = "div.betchart";
@@ -800,6 +790,7 @@ $(document).ready(function() {
   var r = Math.round(Math.min($(sel).height(), $(sel).width()) / 2);
   CHART.resize(r); // -5 is to take padding, etc., into account
   CHART.resize(250);
+  $('.overlay-solid').addClass('animated fadeOut').delay(11300);
 });
 
 $("#deposit").on("click", function(e) {
@@ -858,21 +849,35 @@ Number.prototype.noExponents= function() {
     return str + z;
 };
 
+/////// 
+$('#chat_toggle2 a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
+
 ////////////////////////////////////////////////////////////////
 // Chat stuff
 
 var chat_sel = "#chat";
 $("#chat_close").click(function() {
-  $(chat_sel).hide();
+  //$(chat_sel).hide();
+  $('#myTab a[href="#home"]').tab('show');
+
 });
 $("#chat_toggle").click(function() {
+  
+  $('#myTab a[href="#chat_toggle2"]').tab('show');
 
   var msg = "Hide Chat";
   if($(chat_sel).is(":visible")) {
+
     msg = "Show Chat";
   }
+  
   $(chat_sel).toggle();
-  $("#chat_toggle").html(msg);
+  //$("#chat_toggle").html(msg);
+
 });
 
 
@@ -904,7 +909,7 @@ function send_chat_msg()
 
    str  = "<li class='left clearfix'>";
    str += "<div class='chat-body clearfix'>";
-   str += "<div class='header'><strong class='primary-font'>"+user_name+"</strong></div>";
+   str += "<div class='header'><span class='primary-font'>"+user_name+"</span></div>";
    str += "<p>"+message+"</p>";
    str += "</div>";
    str += "</li>";

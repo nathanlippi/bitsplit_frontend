@@ -39,6 +39,23 @@
         </ul>
       </div>
     </div>
+    <div class="overlay"></div>
+    <div id="login" class="modal-dialog modal-lg absolute-center">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="myModalLabel" style="display:inline;" class="modal-title">Welcome to</h4><img src="https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P" style="height:50px;">
+          <h5 id="myModalLabel" style="text-align:center;">The Thinking Man's Lottery</h5>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+            <div class="form-group center">
+              <input id="new_user_name" type="text" placeholder="Choose Your User Name" style="width:70%;margin-bottom:10px;" data-toggle="tooltip" data-placement="top" title="" class="form-control center-block"><a role="button" href="#" style="width:70%;margin-bottom:10px;" onclick="user.create($('#new_user_name').val())" class="btn btn-primary center-block"><span class="highlight">Confirm</span></a><a onclick="temp.login()" style="margin-left:15%;">Sign In</a>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer"><br></div>
+      </div>
+    </div>
     <div class="overlay-solid"></div>
     <!-- Main Screen Slider-->
     <section id="gameslider">
@@ -178,9 +195,7 @@
             </div>
           </div>
           <div class="col-md-5 col-lg-4 nosidemargin rsNoDrag chart">
-            <div class="betchart"></div><span class="countertop">
-              <div id="nextRoundTitle" class="text-center">Next Round</div>
-              <div id="nextRoundTime" class="text-center"></div></span>
+            <div class="betchart"></div>
           </div>
           <div class="col-md-3 col-lg-4 nosidemargin">
             <div class="row summary">
@@ -260,7 +275,9 @@
     </section>
     <!-- Betting Navigation-->
     <section class="navbar-fixed-bottom bitsplitbetnav">
-      <div class="bigcounter"></div>
+      <div class="bigcounter"><span class="countertop">
+          <div id="nextRoundTitle" class="text-center">Next Round</div>
+          <div id="nextRoundTime" class="text-center"></div></span></div>
       <div class="row">
         <p id="chat_toggle" class="text-left">Chat</p>
         <div class="pull-left clearfix col-md-3 col-lg-3 bit bitbank">
