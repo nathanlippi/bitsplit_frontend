@@ -518,6 +518,7 @@ function refresh_current_stats(current_stats)
 function end_round(end_round_object) {
   // Based on winner, etc., different message will be displayed
   var sel = "#endofround";
+  var msg = "<b>Round Over!</b>";
   var sel_content = sel+" .modal-body";
 
   $(sel_content).html("<h1>Round Over!</h1>");
@@ -527,7 +528,7 @@ function end_round(end_round_object) {
     {
       position: 'absolute'
     });
-
+   console.log("Ending round...");
     $(sel).css(
     {
       left: ($(window).width() - $('#endofround').outerWidth()) / 2,
@@ -547,6 +548,7 @@ function end_round(end_round_object) {
   }, timeout_ms);
    $("#bitsplitgames").delay(1900).removeClass('fadeOut');
    $("#bitsplitgames").delay(1900).addClass('fadeIn');
+   alertify.log(msg, "", 4000);
 }
 
 function refresh_past_winners(past_winners)
@@ -755,7 +757,7 @@ $(document).ready(function() {
   CHART.init(sel);
 
   var r = Math.round(Math.min($(sel).height(), $(sel).width()) / 2);
-  CHART.resize(r - 5); // -5 is to take padding, etc., into account
+  CHART.resize(r); // -5 is to take padding, etc., into account
   CHART.resize(250);
 });
 
@@ -782,7 +784,8 @@ $("#bet_buttons").on("click", ".btn", function() {
 
   // Test if is number
   BitSplit.currency.bet(amt, function(err, res) {
-    bootstrap_alert.success("Placing bet: "+amt, 1000);
+    var msg = "Placing bet: "+amt;
+    alertify.success(msg, "", 2000);
   });
 });
 
@@ -813,3 +816,57 @@ Number.prototype.noExponents= function() {
     while(mag--) z += '0';
     return str + z;
 };
+
+////////////////////////////////////////////////////////////////
+// Chat stuff
+
+var chat_sel = "#chat";
+$("#chat_close").click(function() {
+  $(chat_sel).hide();
+});
+$("#chat_toggle").click(function() {
+
+  var msg = "Hide Chat";
+  if($(chat_sel).is(":visible")) {
+    msg = "Show Chat";
+  }
+  $(chat_sel).toggle();
+  $("#chat_toggle").html(msg);
+});
+
+
+
+
+$("#btn-chat").click(function() {
+  send_chat_msg();
+});
+
+$("#btn-input").keyup(function (e) {
+  if (e.keyCode == 13) { // Enter
+    send_chat_msg();
+  }
+});
+
+function send_chat_msg()
+{
+  var sel = "#btn-input";
+  var msg = $(sel).val();
+
+  $(sel).val("");
+
+   socket.emit("user:send_chat_message", {msg: msg});
+ }
+
+
+ function add_message_to_chat(user_name, message) {
+   var str;
+
+   str  = "<li class='left clearfix'>";
+   str += "<div class='chat-body clearfix'>";
+   str += "<div class='header'><strong class='primary-font'>"+user_name+"</strong></div>";
+   str += "<p>"+message+"</p>";
+   str += "</div>";
+   str += "</li>";
+
+   $("#chat_body").append(str);
+ }
