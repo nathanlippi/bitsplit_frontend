@@ -8,6 +8,7 @@ html
     script(type='text/javascript', src='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
     script(type='text/javascript', src='alertify.js')
     script(src='d3.v3.min.js')
+    link(rel='stylesheet', href='animate.css')
     link(rel='stylesheet', href='main.css')
     link(rel='stylesheet', href='royalslider.css')
     link(rel='stylesheet', href='skins/minimal-white/rs-minimal-white.css')
@@ -17,7 +18,7 @@ html
   body
     // Background
     #bg
-      img(src='images/bg-reduced.jpg', alt='')
+      .overlay-solid
     // Navigation Bar
     #bitsplitnav.navbar.transparent.navbar-fixed-top.navbar-inverse
       .navbar-header
@@ -167,7 +168,7 @@ html
           .btn-group.btn-group.btn-group-justified.btn-group-transparent
             a.btn.btn-default#withdraw Withdraw
             a.btn.btn-default#deposit Deposit
-        .col-md-6.col-lg-6.btcchance
+        .col-md-9.col-lg-9.btcchance
           // | Risk Chance Calculation
           // a  Learn about Smart API bidding
           | Place Your Bet By Percentage of Prize
@@ -187,14 +188,14 @@ html
             a.btn.btn-success(percentage="5") 5&percnt;
             a.btn.btn-success(percentage="1") 1&percnt;
             a.btn.btn-success(percentage="custom") Custom Bet
-        .col-md-3.bitbank#right_panel
-          h4.text-left User Name
-          h4.info.my_user_name.text-left
-          h4.text-left Password (
-            span#toggle-password-visibility(onclick="temp.toggle_password_visibility();") show
-            |)
-          h4.info#password.invisible.text-left
-          h4#chat_toggle.text-left Show Chat
+        // .col-md-3.bitbank#right_panel
+        //   h4.text-left User Name
+        //   h4.info.my_user_name.text-left
+        //   h4.text-left Password (
+        //     span#toggle-password-visibility(onclick="temp.toggle_password_visibility();") show
+        //     |)
+        //   h4.info#password.invisible.text-left
+        //   h4#chat_toggle.text-left Show Chat
     // FAQ Modal
     #howitworks.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
       .modal-dialog.modal-lg
