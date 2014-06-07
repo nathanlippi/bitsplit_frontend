@@ -753,3 +753,6 @@ table#pastwinners>thead>tr>th {
   opacity: 0.7;
 }
 
+.alertify-logs {
+    bottom: 200px !important;
+}
