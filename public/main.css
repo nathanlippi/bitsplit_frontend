@@ -748,3 +748,8 @@ table#pastwinners>thead>tr>th {
 .modal-backdrop {
   pointer-events: none;
 }
+
+.btc_lighter {
+  opacity: 0.7;
+}
+

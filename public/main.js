@@ -251,24 +251,40 @@ var currencyUI = (function(Currencies) {
   function deposit() {
     self.Currencies.deposit(function(err, res) {
       if(res.prompt) {
-        var amount =
-          window.prompt("How many (fake) bitcoins will you add to your balance?", 0);
-        res.additional.callback(to_satoshis(amount));
+        var msg = "How many (fake) bitcoins will you add to your balance?";
+
+        alertify.prompt(msg, function (e, amount) {
+            if (e) { // user clicked "ok"
+              res.additional.callback(to_satoshis(amount));
+            }
+        }, 0);
       }
       else {
-        alert("Your Bitcoin deposit address is: "+res.additional.addr);
+        alertify.alert("Your Bitcoin deposit address is: <b>"+res.additional.addr+"</b>");
       }
     });
   }
 
   function withdraw() {
     self.Currencies.withdraw(function(err, res) {
-      if(res.prompt) {
-        var addr = window.prompt("Which "+res.currencyType+" address would you like to withdraw to?");
-        var amount = window.prompt("Which "+res.currencyType+" amount?");
-        return res.additional.callback(addr, amount);
+      if(res.prompt)
+      {
+        var msg_addr = "Which "+res.currencyType+" address would you like to withdraw to?";
+        var msg_amt  = "Which "+res.currencyType+" amount?";
+
+        alertify.prompt(msg_addr, function (e, addr) {
+          if (!e) return false;
+
+          alertify.prompt(msg_amt, function (e, amount) {
+              if (!e) return false;
+
+              return res.additional.callback(addr, amount);
+          }, 0);
+        }, "");
       }
-      return alert(res.additional.message);
+      if(res.additional.message) {
+        return alertify.alert(res.additional.message);
+      }
     });
   }
 
@@ -409,7 +425,7 @@ function refresh_bet_buttons() {
 
     var bet_amt_satoshis = Math.round(prize*percentage/100);
 
-    $(el).html(to_btc_str(bet_amt_satoshis));
+    $(el).html(to_btc_str_with_style(bet_amt_satoshis));
   });
 }
 
@@ -423,13 +439,6 @@ function refresh_current_stats(current_stats)
     var trts             = current_stats.time_remaining_to_split;
     var latency          = 150; // Assumption
     window.next_split_ms = new Date().getTime()+trts-latency;
-
-    var current_winning_contribution = 0;
-    if(current_stats.contributors[0]) {
-        current_winning_contribution = current_stats.contributors[0].contribution;
-    }
-    $("#current-winning-contribution").html("<i class='fa fa-btc'></i>"+to_btc_str(current_winning_contribution));
-    $("#jackpot-amount").html("<i class='fa fa-btc'></i>"+to_btc_str(current_stats.jackpot));
 
     CHART.setPotPrize(to_btc_str(current_stats.prize));
 
@@ -484,7 +493,7 @@ function refresh_current_stats(current_stats)
         var str  = "<tr>";
         str     += "<td>"+user.name+"</td>";
         str     += "<td>"+percent_win_chance+"%</td>";
-        str     += "<td>"+btc_format(contribution)+"</td>";
+        str     += "<td>"+btc_format_with_style(contribution)+"</td>";
         str     += "<td>"+percent_contribution+"%</td>";
         str     += "</tr>";
 
@@ -509,7 +518,7 @@ function refresh_current_stats(current_stats)
     CHART.refresh();
 
     $(".my_win_chance").html(current_player_percent_win_chance);
-    $("#my_contribution").html(btc_format(current_player_contribution));
+    $("#my_contribution").html(btc_format_with_style(current_player_contribution));
 }
 
 // Assuming that this is the end of the round when it is called
@@ -575,14 +584,14 @@ function refresh_past_winners(past_winners)
         }
 
         var str  = "<tr>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.total)+"</td>"; // Size
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.total)+"</td>"; // Size
         str     += "<td>"+user.name+"</td>"; // Winner name
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(jackpot.contribution)+"</td>"; // Winner contribution
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(jackpot.contribution)+"</td>"; // Winner contribution
 
         // Disbursements
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc_str(dsbs.winner)+"</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.next_jackpot)+"</td>"; // Next Jackpot
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str(dsbs.house)+"</td>"; // House
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc_str_with_style(dsbs.winner)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.next_jackpot)+"</td>"; // Next Jackpot
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.house)+"</td>"; // House
         str     += "</tr>";
 
         $(table_id).append(str);
@@ -614,10 +623,36 @@ function btc_format(btc_num)
   return btc;
 }
 
+// Essentially makes the satoshis number darker, and the BTC numbers lighter
+// So with the following number:
+// 0.00150000
+// Lighter: 0.00
+// Darker : 150000
+function btc_format_with_style(btc_num) {
+  btc = btc_format(btc_num);
+
+  if(btc_num <= 0) {
+    lighter = btc;
+    darker  = "";
+  }
+  else {
+    var regex = /^([0.]*)([1-9][0-9.]*)?$/;
+    match = regex.exec(btc);
+
+    lighter = match[1];
+    darker  = match[2];
+  }
+  return "<span class='btc_lighter'>"+lighter+"</span>"+darker;
+}
+
 // BTC formatted to all 8 digits
 function to_btc_str(satoshis) {
   var btc_num = to_btc(satoshis);
   return btc_format(btc_num);
+}
+function to_btc_str_with_style(satoshis) {
+  var btc_num = to_btc(satoshis);
+  return btc_format_with_style(btc_num);
 }
 
 function to_satoshis(btc) {
@@ -654,7 +689,8 @@ function update_personal_stats(personal_stats) {
     password = personalStats.password;
     name     = personalStats.name;
   }
-  $(".my_balance").html(to_btc_str(balance));
+  $(".my_balance").html(to_btc_str_with_style(balance));
+
   $("#password").html(password);
   $(".my_user_name").html(name);
 
@@ -675,10 +711,15 @@ var user = {
 
 var temp = {
   login: function() {
-    var user_name = window.prompt("User name?", "");
-    var password  = window.prompt("Password?", "");
+    alertify.prompt("What is your user name?", function (e, user_name) {
+      if (!e) return false;
 
-    user.login(user_name, password);
+      alertify.prompt("What is your password?", function (e, password) {
+          if (!e) return false;
+
+          user.login(user_name, password);
+      }, "");
+    }, "");
   },
   toggle_password_visibility: function() {
     var selToggle      = "#toggle-password-visibilty";
