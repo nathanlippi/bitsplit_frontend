@@ -202,37 +202,26 @@ polyline{
 }
 
 #currenrndsize {
-    fill: #96530C;
-    font-size: 16px;
-    font-weight: bold;
-}
-#potprize {
-    font-size: 30px;
-    margin-top: 0;
-    font-weight: bold;
-    fill: #702000;
-    letter-spacing: -2;
+  font-weight: bold;
+  fill: #96530C;
+  margin-top: 102px;
+  margin-bottom: 2px;
+  color: #96530C;
+  font-size: 16px;
 }
 
-
-h4#currenrndsize {
-    margin-top: 102px;
-    margin-bottom: 2px;
-    color: #96530C;
-    font-size: 16px;
-}
 #potprize {
-    font-size: 40px;
-    margin-top: 0;
-    font-weight: bold;
-    color: #702000;
-    letter-spacing: -3px;
+  fill: #702000;
+  font-size: 40px;
+  margin-top: 0;
+  font-weight: bold;
+  color: #702000;
+  letter-spacing: -1px;
 }
 
 div#endofround {
-overflow: hidden;
+  overflow: hidden;
 }
-
 
 div.row.summary {
 width: 88%;
