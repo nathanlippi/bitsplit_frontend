@@ -4,6 +4,7 @@
     <title>BitSplit&period;it</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="alertify.js"></script>
@@ -19,7 +20,7 @@
   <body>
     <!-- Background-->
     <div id="bg">
-      <!--img(src='images/bg-reduced.jpg', alt='')-->
+      <div class="overlay-solid"></div>
     </div>
     <!-- Navigation Bar-->
     <div id="bitsplitnav" class="navbar transparent navbar-fixed-top navbar-inverse">
@@ -39,6 +40,7 @@
         </ul>
       </div>
     </div>
+    <div id="sidebar" class="list-group"><a id="chat_toggle" href="#" class="list-group-item"><i class="fa fa-wechat fa-2x"></i><i class="chat-badge"></i></a><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a></div>
     <div class="overlay-solid"></div>
     <!-- Main Screen Slider-->
     <section id="gameslider">
@@ -283,6 +285,25 @@
       </div>
     </section>
     <!-- FAQ Modal-->
+    <div id="account_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+            <h4 id="myModalLabel" class="modal-title">Your Account Information</h4>
+          </div>
+          <div class="modal-body">
+            <h4 class="text-left">User Name</h4>
+            <h4 class="info my_user_name text-left"></h4>
+            <h4 class="text-left">Password (<span id="toggle-password-visibility" onclick="temp.toggle_password_visibility();">show</span>)</h4>
+            <h4 id="password" class="info invisible text-left"></h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="howitworks" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">

@@ -70,7 +70,7 @@ var CHART = (function()
       svg.append("text")
         .attr("id", "potprize")
         .attr("text-anchor", "middle")
-        .text("Current Round Size");
+        .text("...");
 
     set_pot_text_position();
   }

@@ -218,7 +218,6 @@ polyline{
     letter-spacing: -2;
 }
 
-
 h4#currenrndsize {
     margin-top: 102px;
     margin-bottom: 2px;
@@ -235,9 +234,8 @@ h4#currenrndsize {
 }
 
 div#endofround {
-overflow: hidden;
+  overflow: hidden;
 }
-
 
 div.row.summary {
 width: 88%;
@@ -714,7 +712,7 @@ table#pastwinners>thead>tr>th {
   display: inline;
 }
 
-#right_panel .info {
+#account_modal .info {
   color: #428bca;
 }
 
@@ -805,16 +803,21 @@ table#pastwinners>thead>tr>th {
     background: rgba(0, 0, 0, 0.24);
     border: none;
 }
+
 div.panel.panel-primary {
     background: rgba(22, 22, 22, 0.31);
     border: none;
     /* margin-top: 100px; */
 }
+
 div.panel-footer {
     background: rgba(31, 31, 31, 0.52);
     border-top: none;
 }
 
+#sidebar {
+  z-index: 10000;
+}
 input#btn-input {
     background: rgba(0, 0, 0, 0.35);
     border: none;

@@ -414,20 +414,29 @@ $(document).ready(function() {
 function refresh_bet_buttons() {
 
   // Update all the bet buttons with matching amounts
-  if(typeof currentStats === null) return false;
-
-  var prize = currentStats.prize;
-
   $(".btccost .btn").each(function(i, el) {
-    var percentage       = $(el).attr("percentage");
+    var percentage = $(el).attr("percentage");
 
     if(percentage === "custom")
       return;
 
-    var bet_amt_satoshis = Math.round(prize*percentage/100);
+    var bet_amt_satoshis = get_bet_amount_from_percentage(percentage);
+
+    if(bet_amt_satoshis === false) return;
 
     $(el).html(to_btc_str_with_style(bet_amt_satoshis));
   });
+}
+
+// percentage: 0-100
+function get_bet_amount_from_percentage(percentage) {
+  if(typeof currentStats === null) return false;
+
+  var prize = currentStats.prize;
+
+  var bet_amt_satoshis = Math.round(prize*percentage/100);
+
+  return bet_amt_satoshis;
 }
 
 function refresh_current_stats(current_stats)
@@ -789,16 +798,15 @@ $("#bet_buttons").on("click", ".btn", function() {
 
   var percentage = $(this).attr("percentage");
   var sel        = ".btccost .btn[percentage='"+percentage+"']";
+  var amt        = $("#custom_bet_input").val();
 
-  var amt = $(sel).html();
-
-  if(percentage === "custom") {
-    amt = $("#custom_bet_input").val();
+  if(percentage !== "custom") {
+    amt = to_btc(get_bet_amount_from_percentage(percentage));
   }
 
-  // Test if is number
+  // TODO: Test if is number
   BitSplit.currency.bet(amt, function(err, res) {
-    var msg = "Placing bet: "+amt;
+    var msg = "Placing bet: "+to_btc_str_with_style(to_satoshis(amt));
     alertify.success(msg, "", 2000);
   });
 });
@@ -858,12 +866,11 @@ $("#chat_toggle").click(function() {
   }
   
   $(chat_sel).toggle();
-  //$("#chat_toggle").html(msg);
-
 });
-
-
-
+$("#account_show").click(function() {
+  var sel = "#account_modal";
+  $(sel).modal({show: true});
+});
 
 $("#btn-chat").click(function() {
   send_chat_msg();
@@ -886,15 +893,25 @@ function send_chat_msg()
  }
 
 
- function add_message_to_chat(user_name, message) {
-   var str;
+var chat_message_count = 0;
+function add_message_to_chat(user_name, message) {
+  var str;
 
-   str  = "<li class='left clearfix'>";
-   str += "<div class='chat-body clearfix'>";
-   str += "<div class='header'><span class='primary-font'>"+user_name+"</span></div>";
-   str += "<p>"+message+"</p>";
-   str += "</div>";
-   str += "</li>";
+  str  = "<li class='left clearfix'>";
+  str += "<div class='chat-body clearfix'>";
+  str += "<div class='header'><span class='primary-font'>"+user_name+"</span></div>";
+  str += "<p>"+message+"</p>";
+  str += "</div>";
+  str += "</li>";
 
-   $("#chat_body").append(str);
- }
+  // Basic scroll chat to bottom when message arrives.
+  // TODO: Test how this works with scrolling through to look at past messages.
+  var sel = "#chat_body";
+  $(sel).append(str);
+  $("#chat .panel-body").animate({scrollTop: $(sel).height()});
+
+  chat_message_count++;
+  $(".chat-badge").html(chat_message_count);
+}
+
+$('#sidebar').affix();

@@ -4,6 +4,7 @@ html
     title BitSplit&period;it
     meta(name='viewport', content='width=device-width')
     link(rel='stylesheet', href='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css')
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
     script(type='text/javascript', src='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
 
@@ -19,7 +20,7 @@ html
   body
     // Background
     #bg
-      //img(src='images/bg-reduced.jpg', alt='')
+      .overlay-solid
     // Navigation Bar
     #bitsplitnav.navbar.transparent.navbar-fixed-top.navbar-inverse
       .navbar-header
@@ -43,6 +44,8 @@ html
             // a#signinbtn(href='#signin', data-toggle='modal', data-target='#signin') Sign In
             a#signinbtn(href='#signin', onclick="temp.login();") Sign In
     
+    include sidebar
+
     block content
     div.overlay-solid
     // Main Screen Slider
@@ -211,6 +214,21 @@ html
         
           
     // FAQ Modal
+    #account_modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+      .modal-dialog.modal-lg
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+            h4#myModalLabel.modal-title Your Account Information
+          .modal-body
+            h4.text-left User Name
+            h4.info.my_user_name.text-left
+            h4.text-left Password (
+              span#toggle-password-visibility(onclick="temp.toggle_password_visibility();") show
+              |)
+            h4.info#password.invisible.text-left
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Close
     #howitworks.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
       .modal-dialog.modal-lg
         .modal-content
