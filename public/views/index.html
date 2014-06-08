@@ -4,13 +4,13 @@
     <title>BitSplit&period;it</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="alertify.js"></script>
     <script src="d3.v3.min.js"></script>
     <link rel="stylesheet" href="animate.css">
     <link rel="stylesheet" href="main.css">
-
     <link rel="stylesheet" href="royalslider.css">
     <link rel="stylesheet" href="skins/minimal-white/rs-minimal-white.css">
     <link rel="stylesheet" href="alertify.core.css">
@@ -19,9 +19,8 @@
   </head>
   <body>
     <!-- Background-->
-    <div id="bg"><!-- <img src="images/bg-reduced.jpg" alt=""> -->
+    <div id="bg">
       <div class="overlay-solid"></div>
-
     </div>
     <!-- Navigation Bar-->
     <div id="bitsplitnav" class="navbar transparent navbar-fixed-top navbar-inverse">
@@ -132,6 +131,7 @@
         </div>
       </div>
     </div>
+    <div id="sidebar" class="list-group"><a id="chat_toggle" href="#" class="list-group-item"><i class="fa fa-wechat fa-2x"></i><i class="chat-badge"></i></a><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a></div>
     <div class="overlay-solid"></div>
     <!-- Main Screen Slider-->
     <section id="gameslider">
@@ -260,7 +260,7 @@
     </section>
     <!-- Betting Navigation-->
     <section class="navbar-fixed-bottom bitsplitbetnav">
-      <div class="bigcounter animated"><span class="countertop">
+      <div class="bigcounter"><span class="countertop">
           <div id="nextRoundTitle" class="text-center">Next Round</div>
           <div id="nextRoundTime" class="text-center"></div></span></div>
       <div class="row">
@@ -277,30 +277,29 @@
               <input type="text" value="0.00000001" id="custom_bet_input" class="form-control input-sm"></a>
           </div>
           <div id="bet_buttons" class="pull-right btn-group btn-group-justified"><a percentage="50" class="btn btn-success">50&percnt;</a><a percentage="20" class="btn btn-success">20&percnt;</a><a percentage="10" class="btn btn-success">10&percnt;</a><a percentage="5" class="btn btn-success">5&percnt;</a><a percentage="1" class="btn btn-success">1&percnt;</a><a percentage="custom" class="btn btn-success">Custom Bet</a></div>
-          </div>
-        <!-- <div id="right_panel" class="col-md-3 bitbank">
-          <h4 class="text-left">User Name</h4>
-          <h4 class="info my_user_name text-left"></h4>
-          <h4 class="text-left">Password (<span id="toggle-password-visibility" onclick="temp.toggle_password_visibility();">show</span>)</h4>
-          <h4 id="password" class="info invisible text-left"></h4>
-          <h4 id="chat_toggle" class="text-left">Show Chat</h4>
         </div>
       </div>
     </section>
-    <!-- End round Modal-->
-    <div id="endofround" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal animated tada pointer-events-none">
-      <div class="modal-dialog modal-md">
+    <!-- FAQ Modal-->
+    <div id="account_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <!-- <div class="modal-header">
+          <div class="modal-header">
             <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">End of Round</h4>
-          </div> -->
-          <div class="modal-body"><h4 id="myModalLabel" class="modal-title">End of Round</h4></div>
-          <!-- <div class="modal-footer"></div> -->
+            <h4 id="myModalLabel" class="modal-title">Your Account Information</h4>
+          </div>
+          <div class="modal-body">
+            <h4 class="text-left">User Name</h4>
+            <h4 class="info my_user_name text-left"></h4>
+            <h4 class="text-left">Password (<span id="toggle-password-visibility" onclick="temp.toggle_password_visibility();">show</span>)</h4>
+            <h4 id="password" class="info invisible text-left"></h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+          </div>
         </div>
       </div>
     </div>
-    <!-- FAQ Modal-->
     <div id="howitworks" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
