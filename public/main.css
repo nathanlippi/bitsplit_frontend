@@ -657,7 +657,7 @@ table#pastwinners>thead>tr>th {
   display: inline;
 }
 
-#right_panel .info {
+#account_modal .info {
   color: #428bca;
 }
 
@@ -744,4 +744,51 @@ table#pastwinners>thead>tr>th {
 
 .alertify-logs {
     bottom: 200px !important;
+}
+
+/*
+ * Sidebar
+ *
+ *
+ */
+.navbar-form input, .form-inline input {
+	width:auto;
+}
+
+#sidebar.affix,#sidebar.affix-top {
+   position:fixed;
+   bottom: 200px;
+}
+
+#sidebar {
+  z-index: 10000;
+}
+#sidebar a {
+  border: 1px solid rgba(255,255,255, 0.4);
+  color: white;
+  background: rgba(34, 34, 34, .3);
+}
+#sidebar a:hover {
+  border: 1px solid rgba(255,255,255, 0.6);
+  background: rgba(34, 34, 34, .5);
+}
+
+#sidebar .chat-badge {
+  position: absolute;
+  top: 15px;
+  right: 3px;
+  display: block;
+  border-radius: 50%;
+  font-size: 9px;
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  text-align: center;
+
+  background-color: #ed6565;
+  color: #ffffff;
+}
+
+#sidebar .chat-badge:empty {
+  background-color: transparent;
 }

@@ -874,17 +874,12 @@ $("#chat_close").click(function() {
   $(chat_sel).hide();
 });
 $("#chat_toggle").click(function() {
-
-  var msg = "Hide Chat";
-  if($(chat_sel).is(":visible")) {
-    msg = "Show Chat";
-  }
   $(chat_sel).toggle();
-  $("#chat_toggle").html(msg);
 });
-
-
-
+$("#account_show").click(function() {
+  var sel = "#account_modal";
+  $(sel).modal({show: true});
+});
 
 $("#btn-chat").click(function() {
   send_chat_msg();
@@ -907,15 +902,25 @@ function send_chat_msg()
  }
 
 
- function add_message_to_chat(user_name, message) {
-   var str;
+var chat_message_count = 0;
+function add_message_to_chat(user_name, message) {
+  var str;
 
-   str  = "<li class='left clearfix'>";
-   str += "<div class='chat-body clearfix'>";
-   str += "<div class='header'><strong class='primary-font'>"+user_name+"</strong></div>";
-   str += "<p>"+message+"</p>";
-   str += "</div>";
-   str += "</li>";
+  str  = "<li class='left clearfix'>";
+  str += "<div class='chat-body clearfix'>";
+  str += "<div class='header'><strong class='primary-font'>"+user_name+"</strong></div>";
+  str += "<p>"+message+"</p>";
+  str += "</div>";
+  str += "</li>";
 
-   $("#chat_body").append(str);
- }
+  // Basic scroll chat to bottom when message arrives.
+  // TODO: Test how this works with scrolling through to look at past messages.
+  var sel = "#chat_body";
+  $(sel).append(str);
+  $("#chat .panel-body").animate({scrollTop: $(sel).height()});
+
+  chat_message_count++;
+  $(".chat-badge").html(chat_message_count);
+}
+
+$('#sidebar').affix();
