@@ -317,14 +317,18 @@ span.countertop {
     border-radius: 1%;
     position: absolute;
     color: rgba(255, 255, 255, 0.99);
-    right: 0px;
+    /* right: 0px; */
 
     display: block;
     float: right;
     z-index: 999;
-    border-top: 1px solid rgba(252, 241, 197, 1);
+    border-top: 1px solid rgba(12, 4, 4, 0.2);
     /* box-shadow: -1px 0px 0px rgba(36, 22, 5, 0.34); */
-    background: rgba(22, 22, 22, 0.67);
+    /* background: rgba(22, 22, 22, 0.67); */
+    left: 50%;
+    margin-left: -134px;
+    top: 336px;
+    width: 250px;
 }
 
 .btccost {
@@ -657,12 +661,19 @@ table#pastwinners>thead>tr>th {
 
 #nextRoundTitle {
   font-weight: 700;
-  margin-top: 5px;
-  font-size: 0.9em;
-  color: rgba(57, 236, 243, 0.36);
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: rgba(0, 0, 0, 0.56);
+  margin-bottom: -9px;
 }
 #nextRoundTime {
+    font-size: 49px;
 
+    letter-spacing: -3px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    margin-left: 65px;
+    color: rgba(61, 32, 6, 0.34);
 }
 
 .btccost .btn:not(:empty):not([percentage="custom"]):before {

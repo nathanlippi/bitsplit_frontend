@@ -412,6 +412,7 @@ $(document).ready(function() {
 
 
 function refresh_bet_buttons() {
+
   // Update all the bet buttons with matching amounts
   if(typeof currentStats === null) return false;
 
@@ -526,38 +527,19 @@ function refresh_current_stats(current_stats)
 // TODO: Actually we only need the id of the finished round...
 function end_round(end_round_object) {
   // Based on winner, etc., different message will be displayed
-  var sel = "#endofround";
-  var msg = "<b>Round Over!</b>";
-  var sel_content = sel+" .modal-body";
-
-  $(sel_content).html("<h1>Round Over!</h1>");
-  $("#bitsplitgames").addClass('animated fadeOut');
-  $(sel).addClass('animated tada');
-  $(sel).css(
-    {
-      position: 'absolute'
-    });
-   console.log("Ending round...");
-    $(sel).css(
-    {
-      left: ($(window).width() - $('#endofround').outerWidth()) / 2,
-      top: ($(window).height() - $('#endofround').outerHeight()) / 2
-    });
-  $(sel).modal({show: true, backdrop: false});
-   
-
   
-
+  var msg = "<b>Round Over!</b>";
+  
+$("#bitsplitgames").addClass('animated fadeOut');
   // TODO: If there was a winner, highlight the row in the table, switch to that
   // table.
-  var timeout_ms = 3000;
-  setTimeout(function() {
-    $(sel).modal('hide');
-
-  }, timeout_ms);
-   $("#bitsplitgames").delay(1900).removeClass('animated fadeOut');
-   $("#bitsplitgames").delay(1900).addClass('animted fadeIn');
+  
+   
+   //$("#bitsplitgames").delay(1900).addClass('animted fadeIn');
    alertify.log(msg, "", 4000);
+    $("#bitsplitgames").delay(4000).removeClass('animated fadeOut');
+    // It would be great for the fade in to be delayed for a couple of seconds
+    $("#bitsplitgames").addClass('animated fadeIn');
 }
 
 function refresh_past_winners(past_winners)
