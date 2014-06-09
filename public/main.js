@@ -839,12 +839,6 @@ Number.prototype.noExponents= function() {
     return str + z;
 };
 
-/////// 
-$('#chat_toggle2 a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-
 
 ////////////////////////////////////////////////////////////////
 // Chat stuff
@@ -854,18 +848,6 @@ $("#chat_close").click(function() {
   //$(chat_sel).hide();
   $('#myTab a[href="#home"]').tab('show');
 
-});
-$("#chat_toggle").click(function() {
-  
-  $('#myTab a[href="#chat_toggle2"]').tab('show');
-
-  var msg = "Hide Chat";
-  if($(chat_sel).is(":visible")) {
-
-    msg = "Show Chat";
-  }
-  
-  $(chat_sel).toggle();
 });
 $("#account_show").click(function() {
   var sel = "#account_modal";
@@ -904,14 +886,39 @@ function add_message_to_chat(user_name, message) {
   str += "</div>";
   str += "</li>";
 
+  $(chat_body_sel).append(str);
+  scroll_chat_to_bottom();
+
+  if(!is_chat_open()) {
+    chat_message_count++;
+    update_chat_badge();
+  }
+}
+
+$("#chat_pill").click(function() {
+  scroll_chat_to_bottom();
+
+  chat_message_count = 0;
+  update_chat_badge();
+});
+
+var chat_body_sel = "#chat_body";
+
+function scroll_chat_to_bottom() {
   // Basic scroll chat to bottom when message arrives.
   // TODO: Test how this works with scrolling through to look at past messages.
-  var sel = "#chat_body";
-  $(sel).append(str);
-  $("#chat .panel-body").animate({scrollTop: $(sel).height()});
-
-  chat_message_count++;
-  $(".chat-badge").html(chat_message_count);
+  $("#chat .panel-body").animate({scrollTop: $(chat_body_sel).height()});
 }
+function is_chat_open() {
+  return $(chat_body_sel).height() > 0;
+}
+function update_chat_badge() {
+  var txt = "";
+  if(chat_message_count > 0) {
+    txt = chat_message_count;
+  }
+  $(".chat-badge").html(txt);
+}
+
 
 $('#sidebar').affix();
