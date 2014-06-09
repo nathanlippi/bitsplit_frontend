@@ -63,7 +63,9 @@ html
               li
                 a(href='#profile', data-toggle='pill') Past Winners
               li
-                a(href='#chat_toggle2', data-toggle='pill') Chat
+                a(href='#chat_toggle2', data-toggle='pill')
+                  | Chat&nbsp;
+                  i.chat-badge
             .tab-content
               .tab-pane.active#home
                 table#currentbets.table.table-condensed.table-hover.transltable.centered
@@ -175,7 +177,6 @@ html
       .bigcounter
         
       .row
-        p#chat_toggle.text-left Chat
         .pull-left.clearfix.col-md-3.col-lg-3.bit.bitbank
           a.my_user_name.welcome
           br

@@ -721,12 +721,7 @@ table#pastwinners>thead>tr>th {
  * Chat
  ****************/
 #chat {
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
   z-index: 10001;
-
-  display: none;
   width: 86%;
   margin-left: 8%;
 }
@@ -880,10 +875,10 @@ padding-top: 11px;
   background: rgba(34, 34, 34, .5);
 }
 
-#sidebar .chat-badge {
+.chat-badge {
   position: absolute;
-  top: 15px;
-  right: 3px;
+  top: 10px;
+  right: 2px;
   display: block;
   border-radius: 50%;
   font-size: 9px;
@@ -895,7 +890,6 @@ padding-top: 11px;
   background-color: #ed6565;
   color: #ffffff;
 }
-
-#sidebar .chat-badge:empty {
+.chat-badge:empty {
   background-color: transparent;
 }
