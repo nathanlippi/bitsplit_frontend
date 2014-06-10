@@ -693,7 +693,7 @@ table#pastwinners>thead>tr>th {
 
 #custom_bet_input {
     background: rgba(22, 22, 22, 0.44);
-    padding: 7% 3%; 
+    padding: 0 3%;
     color: #FFEBA9;
     padding-left: 10px;
     border: 1px dotted rgba(255, 235, 169, 0.6);
@@ -816,7 +816,7 @@ div.panel-footer {
 input#btn-input {
     background: rgba(0, 0, 0, 0.35);
     border: none;
-    padding: 15px 15px;
+    padding: 0 15px;
 }
 
 #bet_buttons > a.btn.btn-success {
