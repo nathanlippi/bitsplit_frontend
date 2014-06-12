@@ -443,8 +443,9 @@ function refresh_current_stats(current_stats)
 {
     currentStats = current_stats;
 
-    var table_id = "table#currentbets tbody";
-    $(table_id).html("");
+    var table_id      = "table#currentbets";
+    var table_body_id = table_id+" tbody";
+    $(table_body_id).html("");
 
     var trts             = current_stats.time_remaining_to_split;
     var latency          = 150; // Assumption
@@ -462,7 +463,9 @@ function refresh_current_stats(current_stats)
     var myChartItem = null;
 
     var max_rows = 7;
-    for(var ii = 0; ii < current_stats.contributors.length && ii < max_rows; ii++)
+    for(var ii = 0;
+        ii < current_stats.contributors.length && ii < max_rows;
+        ii++)
     {
         var font_color = "bitcoin-symbol font-color-bitcoin";
 
@@ -507,17 +510,38 @@ function refresh_current_stats(current_stats)
         str     += "<td>"+percent_contribution+"%</td>";
         str     += "</tr>";
 
-        $(table_id).append(str);
+        $(table_body_id).append(str);
     }
 
+    // No current players
+    var no_participants = "#current_participants_pane #no_participants";
+    if(current_stats.contributors.length === 0) {
+      // Hide table and show something else
+      $(table_id).hide();
+      $(no_participants).show();
+    }
+    else {
+      $(no_participants).hide();
+      $(table_id).show();
+    }
+
+    var not_playing = "#my_current_stats #my_current_stats_inactive";
+    var am_playing  = "#my_current_stats #my_current_stats_active";
+    // Player is participating
     if(myChartItem !== null)
     {
       CHART.setHighlightFirstSegment(true);
       chartData.unshift(myChartItem);
+
+      $(not_playing).hide();
+      $(am_playing).show();
     }
     else
     {
       CHART.setHighlightFirstSegment(false);
+
+      $(am_playing).hide();
+      $(not_playing).show();
     }
 
     if(!chartData.length) {

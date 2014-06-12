@@ -59,15 +59,15 @@ html
             // h4.fadedtext Current Participants
             ul.nav.nav-pills#myTab(style="margin-left:8%;")
               li.active
-                a(href='#home', data-toggle='pill') Current Participants
+                a(href='#current_participants_pane', data-toggle='pill') Current Participants
               li
-                a(href='#profile', data-toggle='pill') Past Winners
+                a(href='#past_winners_pane', data-toggle='pill') Past Winners
               li
                 a(id="chat_pill" href='#chat_toggle2', data-toggle='pill')
                   | Chat&nbsp;
                   i.chat-badge
             .tab-content
-              .tab-pane.active#home
+              .tab-pane.active#current_participants_pane
                 table#currentbets.table.table-condensed.table-hover.transltable.centered
                   thead
                     tr
@@ -76,7 +76,22 @@ html
                       th TOTAL BET
                       th &percnt; OF POT
                   tbody
-              .tab-pane#profile
+                #no_participants
+                  // h3 There are no players in this round!
+                  // h3 Try and [steal the pot] with a minimum bet.
+                  // h3 Or [invite some friends] so the jackpot grows.
+                  // h4 
+                  //   i Pstt... 
+                  //   | No one else is playing... now&apos;s your chance...
+                  h4 
+                    | No one else is playing — your lucky day!
+                  h4 See if you can 
+                    a.btn.btn-success(onclick="BitSplit.currency.bet(to_btc(1), function() {});") steal the pot
+                    |  with a minimum bet.
+                  h4 Or 
+                    .fb-share-button(data-href="https://developers.facebook.com/docs/plugins/", data-type="button", data-width="100")
+                    |  BitSplit with some friends so that the jackpot grows.
+              .tab-pane#past_winners_pane
                 table#pastwinners.table.table-condensed.table-hover.transltable.centered
                   thead
                     tr
@@ -99,20 +114,24 @@ html
             span.countertop
               .text-center#nextRoundTitle Bitcoins Splitting In
               #nextRoundTime.text-center
-          .col-md-3.col-lg-4.nosidemargin
-            .row.summary
-              h4.summarysmall.golden.text-right YOUR CHANCE<br>OF WINNING
-              h1.summarybig.lightyellow.text-right.my_win_chance#my_win_chance
-            // .row.summary
-            //   h4.summarysmall.golden.text-right TAKE HOME AMOUNT
-            //   h1.summarybig.lightyellow.text-right 0&period;00012500?
-            .row.summary
-              // TODO: Force this to be a float
-              h4.summarysmall.golden.text-right YOUR<br>CONTRIBUTION
-              h1.summarybig.lightyellow.text-right.my_contribution#my_contribution
-             // .row.netposition.loss
-             //   h4.summarysmall.golden POTENTIAL NET
-             //   h1.summarybig.lightyellow.text-right 34&period;0000
+          .col-md-3.col-lg-4.nosidemargin#my_current_stats
+            #my_current_stats_active
+              .row.summary
+                h4.summarysmall.golden.text-right YOUR CHANCE<br>OF WINNING
+                h1.summarybig.lightyellow.text-right.my_win_chance#my_win_chance
+              // .row.summary
+              //   h4.summarysmall.golden.text-right TAKE HOME AMOUNT
+              //   h1.summarybig.lightyellow.text-right 0&period;00012500?
+              .row.summary
+                // TODO: Force this to be a float
+                h4.summarysmall.golden.text-right YOUR<br>CONTRIBUTION
+                h1.summarybig.lightyellow.text-right.my_contribution#my_contribution
+               // .row.netposition.loss
+               //   h4.summarysmall.golden POTENTIAL NET
+               //   h1.summarybig.lightyellow.text-right 34&period;0000
+            #my_current_stats_inactive
+              h1 The thinking man&apos;s lottery.
+              // h1 Try your luck!  It costs nothing to start playing.
         // Slide 2
         // .row
         //   .col-md-4.nosidemargin.table-responsive
@@ -200,7 +219,6 @@ html
             a.btn.btn-success(percentage="5") 5&percnt;
             a.btn.btn-success(percentage="1") 1&percnt;
             a.btn.btn-success(percentage="custom") Custom Bet
-        
           
     // FAQ Modal
     #account_modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
