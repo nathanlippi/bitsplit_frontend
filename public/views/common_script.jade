@@ -22,8 +22,11 @@ script.
   socket.on("current_bets", function (json) {
     // refresh_current_bets(json);
   });
-  socket.on("jackpot_split", function (json) {
+  socket.on("round_end", function (json) {
     end_round();
+  });
+  socket.on("round_new", function (json) {
+      alertify.success("<b>New round starting!</b>");
   });
   socket.on("chat_message", function (json) {
     add_message_to_chat(json.user_name, json.msg);

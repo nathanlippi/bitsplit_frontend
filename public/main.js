@@ -446,9 +446,9 @@ function refresh_current_stats(current_stats)
     var table_id = "table#currentbets tbody";
     $(table_id).html("");
 
-    var trts             = current_stats.time_remaining_to_split;
+    var retr             = current_stats.round_time_left;
     var latency          = 150; // Assumption
-    window.next_split_ms = new Date().getTime()+trts-latency;
+    window.next_split_ms = new Date().getTime()+retr-latency;
 
     CHART.setPotPrize(to_btc_str(current_stats.prize));
 
@@ -661,9 +661,9 @@ function change_currency_type_ui(currencyType) {
 }
 
 function refresh_config(config_data) {
-    if(typeof config_data.split_n_minutes !== "undefined") {
-        $(".split-time-minutes").html(config_data.split_n_minutes);
-    }
+  // TODO: Store refresh duration
+  if(typeof config_data.round_length_seconds !== "undefined") {
+  }
 }
 function update_personal_stats(personal_stats) {
   personalStats = personal_stats;
