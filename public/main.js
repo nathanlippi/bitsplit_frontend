@@ -302,43 +302,7 @@ var BitSplit = {
   }
 };
 
-bootstrap_alert = {};
-bootstrap_alert.custom = function(type, message, fadeout_ms) {
-  console.log("CALLING W/ MSG: "+message);
-
-  if(typeof fadeout_ms !== "number") {
-    fadeout_ms = 4000;
-  }
-
-  var sel = "#alert";
-  if(!$(sel).length) {
-    $("body").append("<span id='alert'></span>");
-  }
-
-  // TODO: Sounds like when two of these are called close together there will be
-  // extra popups.
-  $(sel).html('<div class="alert alert-'+type+' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span>'+message+'</span></div>')
-    .delay(200)
-    .fadeIn()
-    .delay(fadeout_ms)
-    .fadeOut();
-};
-bootstrap_alert.warning = function(message, fadeout_ms) {
-  bootstrap_alert.custom("danger", message, fadeout_ms);
-};
-bootstrap_alert.success = function(message, fadeout_ms) {
-  bootstrap_alert.custom("success", message, fadeout_ms);
-};
-
-
-
-
-
 $(document).ready(function() {
-
-
-
-
   var new_user_name = '#new_user_name';
   $(new_user_name).on("paste keyup", function() {
     var user_name = $(new_user_name).val();
