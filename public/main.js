@@ -376,17 +376,31 @@ $(document).ready(function() {
 
 
 function refresh_bet_buttons() {
-
   // Update all the bet buttons with matching amounts
-  $(".btccost .btn").each(function(i, el) {
+  $(".btccost .btn").each(function(i, el)
+  {
     var percentage = $(el).attr("percentage");
 
-    if(percentage === "custom")
-      return;
+    var bet_amt_satoshis;
+    if(percentage === "custom") {
+      var bet_amt_btc  = $("#custom_bet_input").val();
+      bet_amt_satoshis = to_satoshis(bet_amt_btc);
+    }
+    else {
+      bet_amt_satoshis = get_bet_amount_from_percentage(percentage);
+    }
 
-    var bet_amt_satoshis = get_bet_amount_from_percentage(percentage);
+    var sel = "#bet_buttons .btn[percentage='"+percentage+"']";
+    if(bet_amt_satoshis > personalStats.balance ||
+       bet_amt_satoshis <= 0 || isNaN(bet_amt_satoshis))
+    {
+      $(sel).addClass("disabled");
+    }
+    else {
+      $(sel).removeClass("disabled");
+    }
 
-    if(bet_amt_satoshis === false) return;
+    if(bet_amt_satoshis === false || percentage === "custom") return;
 
     $(el).html(to_btc_str_with_style(bet_amt_satoshis));
   });
@@ -799,6 +813,10 @@ $("#bet_buttons").on("click", ".btn", function() {
   });
 });
 
+// Will update the 'Custom Bet' button when you input a value.
+$(".btccost .btn").on("paste keyup change", "input", function() {
+  refresh_bet_buttons();
+});
 
 var sel = "a.btn.btn-currency";
 $(sel).click(function(e) {
