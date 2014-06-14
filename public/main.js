@@ -302,6 +302,8 @@ var BitSplit = {
   }
 };
 
+var is_round_intermission = false, past_is_round_intermission = false;
+
 $(document).ready(function() {
   var new_user_name = '#new_user_name';
   $(new_user_name).on("paste keyup", function() {
@@ -341,6 +343,12 @@ $(document).ready(function() {
       var next_split_ms   = window.next_split_ms;
       var currentTimeLeft =
         Math.floor((next_split_ms - new Date().getTime()));
+
+      past_is_round_intermission = is_round_intermission;
+      is_round_intermission = (isNaN(currentTimeLeft) || currentTimeLeft < 0);
+
+      if(past_is_round_intermission !== is_round_intermission)
+        refresh_bet_buttons();
 
       if(typeof window.next_split_ms !== "number") {
         return false;
@@ -391,7 +399,8 @@ function refresh_bet_buttons() {
     }
 
     var sel = "#bet_buttons .btn[percentage='"+percentage+"']";
-    if(bet_amt_satoshis > personalStats.balance ||
+    if(is_round_intermission ||
+       bet_amt_satoshis > personalStats.balance ||
        bet_amt_satoshis <= 0 || isNaN(bet_amt_satoshis))
     {
       $(sel).addClass("disabled");
