@@ -59,15 +59,15 @@ html
             // h4.fadedtext Current Participants
             ul.nav.nav-pills#myTab(style="margin-left:8%;")
               li.active
-                a(href='#home', data-toggle='pill') Current Participants
+                a(href='#current_participants_pane', data-toggle='pill') Current Participants
               li
-                a(href='#profile', data-toggle='pill') Past Winners
+                a(href='#past_winners_pane', data-toggle='pill') Past Winners
               li
                 a(id="chat_pill" href='#chat_toggle2', data-toggle='pill')
                   | Chat&nbsp;
                   i.chat-badge
             .tab-content
-              .tab-pane.active#home
+              .tab-pane.active#current_participants_pane
                 table#currentbets.table.table-condensed.table-hover.transltable.centered
                   thead
                     tr
@@ -76,7 +76,10 @@ html
                       th TOTAL BET
                       th &percnt; OF POT
                   tbody
-              .tab-pane#profile
+                #no_participants
+                  h4.light-background#no_participants_msg
+                    | There are no players in the current round.
+              .tab-pane#past_winners_pane
                 table#pastwinners.table.table-condensed.table-hover.transltable.centered
                   thead
                     tr
@@ -99,7 +102,7 @@ html
             span.countertop
               .text-center#nextRoundTitle Bitcoins Splitting In
               #nextRoundTime.text-center
-          .col-md-3.col-lg-4.nosidemargin
+          .col-md-3.col-lg-4.nosidemargin#my_current_stats
             .row.summary
               h4.summarysmall.golden.text-right YOUR CHANCE<br>OF WINNING
               h1.summarybig.lightyellow.text-right.my_win_chance#my_win_chance

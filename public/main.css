@@ -893,3 +893,14 @@ padding-top: 11px;
 .chat-badge:empty {
   background-color: transparent;
 }
+#no_participants {
+  margin-left: 8%;
+}
+
+#no_participants_msg {
+  padding: 7px 10px;
+}
+
+.light-background {
+  background: rgba(0, 0, 0, 0.24);
+}
