@@ -210,13 +210,6 @@ polyline{
     letter-spacing: -1px;
     text-transform: uppercase;
 }
-#potprize {
-    font-size: 30px;
-    margin-top: 0;
-    font-weight: bold;
-    fill: #702000;
-    letter-spacing: -2;
-}
 
 h4#currenrndsize {
     margin-top: 102px;
@@ -224,12 +217,13 @@ h4#currenrndsize {
     color: #96530C;
     font-size: 16px;
 }
+
 #potprize {
     font-size: 45px;
     margin-top: 0;
     font-weight: bold;
-    color: #702000;
-    letter-spacing: -4px;
+    fill: #702000;
+    letter-spacing: -2px;
     font-family: 'Montserrat', sans-serif;
 }
 
