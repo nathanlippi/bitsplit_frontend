@@ -50,12 +50,12 @@
           <div class="col-md-4 nosidemargin rsNoDrag table-responsive">
             <!-- h4.fadedtext Current Participants-->
             <ul id="myTab" style="margin-left:8%;" class="nav nav-pills">
-              <li class="active"><a href="#home" data-toggle="pill">Current Participants</a></li>
-              <li><a href="#profile" data-toggle="pill">Past Winners</a></li>
+              <li class="active"><a href="#current_participants_pane" data-toggle="pill">Current Participants</a></li>
+              <li><a href="#past_winners_pane" data-toggle="pill">Past Winners</a></li>
               <li><a id="chat_pill" href="#chat_toggle2" data-toggle="pill">Chat&nbsp;<i class="chat-badge"></i></a></li>
             </ul>
             <div class="tab-content">
-              <div id="home" class="tab-pane active">
+              <div id="current_participants_pane" class="tab-pane active">
                 <table id="currentbets" class="table table-condensed table-hover transltable centered">
                   <thead>
                     <tr>
@@ -67,8 +67,11 @@
                   </thead>
                   <tbody></tbody>
                 </table>
+                <div id="no_participants">
+                  <h4 id="no_participants_msg" class="light-background">There are no players in the current round.</h4>
+                </div>
               </div>
-              <div id="profile" class="tab-pane">
+              <div id="past_winners_pane" class="tab-pane">
                 <table id="pastwinners" class="table table-condensed table-hover transltable centered">
                   <thead>
                     <tr>
@@ -184,7 +187,7 @@
               <div id="nextRoundTitle" class="text-center">Bitcoins Splitting In</div>
               <div id="nextRoundTime" class="text-center"></div></span>
           </div>
-          <div class="col-md-3 col-lg-4 nosidemargin">
+          <div id="my_current_stats" class="col-md-3 col-lg-4 nosidemargin">
             <div class="row summary">
               <h4 class="summarysmall golden text-right">YOUR CHANCE<br>OF WINNING</h4>
               <h1 id="my_win_chance" class="summarybig lightyellow text-right my_win_chance"></h1>
@@ -264,9 +267,7 @@
     <section class="navbar-fixed-bottom bitsplitbetnav">
       <div class="bigcounter"></div>
       <div class="row">
-        <div class="pull-left clearfix col-md-3 col-lg-3 bit bitbank">
-          <!--p.text-left User Name-->
-          <!--p.info.my_user_name.text-left--><a class="my_user_name welcome"></a>
+        <div class="pull-left clearfix col-md-3 col-lg-3 bit bitbank"><a class="my_user_name welcome"></a><br>
           <h2 class="my_balance"></h2>
           <div class="btn-group btn-group btn-group-justified btn-group-transparent"><a id="withdraw" class="btn btn-default">Withdraw</a><a id="deposit" class="btn btn-default">Deposit</a></div>
         </div>
@@ -449,12 +450,15 @@
       socket.on("current_bets", function (json) {
         // refresh_current_bets(json);
       });
-      socket.on("jackpot_split", function (json) {
+      socket.on("round_end", function (json) {
         end_round();
+      });
+      socket.on("round_new", function (json) {
+          alertify.success("<b>New round starting!</b>");
       });
       socket.on("chat_message", function (json) {
         add_message_to_chat(json.user_name, json.msg);
-      }); 
+      });
       
     </script>
     <script>
