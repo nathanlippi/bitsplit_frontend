@@ -898,3 +898,15 @@ padding-top: 11px;
 .light-background {
   background: rgba(0, 0, 0, 0.24);
 }
+#no_participants, #currentbets {
+  visibility: hidden;
+}
+
+#volume_slider {
+  position: absolute;
+  left: 60px;
+  top: 15px;
+  width: 150px;
+
+  display:none;
+}

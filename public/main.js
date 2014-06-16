@@ -1,5 +1,6 @@
 var personalStats;
 var currentStats;
+var volumeLevel = 0.5;
 
 /* Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
@@ -380,6 +381,22 @@ $(document).ready(function() {
      }
 
   }, 100);
+
+  $("#volume_slider_icon").click(function() {
+    $("#volume_slider").toggle();
+  });
+
+  var vsSel = "#volume_slider";
+  $(vsSel).noUiSlider({
+    start: volumeLevel,
+    range: {
+      'min': 0,
+      'max': 1
+    }
+  });
+  $(vsSel).on("change", function() {
+    volumeLevel = $(vsSel).val();
+  });
 });
 
 

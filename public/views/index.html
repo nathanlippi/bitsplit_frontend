@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="skins/minimal-white/rs-minimal-white.css">
     <link rel="stylesheet" href="alertify.core.css">
     <link rel="stylesheet" href="alertify.bootstrap.css">
+    <link rel="stylesheet" href="jquery.nouislider.css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   </head>
   <body>
@@ -40,11 +41,8 @@
         </ul>
       </div>
     </div>
-    <div id="sidebar" class="list-group">
-      <!-- a#chat_toggle.list-group-item(href='#')-->
-      <!--   i.fa.fa-wechat.fa-2x-->
-      <!--   i.chat-badge--><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a>
-    </div>
+    <div id="sidebar" class="list-group"><a href="#" class="list-group-item"><i id="volume_slider_icon" class="fa fa-volume-up fa-2x"></i>
+        <div id="volume_slider"></div></a><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a></div>
     <div class="overlay-solid"></div>
     <!-- Main Screen Slider-->
     <section id="gameslider">
@@ -426,6 +424,7 @@
     <!-- Jquery Scripts-->
     <script type="text/javascript" src="jquery.royalslider.min.js"></script>
     <script type="text/javascript" src="jquery.easing-1.3.js"></script>
+    <script type="text/javascript" src="jquery.nouislider.min.js"></script>
     <!-- Main Slider Initiation Code-->
     <script type="text/javascript" src="chart.custom.js"></script>
     <script type="text/javascript" src="/main.js"></script>
@@ -460,8 +459,12 @@
       socket.on("round_new", function (json) {
           alertify.success("<b>New round starting!</b>");
       });
+      
+      var audio  = new Audio('audio/chat.mp3');
       socket.on("chat_message", function (json) {
         add_message_to_chat(json.user_name, json.message);
+        audio.volume = volumeLevel;
+        audio.play();
       });
       socket.on("chat_history", function (json) {
         $.each(json.messages.reverse(), function(ii, message) {
