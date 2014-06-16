@@ -928,10 +928,12 @@ function add_message_to_chat(user_name, message) {
 }
 
 $("#chat_pill").click(function() {
-  scroll_chat_to_bottom();
-
   chat_message_count = 0;
   update_chat_badge();
+
+  // Hopefully chat is shown after .1 second
+  setTimeout(scroll_chat_to_bottom, 100);
+
 });
 
 var chat_body_sel = "#chat_body";
@@ -939,7 +941,12 @@ var chat_body_sel = "#chat_body";
 function scroll_chat_to_bottom() {
   // Basic scroll chat to bottom when message arrives.
   // TODO: Test how this works with scrolling through to look at past messages.
-  $("#chat .panel-body").animate({scrollTop: $(chat_body_sel).height()});
+  var height = $(chat_body_sel).height();
+  console.log("scroll_chat_to_bottom:", height);
+
+  if(height) {
+    $("#chat .panel-body").animate({scrollTop: height});
+  }
 }
 function is_chat_open() {
   return $(chat_body_sel).height() > 0;
