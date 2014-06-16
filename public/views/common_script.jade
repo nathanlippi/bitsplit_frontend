@@ -1,5 +1,5 @@
 script.
-  var socket = io.connect("https://bitsplit.it:443");
+  var socket = io.connect(!{socket_address});
 
   socket.on("error", function (json) {
     alertify.error(json.msg, "", 3000);
@@ -29,8 +29,13 @@ script.
       alertify.success("<b>New round starting!</b>");
   });
   socket.on("chat_message", function (json) {
-    add_message_to_chat(json.user_name, json.msg);
-  }); 
+    add_message_to_chat(json.user_name, json.message);
+  });
+  socket.on("chat_history", function (json) {
+    $.each(json.messages.reverse(), function(ii, message) {
+      add_message_to_chat(message.user_name, message.message);
+    });
+  });
 
 script.
   /* Google Analytics */

@@ -461,7 +461,12 @@
           alertify.success("<b>New round starting!</b>");
       });
       socket.on("chat_message", function (json) {
-        add_message_to_chat(json.user_name, json.msg);
+        add_message_to_chat(json.user_name, json.message);
+      });
+      socket.on("chat_history", function (json) {
+        $.each(json.messages.reverse(), function(ii, message) {
+          add_message_to_chat(message.user_name, message.message);
+        });
       });
       
     </script>
