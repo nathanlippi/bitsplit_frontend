@@ -709,6 +709,7 @@ function update_personal_stats(personal_stats) {
     name     = personalStats.name;
   }
   $(".my_balance").html(to_btc_str_with_style(balance));
+  refresh_bet_buttons();
 
   $("#password").html(password);
   $(".my_user_name").html(name);
