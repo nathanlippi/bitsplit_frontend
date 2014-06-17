@@ -899,7 +899,7 @@ padding-top: 11px;
   background: rgba(0, 0, 0, 0.24);
 }
 #no_participants, #currentbets {
-  visibility: hidden;
+  display: none;
 }
 
 #volume_slider {
