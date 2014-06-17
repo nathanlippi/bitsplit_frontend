@@ -910,3 +910,19 @@ padding-top: 11px;
 
   display:none;
 }
+
+#login .tooltip-inner {
+  min-width: 300px;
+  max-width: 300px;
+
+  font-size: 1.2em;
+}
+#login .tooltip {
+  opacity: 1 !important;
+}
+#login .tooltip.top > .tooltip-inner {
+  background-color: #ed6565;
+}
+#login .tooltip.top > .tooltip-arrow {
+  border-top-color: #ed6565;
+}

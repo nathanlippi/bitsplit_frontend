@@ -306,9 +306,22 @@ var BitSplit = {
 var is_round_intermission = false, past_is_round_intermission = false;
 
 $(document).ready(function() {
-  var new_user_name = '#new_user_name';
-  $(new_user_name).on("paste keyup", function() {
-    var user_name = $(new_user_name).val();
+  var new_user_name_sel      = '#new_user_name';
+  var new_user_create_sel    = '#new_user_create';
+
+  var tooltip_is_visible = false;
+  var tooltip_title      = "";
+
+  $(new_user_name_sel).tooltip(
+    {
+      trigger: "manual",
+      title: tooltip_title,
+      placement: "top"
+    });
+
+  $(new_user_name_sel).on("paste keyup", function() {
+    var user_name = $(new_user_name_sel).val();
+    user_name     = encodeURIComponent(user_name);
 
     $.get("/api/1/isUserNameAvailable/"+user_name, function(res)
     {
@@ -316,25 +329,40 @@ $(document).ready(function() {
         return console.log("Malformed response.");
       }
 
-      var name_now = $(new_user_name).val();
+      var name_now = $(new_user_name_sel).val();
+
       if(name_now !== res.user_name) {
         return console.log("Name request is an old one.");
       }
       if(!res.is_available)
       {
-        $(new_user_name)
+        var title_changed = tooltip_title !== res.msg;
+
+        console.log("titlechanged:", title_changed);
+
+        $(new_user_name_sel)
           .attr("title", res.msg)
-          .tooltip('fixTitle')
-          .tooltip("show")
-          .removeClass("has-success")
-          .addClass("has-error");
+          .tooltip('fixTitle');
+
+        // It flashes if updates unnecessarily
+        if(!tooltip_is_visible || title_changed) {
+          $(new_user_name_sel)
+            .tooltip("show");
+        }
+        tooltip_title      = res.msg;
+        tooltip_is_visible = true;
+
+        $(new_user_create_sel).addClass("disabled");
 
         return;
       }
-      $(new_user_name)
-        .tooltip("hide")
-        .removeClass("has-error")
-        .addClass("has-success");
+
+      $(new_user_name_sel)
+        .tooltip("hide");
+
+      tooltip_is_visible = false;
+
+      $(new_user_create_sel).removeClass("disabled");
     });
   });
 
@@ -434,10 +462,9 @@ function refresh_bet_buttons() {
 
 // percentage: 0-100
 function get_bet_amount_from_percentage(percentage) {
-  if(typeof currentStats === null) return false;
+  if(typeof currentStats === "undefined") return false;
 
   var prize = currentStats.prize;
-
   var bet_amt_satoshis = Math.round(prize*percentage/100);
 
   return bet_amt_satoshis;
@@ -851,7 +878,10 @@ $(sel).click(function(e) {
   $(this).addClass("active");
 });
 
-
+$("#login form").submit(function(e) {
+  e.preventDefault();
+  user.create($('#new_user_name').val());
+});
 
 // http://stackoverflow.com/questions/16139452/how-to-convert-big-negative-scientific-notation-number-into-decimal-notation-str
 Number.prototype.noExponents= function() {
@@ -959,6 +989,5 @@ function update_chat_badge() {
   }
   $(".chat-badge").html(txt);
 }
-
 
 $('#sidebar').affix();

@@ -26,13 +26,12 @@ append content
       .modal-header
         h4#myModalLabel.modal-title(style="display:inline;") Welcome to
         img(src='https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P', style="height:50px;")
-        h5#myModalLabel(style="text-align:center;") The Thinking Man's Lottery
+        h5#myModalLabel(style="text-align:center;") The Thinking Man&apos;s Lottery
       .modal-body
         form(role="form")
          .form-group.center
-           input#new_user_name.form-control.center-block(type="text", placeholder="Choose Your User Name", style="width:70%;margin-bottom:10px;", data-toggle="tooltip", data-placement="top", title="")
-           a.btn.btn-primary.center-block(role='button', href='#', style="width:70%;margin-bottom:10px;", onclick="user.create($('#new_user_name').val())")
-             span.highlight Confirm
+           input#new_user_name.form-control.center-block(type="text", placeholder="Choose Your User Name", style="width:70%;margin-bottom:10px;", autocomplete="off", autocorrect="off", autocapitalize="off")
+           input#new_user_create.btn.btn-primary.disabled.center-block(role="button", type="submit", value="Confirm", href='#', style="width:70%;margin-bottom:10px;")
            a(onclick="temp.login()", style="margin-left:15%;") Sign In
       .modal-footer
         br

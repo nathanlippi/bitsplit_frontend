@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="skins/minimal-white/rs-minimal-white.css">
     <link rel="stylesheet" href="alertify.core.css">
     <link rel="stylesheet" href="alertify.bootstrap.css">
+    <link rel="stylesheet" href="jquery.nouislider.css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   </head>
   <body>
@@ -40,18 +41,20 @@
         </ul>
       </div>
     </div>
-    <div id="sidebar" class="list-group"><a id="chat_toggle" href="#" class="list-group-item"><i class="fa fa-wechat fa-2x"></i><i class="chat-badge"></i></a><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a></div>
+    <div id="sidebar" class="list-group"><a href="#" class="list-group-item"><i id="volume_slider_icon" class="fa fa-volume-up fa-2x"></i>
+        <div id="volume_slider"></div></a><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a></div>
     <div class="overlay"></div>
     <div id="login" class="modal-dialog modal-lg absolute-center">
       <div class="modal-content">
         <div class="modal-header">
           <h4 id="myModalLabel" style="display:inline;" class="modal-title">Welcome to</h4><img src="https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P" style="height:50px;">
-          <h5 id="myModalLabel" style="text-align:center;">The Thinking Man's Lottery</h5>
+          <h5 id="myModalLabel" style="text-align:center;">The Thinking Man&apos;s Lottery</h5>
         </div>
         <div class="modal-body">
           <form role="form">
             <div class="form-group center">
-              <input id="new_user_name" type="text" placeholder="Choose Your User Name" style="width:70%;margin-bottom:10px;" data-toggle="tooltip" data-placement="top" title="" class="form-control center-block"><a role="button" href="#" style="width:70%;margin-bottom:10px;" onclick="user.create($('#new_user_name').val())" class="btn btn-primary center-block"><span class="highlight">Confirm</span></a><a onclick="temp.login()" style="margin-left:15%;">Sign In</a>
+              <input id="new_user_name" type="text" placeholder="Choose Your User Name" style="width:70%;margin-bottom:10px;" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control center-block">
+              <input id="new_user_create" role="button" type="submit" value="Confirm" href="#" style="width:70%;margin-bottom:10px;" class="btn btn-primary disabled center-block"><a onclick="temp.login()" style="margin-left:15%;">Sign In</a>
             </div>
           </form>
         </div>
@@ -67,12 +70,12 @@
           <div class="col-md-4 nosidemargin rsNoDrag table-responsive">
             <!-- h4.fadedtext Current Participants-->
             <ul id="myTab" style="margin-left:8%;" class="nav nav-pills">
-              <li class="active"><a href="#home" data-toggle="pill">Current Participants</a></li>
-              <li><a href="#profile" data-toggle="pill">Past Winners</a></li>
-              <li><a href="#chat_toggle2" data-toggle="pill">Chat</a></li>
+              <li class="active"><a href="#current_participants_pane" data-toggle="pill">Current Participants</a></li>
+              <li><a href="#past_winners_pane" data-toggle="pill">Past Winners</a></li>
+              <li><a id="chat_pill" href="#chat_toggle2" data-toggle="pill">Chat&nbsp;<i class="chat-badge"></i></a></li>
             </ul>
             <div class="tab-content">
-              <div id="home" class="tab-pane active">
+              <div id="current_participants_pane" class="tab-pane active">
                 <table id="currentbets" class="table table-condensed table-hover transltable centered">
                   <thead>
                     <tr>
@@ -84,8 +87,11 @@
                   </thead>
                   <tbody></tbody>
                 </table>
+                <div id="no_participants">
+                  <h4 id="no_participants_msg" class="light-background">There are no players in the current round.</h4>
+                </div>
               </div>
-              <div id="profile" class="tab-pane">
+              <div id="past_winners_pane" class="tab-pane">
                 <table id="pastwinners" class="table table-condensed table-hover transltable centered">
                   <thead>
                     <tr>
@@ -201,7 +207,7 @@
               <div id="nextRoundTitle" class="text-center">Bitcoins Splitting In</div>
               <div id="nextRoundTime" class="text-center"></div></span>
           </div>
-          <div class="col-md-3 col-lg-4 nosidemargin">
+          <div id="my_current_stats" class="col-md-3 col-lg-4 nosidemargin">
             <div class="row summary">
               <h4 class="summarysmall golden text-right">YOUR CHANCE<br>OF WINNING</h4>
               <h1 id="my_win_chance" class="summarybig lightyellow text-right my_win_chance"></h1>
@@ -214,10 +220,10 @@
               <h4 class="summarysmall golden text-right">YOUR<br>CONTRIBUTION</h4>
               <h1 id="my_contribution" class="summarybig lightyellow text-right my_contribution"></h1>
             </div>
-            <div class="row netposition loss">
-              <h4 class="summarysmall golden">POTENTIAL NET</h4>
-              <h1 class="summarybig lightyellow text-right">34&period;0000</h1>
-            </div>
+            <!-- .row.netposition.loss
+            //   h4.summarysmall.golden POTENTIAL NET
+            //   h1.summarybig.lightyellow.text-right 34&period;0000
+            -->
           </div>
         </div>
         <!-- Slide 2-->
@@ -281,12 +287,7 @@
     <section class="navbar-fixed-bottom bitsplitbetnav">
       <div class="bigcounter"></div>
       <div class="row">
-        <p id="chat_toggle" class="text-left">Chat</p>
-        <div class="pull-left clearfix col-md-3 col-lg-3 bit bitbank">
-          <!--p.text-left User Name-->
-          <!--p.info.my_user_name.text-left--><a class="my_user_name welcome"></a>
-          <p class="text-left">Password (<span id="toggle-password-visibility" onclick="temp.toggle_password_visibility();">show</span>)</p>
-          <p id="password" class="info invisible text-left"></p><br>
+        <div class="pull-left clearfix col-md-3 col-lg-3 bit bitbank"><a class="my_user_name welcome"></a><br>
           <h2 class="my_balance"></h2>
           <div class="btn-group btn-group btn-group-justified btn-group-transparent"><a id="withdraw" class="btn btn-default">Withdraw</a><a id="deposit" class="btn btn-default">Deposit</a></div>
         </div>
@@ -441,12 +442,13 @@
     <!-- Jquery Scripts-->
     <script type="text/javascript" src="jquery.royalslider.min.js"></script>
     <script type="text/javascript" src="jquery.easing-1.3.js"></script>
+    <script type="text/javascript" src="jquery.nouislider.min.js"></script>
     <!-- Main Slider Initiation Code-->
     <script type="text/javascript" src="chart.custom.js"></script>
     <script type="text/javascript" src="/main.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io.connect("https://bitsplit.it:443");
+      var socket = io.connect();
       
       socket.on("error", function (json) {
         alertify.error(json.msg, "", 3000);
@@ -469,12 +471,24 @@
       socket.on("current_bets", function (json) {
         // refresh_current_bets(json);
       });
-      socket.on("jackpot_split", function (json) {
+      socket.on("round_end", function (json) {
         end_round();
       });
+      socket.on("round_new", function (json) {
+          alertify.success("<b>New round starting!</b>");
+      });
+      
+      var audio  = new Audio('audio/chat.mp3');
       socket.on("chat_message", function (json) {
-        add_message_to_chat(json.user_name, json.msg);
-      }); 
+        add_message_to_chat(json.user_name, json.message);
+        audio.volume = volumeLevel;
+        audio.play();
+      });
+      socket.on("chat_history", function (json) {
+        $.each(json.messages.reverse(), function(ii, message) {
+          add_message_to_chat(message.user_name, message.message);
+        });
+      });
       
     </script>
     <script>
