@@ -545,15 +545,20 @@ function refresh_current_stats(current_stats)
     }
 
     // No current players
-    var no_participants = "#current_participants_pane #no_participants";
+    var no_participants   = "#current_participants_pane #no_participants";
+    var participant_count = ".current-participants-badge";
     if(current_stats.contributors.length === 0) {
       // Hide table and show something else
       $(table_id).hide();
       $(no_participants).show();
+
+      $(participant_count).html("");
     }
     else {
       $(no_participants).hide();
       $(table_id).show();
+
+      $(participant_count).html(current_stats.contributors.length);
     }
 
     var not_playing = "#my_current_stats #my_current_stats_inactive";

@@ -60,13 +60,15 @@ html
             // h4.fadedtext Current Participants
             ul.nav.nav-pills#myTab(style="margin-left:8%;")
               li.active
-                a(href='#current_participants_pane', data-toggle='pill') Current Participants
+                a(href='#current_participants_pane', data-toggle='pill')
+                  | Current Participants
+                  i.number-badge.current-participants-badge
               li
                 a(href='#past_winners_pane', data-toggle='pill') Past Winners
               li
                 a(id="chat_pill" href='#chat_toggle2', data-toggle='pill')
                   | Chat&nbsp;
-                  i.chat-badge
+                  i.number-badge.chat-badge
             .tab-content
               .tab-pane.active#current_participants_pane
                 table#currentbets.table.table-condensed.table-hover.transltable.centered
