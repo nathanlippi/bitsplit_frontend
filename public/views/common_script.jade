@@ -29,11 +29,9 @@ script.
       alertify.success("<b>New round starting!</b>");
   });
 
-  var audio  = new Audio('audio/chat.mp3');
   socket.on("chat_message", function (json) {
     add_message_to_chat(json.user_name, json.message);
-    audio.volume = volumeLevel;
-    audio.play();
+    play_sound('audio/chat.mp3');
   });
   socket.on("chat_history", function (json) {
     $.each(json.messages.reverse(), function(ii, message) {

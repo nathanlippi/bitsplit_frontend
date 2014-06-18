@@ -305,6 +305,12 @@ var BitSplit = {
 
 var is_round_intermission = false, past_is_round_intermission = false;
 
+function play_sound(src) {
+  var audio  = new Audio(src);
+  audio.volume = volumeLevel;
+  audio.play();
+}
+
 $(document).ready(function() {
   var new_user_name_sel      = '#new_user_name';
   var new_user_create_sel    = '#new_user_create';
@@ -470,9 +476,57 @@ function get_bet_amount_from_percentage(percentage) {
   return bet_amt_satoshis;
 }
 
+function check_for_new_contributors(pastContributors, currentContributors)     {
+  console.log(pastContributors, currentContributors);
+
+  if(pastContributors.length >= currentContributors.length) {
+    return [];
+  }
+
+  // There are more contributors than before
+  function get_user_ids(contributors) {
+    var user_ids = [];
+    contributors.forEach(function(item, ii) {
+      user_ids.push(item.user_id);
+    });
+    return user_ids;
+  }
+  var user_ids_current = get_user_ids(currentContributors);
+  var user_ids_past    = get_user_ids(pastContributors);
+
+  var new_user_ids = $(user_ids_current).not(user_ids_past).get();
+
+  var new_users = [];
+  currentContributors.forEach(function(item, ii) {
+    if(new_user_ids.indexOf(item.user_id) > -1) {
+      new_users.push(item);
+    }
+  });
+
+  return new_users;
+}
+
 function refresh_current_stats(current_stats)
 {
-    currentStats = current_stats;
+    var pastCurrentStats = $.extend(true, {}, currentStats);
+    currentStats         = current_stats;
+
+    var pastContributors = typeof pastCurrentStats.contributors === "object" ?
+      pastCurrentStats.contributors : [];
+    var currentContributors = currentStats.contributors;
+
+    var current_user_name = personalStats.name;
+    var new_users         = check_for_new_contributors(
+      pastContributors, currentContributors);
+
+    new_users.forEach(function(item, ii) {
+      var new_user_name = item.user.name;
+
+      if(new_user_name != current_user_name) {
+        alertify.log("<b>"+new_user_name+"</b> just joined the round!");
+        play_sound('audio/door-open.mp3');
+      }
+    });
 
     var table_id      = "table#currentbets";
     var table_body_id = table_id+" tbody";
@@ -486,7 +540,6 @@ function refresh_current_stats(current_stats)
 
     refresh_bet_buttons();
 
-    var current_user = personalStats.name;
     current_player_percent_win_chance = 0;
     current_player_contribution       = 0;
 
@@ -524,7 +577,7 @@ function refresh_current_stats(current_stats)
         var chartItem =
           {win_chance: percent_win_chance, contribution: contribution};
 
-        if(current_user === user.name) {
+        if(current_user_name === user.name) {
           current_player_percent_win_chance = percent_win_chance;
           current_player_contribution       = contribution;
 
