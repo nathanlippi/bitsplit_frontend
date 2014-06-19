@@ -41,7 +41,7 @@
         </ul>
       </div>
     </div>
-    <div id="sidebar" class="list-group"><a href="#" class="list-group-item"><i id="volume_slider_icon" class="fa fa-volume-up fa-2x"></i>
+    <div id="sidebar" class="list-group"><a href="#" class="list-group-item"><i id="referral_icon" class="fa fa-btc fa-2x"></i></a><a href="#" class="list-group-item"><i id="volume_slider_icon" class="fa fa-volume-up fa-2x"></i>
         <div id="volume_slider"></div></a><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a></div>
     <div class="overlay-solid"></div>
     <!-- Main Screen Slider-->
@@ -430,7 +430,7 @@
     <script type="text/javascript" src="/main.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io.connect("https://bitsplit.it:443");
+      var socket = io.connect();
       
       socket.on("error", function (json) {
         alertify.error(json.msg, "", 3000);
