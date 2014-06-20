@@ -470,6 +470,10 @@
         });
       });
       
+      socket.on("referral", function (json) {
+        alertify.log("A new user, <b>"+json.user_name+"</b>, just signed up as your referral!<br/><br/>We've added "+json.amount_satoshis+" satoshis to your bitcoin account!", "", 0);
+      });
+      
     </script>
     <script>
       /* Google Analytics */
