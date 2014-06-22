@@ -211,7 +211,7 @@ polyline{
 }
 
 #currenrndsize {
-    fill: #96530C;
+    color: #96530C;
     font-size: 20px;
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
@@ -219,18 +219,11 @@ polyline{
     text-transform: uppercase;
 }
 
-h4#currenrndsize {
-    margin-top: 102px;
-    margin-bottom: 2px;
-    color: #96530C;
-    font-size: 16px;
-}
-
 #potprize {
     font-size: 45px;
     margin-top: 0;
     font-weight: bold;
-    fill: #702000;
+    color: #702000;
     letter-spacing: -2px;
     font-family: 'Montserrat', sans-serif;
 }
@@ -304,35 +297,6 @@ div.bigcounter {
     -webkit-transition: width 0.5s; /* For Safari 3.1 to 6.0 */
 transition: width 0.5s;
 
-}
-span.countertop {
-    /* background: linear-gradient(-180deg, #FAE187 1%, #ECC43D 100%); */
-
-    /* width: 20px; */
-    /* height: 20px; */
-    /* margin-top: -5px; */
-    /* border-radius: 50%; */
-    /* position: absolute; */
-    /* right: -8px; */
-
-    width: 100px;
-    height: 58px;
-    margin-top: -50px;
-    border-radius: 1%;
-    position: absolute;
-    color: rgba(255, 255, 255, 0.99);
-    /* right: 0px; */
-
-    display: block;
-    float: right;
-    z-index: 999;
-    border-top: 1px solid rgba(12, 4, 4, 0.2);
-    /* box-shadow: -1px 0px 0px rgba(36, 22, 5, 0.34); */
-    /* background: rgba(22, 22, 22, 0.67); */
-    left: 50%;
-    margin-left: -136px;
-    top: 336px;
-    width: 250px;
 }
 
 .btccost {
@@ -675,16 +639,20 @@ table#pastwinners>thead>tr>th {
   margin-top: 10px;
   font-size: 1.2em;
   color: rgba(0, 0, 0, 0.56);
-  margin-bottom: -9px;
+
+  margin: 0px auto;
+  margin-top: 3%;
+  padding-top: 2%;
+
+  width: 90%;
+  border-top: 1px solid rgba(12, 4, 4, 0.2);
 }
 #nextRoundTime {
-    font-size: 49px;
-
-    letter-spacing: -3px;
-    font-family: 'Montserrat', sans-serif;
-    text-align: left;
-    margin-left: 65px;
-    color: rgba(61, 32, 6, 0.34);
+  font-size: 49px;
+  letter-spacing: -3px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  color: rgba(61, 32, 6, 0.34);
 }
 
 .btccost .btn:not(:empty):not([percentage="custom"]):before {
@@ -976,9 +944,9 @@ footer {
 a.my_user_name.welcome {
     display: inline-block;
     min-width: 100px;
-    /* text-align: left; */
     float: left;
     min-height: 34px;
+    margin-top: 10px;
 }
 .bitbank > div.btn-group.btn-group.btn-group-justified.btn-group-transparent {
     display: inline-block;
@@ -1225,49 +1193,7 @@ max-width: 387px;
 
  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#chartCircleHTMLBody {
+  position: relative;
+  background: transparent;
+}

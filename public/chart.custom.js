@@ -1,6 +1,12 @@
+// Dependencies:
+// -- jquery, fitText
+//
+// TODO
+// -- Store common selectors in variable
+
 var CHART = (function()
 {
-  var arc, pie, svg, circle;
+  var arc, pie, svg, circle, foreignObject, circleHTML;
 
   var chartData                          = [];
   var display_other_players_in_aggregate = false;
@@ -47,7 +53,6 @@ var CHART = (function()
     if(typeof selector !== "string") {
       selector = "body";
     }
-    console.log("Chart selector:", selector);
 
     svg = d3.select(selector).append("svg")
       .attr("width", width)
@@ -60,29 +65,19 @@ var CHART = (function()
        .attr("class", "chart_center")
        .attr("id", "chart_center");
 
-    pot_title =
-      svg.append("text")
-        .attr("id", "currenrndsize")
-        .attr("text-anchor", "middle")
-        .text("Current Round Size");
+    foreignObject = svg.append("foreignObject")
+      .attr("id", "chart_fo");
 
-    pot_prize =
-      svg.append("text")
-        .attr("id", "potprize")
-        .attr("text-anchor", "middle")
-        .text("...");
+    circleHTML =
+      foreignObject.append("xhtml:body")
+        .attr("id", "chartCircleHTMLBody");
 
-    set_pot_text_position();
-  }
+    var circle_html_sel = "#chartCircleHTMLBody";
 
-  function set_pot_text_position() {
-    pot_prize
-      .attr("x", outerRadius)
-      .attr("y", outerRadius + 20); // This number should not be fixed (+20)
-
-    pot_title
-      .attr("x", outerRadius) // This number should not be fixed
-      .attr("y", outerRadius - 30);
+    $(circle_html_sel).append("<div id='currenrndsize'>Current Round Size</div>");
+    $(circle_html_sel).append("<div id='potprize'>...</div>");
+    $(circle_html_sel).append("<div id='nextRoundTitle'>Bitcoins Splitting In</div>");
+    $(circle_html_sel).append("<div id='nextRoundTime'>...</div>");
   }
 
    // chartData: [{contribution: 3, win_chance: 9} ...]
@@ -219,11 +214,31 @@ var CHART = (function()
     arcs
       .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
 
-    set_pot_text_position();
+    foreignObject
+      .attr("width", width)
+      .attr("height", width);
+
+    // Have chartCircleHTMLBody take up this portion of the circle in height
+    var circleHeightPortion = 0.6;
+    var innerCircleTop      = outerRadius - innerRadius_min;
+
+    // Center the box vertically.
+    $("#chartCircleHTMLBody").css("top", innerCircleTop+(innerRadius_min*(1-circleHeightPortion))+"px");
+    $("#chartCircleHTMLBody").css("left", innerCircleTop+"px");
+    // Make the height of the inner box appropriate
+    $("#chartCircleHTMLBody").css("height", innerRadius_min*2*circleHeightPortion+"px");
+    $("#chartCircleHTMLBody").css("width", innerRadius_min*2+"px");
+
+
+    // This only needs to be called... but after document.ready
+    $("#currenrndsize").fitText(1.6);
+    $("#potprize").fitText(0.75);
+    $("#nextRoundTitle").fitText(1.5);
+    $("#nextRoundTime").fitText(0.63);
 
     // Should really be done with .enter???
     if(highlightFirstSegment) {
-      $(".arc:eq(0)").attr("class", "arc current-player")
+      $(".arc:eq(0)").attr("class", "arc current-player");
     }
     else {
       $(".arc:eq(0)").attr("class", "arc");
@@ -298,7 +313,7 @@ var CHART = (function()
       chartData = data;
     },
     setPotPrize: function(amount) {
-      pot_prize.text("฿"+amount);
+      $("#potprize").html(amount);
     },
     refresh : function() {
       transition();
