@@ -10,6 +10,12 @@
 
 body {
   background-color: #207E81;
+  min-height: 100%;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #bg {
@@ -22,6 +28,7 @@ body {
   background-size: 100% auto;
   opacity: 0.0;
    
+  min-height: 100%;
 }
 #bg img {
   position: absolute; 
@@ -48,20 +55,20 @@ body {
   padding:8px 16px;
 
   cursor:pointer;
-  font-weight: 200;
-  letter-spacing: 1px;
+  font-weight: 400;
+  letter-spacing: 0px;
   opacity: 0.9;
 }
 
 .navbar-inverse .navbar-nav>li>a:hover,.navbar-inverse .navbar-nav>li>a:focus  {
   font-family: "Helvetica Neue";
-  color: rgba(157, 241, 250, 1.0) !important;
+  color: #9DF1FA !important;
  
   border-bottom:1px solid rgba(157, 241, 250, 0.5);
   padding:8px 16px;
   
-  font-weight: 200;
-  letter-spacing: 1px;
+  font-weight: 400;
+  letter-spacing: 0px;
   opacity: 1;
 }
 
@@ -80,9 +87,9 @@ body {
 .btn-group-transparent > .btn {
   background: none;
   border: none;
-  color: #F6E0B8;
+  color: #C7C7C7;
   background-color: rgba(235, 235, 235, 0);
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .btn-group-riskscale > .btn {
@@ -99,6 +106,7 @@ border-color: #020202;
   padding-bottom: 0%;
   background: rgba(39, 20, 0, 0.33);
   padding-top: 0%;
+  bottom: 50px;
 }
 
 div.navbar-header {
@@ -106,7 +114,7 @@ margin-top: -30px;
 }
 
 #gameslider {
- /* padding-top: 11%;*/
+ /* padding-top: 11%; */
 }
 
 .dl-horizontal dt {
@@ -240,8 +248,12 @@ padding-top: 8px;
 } 
 
 .bitbank > .btn-group-transparent > .btn {
-    background-color: #333;
-    background: #333;
+    /* background-color: #333; */
+    background: #232323;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-size: 11px;
+    padding-top: 9px;
 }
 a.btn.btn-default {}
 div.bitbank div.btn-group.btn-group-lg.btn-group-transparent {
@@ -254,26 +266,26 @@ div.bitbank div.btn-group.btn-group-lg.btn-group-transparent > btn-default {
 }
 .bitbank {
     background: rgba(0, 0, 0, 0.31);
-    padding: 2% 3%;
+    padding: 0% 3%;
     color: #fff;
     /* max-width: 260px; */
-    text-align: center;
-    height: 164px;
-    padding-top: 12px;
+    text-align: right;
+    height: 100%;
+    padding-top: 0px;
 }
 .btcchance {
-    padding: 2% 2%;
-    /* width: 54%; */
-    background: rgba(22, 22, 22, 0.77);
-    /* padding-top: 3%; */
-    padding-top: 20px;
-    /* height: 164px; */
-    color: rgba(219, 216, 138, 0.97);
-    text-align: center;
-    padding-bottom: 4px;
-    font-size: 13px;
-    text-transform: uppercase;
-    font-weight: bold;
+padding: 2% 2%;
+/* width: 54%; */
+background: rgba(0, 46, 38, 0.79);
+/* padding-top: 3%; */
+padding-top: 20px;
+/* height: 164px; */
+color: rgba(219, 216, 138, 0.97);
+text-align: center;
+padding-bottom: 4px;
+font-size: 13px;
+text-transform: uppercase;
+font-weight: bold;
 }
 .btcbet {
     background: rgba(5, 61, 61, 0.85); 
@@ -318,7 +330,7 @@ span.countertop {
     /* box-shadow: -1px 0px 0px rgba(36, 22, 5, 0.34); */
     /* background: rgba(22, 22, 22, 0.67); */
     left: 50%;
-    margin-left: -134px;
+    margin-left: -107px;
     top: 336px;
     width: 250px;
 }
@@ -338,7 +350,7 @@ h2 {
     font-size: 33px;
     letter-spacing: -1px;
     color: #FFEBA9; 
-    border: 1px dotted rgba(255, 235, 169, 0.6); padding: 7px; margin-top: 10px;
+    border: 1px dotted rgba(162, 162, 162, 0.39); padding: 7px; margin-top: 10px;
 }
 .btcbet > input.form-control.input-lg {
     background: rgba(26, 26, 26, 0.19);
@@ -514,10 +526,17 @@ polyline{
 }
 
 .my_balance {
+    width: 244px;
 
+    height: 29px;
+    text-align: left;
+    font-size: 17px;
+    padding-top: 5px;
+    display: inline-block;
 }
 .my_balance:before {
   content: "฿";
+  color: rgba(240, 207, 92, 0.92);
 }
 #potprize:before {
   content: "฿";
@@ -821,7 +840,7 @@ input#btn-input {
     border-left: 1px solid rgba(191, 216, 155, 0.78);
     border-right: 3px solid rgba(0, 0, 0, 0.52);
     border-bottom: 5px solid rgba(0, 0, 0, 0.27);
-    color: #FFFA86;
+    color: #FFFA8D;
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
 }
@@ -848,25 +867,29 @@ padding-top: 11px;
  *
  */
 .navbar-form input, .form-inline input {
-	width:auto;
+  width:auto;
 }
 
 #sidebar.affix,#sidebar.affix-top {
    position:fixed;
-   bottom: 200px;
+   bottom: 43%;
+   left: 4px;
 }
 
 #sidebar {
   z-index: 10000;
 }
 #sidebar a {
-  border: 1px solid rgba(255,255,255, 0.4);
-  color: white;
-  background: rgba(34, 34, 34, .3);
+  border: 0px solid rgba(0, 0, 0, 0.32);
+  color: #C8FAFF !important;
+  background: #003A3E;
+  font-size: 10px;
+  padding: 10px;
+  text-align: center;
 }
 #sidebar a:hover {
-  border: 1px solid rgba(255,255,255, 0.6);
-  background: rgba(34, 34, 34, .5);
+  /* border: 1px solid rgba(255,255,255, 0.6); */
+  background: #028189;
 }
 
 .number-badge {
@@ -942,3 +965,309 @@ padding-top: 11px;
 #login .tooltip.top > .tooltip-arrow {
   border-top-color: #ed6565;
 }
+
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+}
+a.my_user_name.welcome {
+    display: inline-block;
+    min-width: 100px;
+    /* text-align: left; */
+    float: left;
+    min-height: 34px;
+}
+.bitbank > div.btn-group.btn-group.btn-group-justified.btn-group-transparent {
+    display: inline-block;
+    max-width: 220px;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+
+/*Responsive Breakpoint Styles*/
+
+/*Phones*/
+@media (max-width:768px) { 
+
+img#logo {
+max-width: 290px;
+}
+
+#bitsplitnav {
+ padding: 0 0% 0 0; 
+margin-top: 3%;
+border: 0;
+}
+
+#bet_buttons {
+
+margin-top: 10px;
+
+width: 100%;
+
+float: left;
+
+padding-left: 9%;
+
+}
+
+#bet_buttons .btn:not([percentage="custom"]):after {
+content: "of prize";
+font-weight: normal;
+font-size: 11px;
+opacity: 0.7;
+color: rgba(0, 0, 0, 0.76);
+/* float: right; */
+/* clear: left; */
+position: absolute;
+/* text-align: center; */
+left: 50%;
+bottom: 1px;
+margin-left: -28px;
+}
+
+.my_balance {
+width: 144px;
+height: 29px;
+text-align: left;
+font-size: 17px;
+padding-top: 5px;
+display: inline-block;
+}
+
+#bg {
+background-size: auto 100%;
+
+}
+
+#bet_buttons > a.btn.btn-success:last-child {
+  
+  font-size:14px;
+  
+}
+
+#bet_buttons > a.btn.btn-success {
+
+font-size: 22px;
+
+/* float: left; */
+
+width: 30%;
+
+/* position: relative; */
+
+padding: 0px 0px 10px 0px;
+
+margin-bottom: 4px;
+
+margin-right: 5px;
+
+}
+
+ }
+
+
+
+
+/*Phone and Ipad*/
+
+
+
+@media (min-width:768px) { 
+
+
+#bet_buttons > a.btn.btn-success { font-size: 22px;}
+img#logo {max-width: 290px;}
+
+#bet_buttons > a.btn.btn-success:last-child {
+font-size: 17px;
+padding-top: 11px;
+}
+
+#bet_buttons .btn:not([percentage="custom"]):after {
+content: "of prize";
+font-weight: normal;
+font-size: 11px;
+opacity: 0.7;
+color: rgba(0, 0, 0, 0.67);
+/* float: right; */
+/* clear: left; */
+position: absolute;
+/* text-align: center; */
+left: 50%;
+bottom: 1px;
+margin-left: -28px;
+}
+
+
+#bg {
+
+background-size: auto 100%;
+
+}
+
+
+#bet_buttons > a.btn.btn-success {
+
+font-size: 22px;
+
+/* float: left; */
+
+/* width: 100px; */
+
+/* position: relative; */
+
+padding: 0px 0px 10px 0px;
+
+}
+
+
+ }
+
+
+
+
+/*Median Screen and Ipad*/
+
+@media (min-width:992px) { 
+
+#bet_buttons .btn:not([percentage="custom"]):after {
+content: "of prize";
+font-weight: normal;
+font-size: 12px;
+opacity: 0.7;
+color: rgba(0, 0, 0, 0.67);
+/* float: right; */
+/* clear: left; */
+position: absolute;
+/* text-align: center; */
+left: 50%;
+bottom: 4px;
+margin-left: -28px;
+}
+
+#bg {
+
+background-size: auto 100%;
+
+}
+
+#bet_buttons > a.btn.btn-success {
+
+font-size: 22px;
+
+/* float: left; */
+
+/* width: 100px; */
+
+/* position: relative; */
+
+padding: 4px 0px 18px 0px;
+
+}
+img#logo {
+max-width: 290px;
+}
+
+
+ }
+
+
+
+
+/*Large Screen Minimum*/
+
+
+@media (min-width:1200px) { 
+
+#bet_buttons .btn:not([percentage="custom"]):after {
+content: "of prize";
+font-weight: normal;
+font-size: 12px;
+opacity: 0.7;
+color: rgba(0, 0, 0, 0.67);
+/* float: right; */
+/* clear: left; */
+position: inherit;
+text-align: left;
+left: 8px;
+bottom: 4px;
+}
+
+#bet_buttons > a.btn.btn-success {
+
+font-size: 29px;
+
+padding-top: 2px;
+
+padding-bottom: 4px;
+
+}
+
+#bet_buttons > a.btn.btn-success:last-child {
+font-size: 22px;
+padding-top: 11px;
+}
+
+#bg {
+
+background-size: 100% auto;
+
+}
+
+img#logo {
+max-width: 387px;
+}
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
