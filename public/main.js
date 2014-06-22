@@ -540,7 +540,7 @@ function refresh_current_stats(current_stats)
     var latency          = 150; // Assumption
     window.next_split_ms = new Date().getTime()+retr-latency;
 
-    CHART.setPotPrize(to_btc_str(current_stats.prize));
+    CHART.setPotPrize(to_btc_str_with_style(current_stats.prize));
 
     refresh_bet_buttons();
 
@@ -896,9 +896,28 @@ $(document).ready(function() {
   var sel = "div.betchart";
   CHART.init(sel);
 
-  var r = Math.round(Math.min($(sel).height(), $(sel).width()) / 2);
-  CHART.resize(r); // -5 is to take padding, etc., into account
-  CHART.resize(250);
+  setTimeout(function() {
+    var bs3_size = findBootstrapEnvironment();
+
+    var r = 150;
+    switch(bs3_size) {
+      case 'xs':
+        r = 50;
+        break;
+      case 'sm':
+        r = 100;
+        break;
+      case 'md':
+        r = 150;
+        break;
+      case 'lg':
+        r = 225;
+        break;
+    }
+    CHART.resize(r);
+  }, 1000);
+
+
   $('.overlay-solid').addClass('animated fadeOut').delay(11300);
 });
 
@@ -1050,6 +1069,23 @@ function update_chat_badge() {
     txt = chat_message_count;
   }
   $(".chat-badge").html(txt);
+}
+
+function findBootstrapEnvironment() {
+  var envs = ['xs', 'sm', 'md', 'lg'];
+
+  $el = $('<div>');
+  $el.appendTo($('body'));
+
+  for (var i = envs.length - 1; i >= 0; i--) {
+    var env = envs[i];
+
+    $el.addClass('hidden-'+env);
+    if ($el.is(':hidden')) {
+      $el.remove();
+      return env;
+    }
+  }
 }
 
 $('#sidebar').affix();
