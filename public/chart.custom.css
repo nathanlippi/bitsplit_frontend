@@ -1,0 +1,63 @@
+/****************************************************************
+ * Chart CSS
+ ****************************************************************/
+
+.chart {
+  text-align: center;
+}
+
+.chart_center {
+  fill: #F7D45E;
+}
+
+div.betchart svg {
+    margin-left: -18px;
+}
+
+.betchart svg g.arc {
+  fill : rgba(57, 151, 153, 0.34);
+}
+/* .betchart svg g.arc:nth-child(3n+0) { */
+.betchart svg g.arc:nth-child(odd) {
+  fill : rgba(57, 151, 153, 0.64);
+}
+
+.betchart svg g.arc:hover {
+  stroke: white;
+}
+.betchart svg g.arc.current-player {
+  fill: #a6e5ec;
+}
+
+polyline{
+  opacity: .3;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}
+
+#nextRoundTitle {
+  font-weight: 700;
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: rgba(0, 0, 0, 0.56);
+
+  margin: 0px auto;
+  margin-top: 3%;
+  padding-top: 2%;
+
+  width: 90%;
+  border-top: 1px solid rgba(12, 4, 4, 0.2);
+}
+#nextRoundTime {
+  font-size: 49px;
+  letter-spacing: -3px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  color: rgba(61, 32, 6, 0.34);
+}
+
+#chartCircleHTMLBody {
+  position: relative;
+  background: transparent;
+}
