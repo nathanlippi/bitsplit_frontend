@@ -62,10 +62,15 @@ html
             ul.nav.nav-pills#myTab(style="margin-left:8%;")
               li.active
                 a(href='#current_participants_pane', data-toggle='pill')
-                  | Current Participants
-                  i.number-badge.current-participants-badge
+                  div(style="display:table;")
+                    .visible-lg(style="display:table-cell;") Current&nbsp;
+                    div(style="display:table-cell;") Participants
+                    i.number-badge.current-participants-badge
               li
-                a(href='#past_winners_pane', data-toggle='pill') Past Winners
+                a(href='#past_winners_pane', data-toggle='pill')
+                  div(style="display:table;")
+                    .visible-lg(style="display:table-cell;") Past&nbsp;
+                    div(style="display:table-cell;") Winners
               li
                 a(id="chat_pill" href='#chat_toggle2', data-toggle='pill')
                   | Chat&nbsp;
@@ -82,7 +87,8 @@ html
                   tbody
                 #no_participants
                   h4.light-background#no_participants_msg
-                    | There are no players in the current round.
+                    span.visible-lg There are no players in the current round.
+                    span.hidden-lg There are no players in this round.
               .tab-pane#past_winners_pane
                 table#pastwinners.table.table-condensed.table-hover.transltable.centered
                   thead
