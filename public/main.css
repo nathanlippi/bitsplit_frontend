@@ -672,13 +672,29 @@ a.my_user_name.welcome {
     margin-top: -5px;
     margin-left: 5px;
 }
+
+
+/****************************************************************
+ * Misc
+****************************************************************/
+/* Menu should not cover up left table options on smaller screens */
+#bitsplitnav, #bitsplitnav-buttons {
+    pointer-events: none;
+}
+#bitsplitnav-buttons * {
+  pointer-events: auto;
+}
+
+
 /****************************************************************
  * Responsive Breakpoint Styles
 ****************************************************************/
 
 /*Phones*/
 @media (max-width:768px) {
-    img#logo { max-width: 290px }
+    img#logo {
+        max-height: 20px;
+    }
     #bitsplitnav {
         padding: 0 0% 0 0;
         margin-top: 3%;
