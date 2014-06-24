@@ -780,7 +780,9 @@ a.my_user_name.welcome {
         font-size: 22px;
         padding: 4px 0px 18px 0px;
     }
-    img#logo { max-width: 290px }
+    img#logo {
+        max-height: 50px;
+    }
 }
 
 /*Large Screen Minimum*/
@@ -806,5 +808,5 @@ a.my_user_name.welcome {
         padding-top: 11px;
     }
     #bg { background-size: 100% auto }
-    img#logo { max-width: 387px }
+    img#logo { max-width: 387px; max-height: none; }
 }
