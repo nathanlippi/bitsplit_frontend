@@ -15,18 +15,18 @@ div.betchart svg {
 }
 
 .betchart svg g.arc {
-  fill : rgba(57, 151, 153, 0.34);
+  fill : rgba(0, 0, 0, 0.2);
 }
 /* .betchart svg g.arc:nth-child(3n+0) { */
 .betchart svg g.arc:nth-child(odd) {
-  fill : rgba(57, 151, 153, 0.64);
+  fill : rgba(57, 151, 153, 0.9);
+}
+.betchart svg g.arc.current-player {
+  fill: #a6e5ec;
 }
 
 .betchart svg g.arc:hover {
   stroke: white;
-}
-.betchart svg g.arc.current-player {
-  fill: #a6e5ec;
 }
 
 polyline{
