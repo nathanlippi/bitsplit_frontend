@@ -6,8 +6,7 @@ var io      = require("socket.io").listen(server);
 var jade_values = {socket_address: '"https://bitsplit.it:443"'};
 
 app.get('/', function(req, res) {
-  res.render("index.html");
-  // res.render("index.jade");
+  res.render("index.jade", jade_values);
 });
 
 // Will catch any route without a dot, and map it to a jade file, if it exists.
@@ -25,9 +24,8 @@ app.get(/^\/([^.]*)$/, function(req, res) {
 app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 
-  // app.set('view engine', 'jade');
+  app.set('view engine', 'jade');
   app.set('views', __dirname + '/public/views');
-  app.engine('html', require('ejs').renderFile);
 });
 
 server.listen(3001);
