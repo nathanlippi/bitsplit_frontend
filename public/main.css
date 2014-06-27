@@ -473,8 +473,8 @@ table#pastwinners>thead>tr>th { border-top: 1px dotted black }
     content : "฿ ";
     color: rgba(250, 225, 135, 0.22);
 }
-#bet_buttons { border-spacing: 6px }
- #bet_buttons .btn:not([percentage="custom"]):after {
+.bet_buttons { border-spacing: 6px }
+ .bet_buttons .btn:not([percentage="custom"]):after {
      content : " of prize";
      font-weight: normal;
      font-size: 15px;
@@ -563,7 +563,7 @@ input#btn-input {
     border: none;
     padding: 0 15px;
 }
-#bet_buttons > a.btn.btn-success {
+.bet_buttons > a.btn.btn-success {
     font-size: 28px;
     padding: 6px 0px 7px 0px;
     border-radius: 5px;
@@ -581,7 +581,7 @@ span.primary-font {
     font-size: 13px;
     margin-top: 2px;
 }
-#bet_buttons > a.btn.btn-success:last-child {
+.bet_buttons > a.btn.btn-success:last-child {
     font-size: 22px;
     padding-top: 11px;
 }
@@ -700,13 +700,13 @@ a.my_user_name.welcome {
         margin-top: 3%;
         border: 0;
     }
-    #bet_buttons {
+    .bet_buttons {
         margin-top: 10px;
         width: 100%;
         float: left;
         padding-left: 9%;
     }
-     #bet_buttons .btn:not([percentage="custom"]):after {
+     .bet_buttons .btn:not([percentage="custom"]):after {
          content: "of prize";
          font-weight: normal;
          font-size: 11px;
@@ -726,8 +726,8 @@ a.my_user_name.welcome {
         display: inline-block;
     }
     #bg { background-size: auto 100% }
-    #bet_buttons > a.btn.btn-success:last-child { font-size: 14px }
-    #bet_buttons > a.btn.btn-success {
+    .bet_buttons > a.btn.btn-success:last-child { font-size: 14px }
+    .bet_buttons > a.btn.btn-success {
         font-size: 22px;
         width: 30%;
         padding: 0px 0px 10px 0px;
@@ -738,13 +738,13 @@ a.my_user_name.welcome {
 
 /*Phone and Ipad*/
 @media (min-width:768px) {
-    #bet_buttons > a.btn.btn-success { font-size: 22px }
+    .bet_buttons > a.btn.btn-success { font-size: 22px }
     img#logo { max-width: 290px }
-    #bet_buttons > a.btn.btn-success:last-child {
+    .bet_buttons > a.btn.btn-success:last-child {
         font-size: 17px;
         padding-top: 11px;
     }
-    #bet_buttons .btn:not([percentage="custom"]):after {
+    .bet_buttons .btn:not([percentage="custom"]):after {
         content: "of prize";
         font-weight: normal;
         font-size: 11px;
@@ -756,7 +756,7 @@ a.my_user_name.welcome {
         margin-left: -28px;
     }
     #bg { background-size: auto 100% }
-    #bet_buttons > a.btn.btn-success {
+    .bet_buttons > a.btn.btn-success {
         font-size: 22px;
         padding: 0px 0px 10px 0px;
     }
@@ -764,7 +764,7 @@ a.my_user_name.welcome {
 
 /*Median Screen and Ipad*/
 @media (min-width:992px) { 
-    #bet_buttons .btn:not([percentage="custom"]):after {
+    .bet_buttons .btn:not([percentage="custom"]):after {
         content: "of prize";
         font-weight: normal;
         font-size: 12px;
@@ -776,7 +776,7 @@ a.my_user_name.welcome {
         margin-left: -28px;
     }
     #bg { background-size: auto 100% }
-    #bet_buttons > a.btn.btn-success {
+    .bet_buttons > a.btn.btn-success {
         font-size: 22px;
         padding: 4px 0px 18px 0px;
     }
@@ -787,7 +787,7 @@ a.my_user_name.welcome {
 
 /*Large Screen Minimum*/
 @media (min-width:1200px) {
-    #bet_buttons .btn:not([percentage="custom"]):after {
+    .bet_buttons .btn:not([percentage="custom"]):after {
         content: "of prize";
         font-weight: normal;
         font-size: 12px;
@@ -798,12 +798,12 @@ a.my_user_name.welcome {
         left: 35px;
         bottom: 4px;
     }
-    #bet_buttons > a.btn.btn-success {
+    .bet_buttons > a.btn.btn-success {
         font-size: 29px;
         padding-top: 2px;
         padding-bottom: 4px;
     }
-    #bet_buttons > a.btn.btn-success:last-child {
+    .bet_buttons > a.btn.btn-success:last-child {
         font-size: 22px;
         padding-top: 11px;
     }

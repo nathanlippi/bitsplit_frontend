@@ -453,7 +453,7 @@ function refresh_bet_buttons() {
       bet_amt_satoshis = get_bet_amount_from_percentage(percentage);
     }
 
-    var sel = "#bet_buttons .btn[percentage='"+percentage+"']";
+    var sel = ".bet_buttons .btn[percentage='"+percentage+"']";
     if(is_round_intermission ||
        bet_amt_satoshis > personalStats.balance ||
        bet_amt_satoshis <= 0 || isNaN(bet_amt_satoshis))
@@ -930,7 +930,7 @@ $("#withdraw").on("click", function(e) {
   BitSplit.UI.currency.withdraw();
 });
 
-$("#bet_buttons").on("click", ".btn", function() {
+$(".bet_buttons").on("click", ".btn", function() {
   if(typeof currentStats === null) return false;
 
   var percentage = $(this).attr("percentage");
