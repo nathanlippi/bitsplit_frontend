@@ -1,519 +1,67 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>BitSplit&period;it</title>
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="alertify.js"></script>
-    <script src="d3.v3.min.js"></script>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="animate.css">
-    <link rel="stylesheet" href="royalslider.css">
-    <link rel="stylesheet" href="skins/minimal-white/rs-minimal-white.css">
-    <link rel="stylesheet" href="alertify.core.css">
-    <link rel="stylesheet" href="alertify.bootstrap.css">
-    <link rel="stylesheet" href="jquery.nouislider.css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-  </head>
-  <body>
-    <!-- Background-->
-    <div id="bg">
-      <div class="overlay-solid"></div>
-    </div>
-    <!-- Navigation Bar-->
-    <div id="bitsplitnav" class="navbar transparent navbar-fixed-top navbar-inverse">
-      <div class="navbar-header">
-        <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand"><img src="https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P" id="logo"></a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <div style="margin-right:50px;"><a onclick="change_currency_type('fake')" class="btn btn-currency fake active">SANDBOX</a><a onclick="change_currency_type('btc')" class="btn btn-currency btc">BITCOINS</a></div>
-          </li>
-          <li><a href="#howitworks" data-toggle="modal" data-target="#howitworks">How It Works</a></li>
-          <li><a href="#contact" data-toggle="modal" data-target="#contact">Contact</a></li>
-          <li class="active">
-            <!-- a#signinbtn(href='#signin', data-toggle='modal', data-target='#signin') Sign In--><a id="signinbtn" href="#signin" onclick="temp.login();">Sign In</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div id="sidebar" class="list-group"><a href="#" class="list-group-item"><i id="volume_slider_icon" class="fa fa-volume-up fa-2x"></i>
-        <div id="volume_slider"></div></a><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a></div>
-    <div class="overlay"></div>
-    <div id="login" class="modal-dialog modal-lg absolute-center">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 id="myModalLabel" style="display:inline;" class="modal-title">Welcome to</h4><img src="https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P" style="height:50px;">
-          <h5 id="myModalLabel" style="text-align:center;">The Thinking Man&apos;s Lottery</h5>
-        </div>
-        <div class="modal-body">
-          <form role="form">
-            <div class="form-group center">
-              <input id="new_user_name" type="text" placeholder="Choose Your User Name" style="width:70%;margin-bottom:10px;" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control center-block">
-              <input id="new_user_create" role="button" type="submit" value="Confirm" href="#" style="width:70%;margin-bottom:10px;" class="btn btn-primary disabled center-block"><a onclick="temp.login()" style="margin-left:15%;">Sign In</a>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer"><br></div>
-      </div>
-    </div>
-    <div class="overlay-solid"></div>
-    <!-- Main Screen Slider-->
-    <section id="gameslider">
-      <div id="bitsplitgames" class="royalSlider rsMinW">
-        <!-- Slide 1-->
-        <div class="row">
-          <div class="col-md-4 nosidemargin rsNoDrag table-responsive">
-            <!-- h4.fadedtext Current Participants-->
-            <ul id="myTab" style="margin-left:8%;" class="nav nav-pills">
-              <li class="active"><a href="#current_participants_pane" data-toggle="pill">Current Participants</a></li>
-              <li><a href="#past_winners_pane" data-toggle="pill">Past Winners</a></li>
-              <li><a id="chat_pill" href="#chat_toggle2" data-toggle="pill">Chat&nbsp;<i class="chat-badge"></i></a></li>
-            </ul>
-            <div class="tab-content">
-              <div id="current_participants_pane" class="tab-pane active">
-                <table id="currentbets" class="table table-condensed table-hover transltable centered">
-                  <thead>
-                    <tr>
-                      <th>PLAYER</th>
-                      <th>CHANCE</th>
-                      <th>TOTAL BET</th>
-                      <th>&percnt; OF POT</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-                <div id="no_participants">
-                  <h4 id="no_participants_msg" class="light-background">There are no players in the current round.</h4>
-                </div>
-              </div>
-              <div id="past_winners_pane" class="tab-pane">
-                <table id="pastwinners" class="table table-condensed table-hover transltable centered">
-                  <thead>
-                    <tr>
-                      <th colspan="1">POT</th>
-                      <th colspan="2" id="winner">WINNER</th>
-                      <th colspan="3" id="disbursements">DISBURSEMENTS</th>
-                    </tr>
-                    <tr>
-                      <th>SIZE</th>
-                      <th>NAME</th>
-                      <th>CONTRIBUTION</th>
-                      <th>PRIZE</th>
-                      <th>NEXT JACKPOT</th>
-                      <th>HOUSE</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </div>
-              <div id="chat_toggle2" class="tab-pane">
-                <!-- http://www.bootply.com/petrb/104740-->
-                <div id="chat">
-                  <div class="panel panel-primary">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-comment"></span>  Chat
-                      <div class="btn-group pull-right">
-                        <button id="chat_close" type="button" class="close pull-right">&times;</button>
-                      </div>
-                      <!--   button.btn.btn-default.btn-xs.dropdown-toggle(type='button', data-toggle='dropdown')-->
-                      <!--     span.glyphicon.glyphicon-chevron-down-->
-                      <!--   ul.dropdown-menu.slidedown-->
-                      <!--     li-->
-                      <!--       a(href='http://www.jquery2dotnet.com')-->
-                      <!--         span.glyphicon.glyphicon-refresh-->
-                      <!--         | Refresh-->
-                      <!--     li-->
-                      <!--       a(href='http://www.jquery2dotnet.com')-->
-                      <!--         span.glyphicon.glyphicon-ok-sign-->
-                      <!--         | Available-->
-                      <!--     li-->
-                      <!--       a(href='http://www.jquery2dotnet.com')-->
-                      <!--         span.glyphicon.glyphicon-remove-->
-                      <!--         | Busy-->
-                      <!--     li-->
-                      <!--       a(href='http://www.jquery2dotnet.com')-->
-                      <!--         span.glyphicon.glyphicon-time-->
-                      <!--         | Away-->
-                      <!--     li.divider-->
-                      <!--     li-->
-                      <!--       a(href='http://www.jquery2dotnet.com')-->
-                      <!--         span.glyphicon.glyphicon-off-->
-                      <!--         | Sign Out-->
-                    </div>
-                    <div class="panel-body">
-                      <ul id="chat_body" class="chat">
-                        <!-- li.left.clearfix-->
-                        <!--   .chat-body.clearfix-->
-                        <!--     .header-->
-                        <!--       strong.primary-font Jack Sparrow-->
-                        <!--     p-->
-                        <!--       | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare-->
-                        <!--       | dolor&comma; quis ullamcorper ligula sodales&period;-->
-                      </ul>
-                    </div>
-                    <!--     li.right.clearfix-->
-                    <!--       span.chat-img.pull-right-->
-                    <!--         img.img-circle(src='http://placehold.it/50/FA6F57/fff&text=ME', alt='User Avatar')-->
-                    <!--       .chat-body.clearfix-->
-                    <!--         .header-->
-                    <!--           small.text-muted-->
-                    <!--             span.glyphicon.glyphicon-time-->
-                    <!--             | 13 mins ago-->
-                    <!--           strong.pull-right.primary-font Bhaumik Patel-->
-                    <!--         p-->
-                    <!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare-->
-                    <!--           | dolor&comma; quis ullamcorper ligula sodales&period;-->
-                    <!--     li.left.clearfix-->
-                    <!--       span.chat-img.pull-left-->
-                    <!--         img.img-circle(src='http://placehold.it/50/55C1E7/fff&text=U', alt='User Avatar')-->
-                    <!--       .chat-body.clearfix-->
-                    <!--         .header-->
-                    <!--           strong.primary-font Jack Sparrow-->
-                    <!--           small.pull-right.text-muted-->
-                    <!--             span.glyphicon.glyphicon-time-->
-                    <!--             | 14 mins ago-->
-                    <!--         p-->
-                    <!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare-->
-                    <!--           | dolor&comma; quis ullamcorper ligula sodales&period;-->
-                    <!--     li.right.clearfix-->
-                    <!--       span.chat-img.pull-right-->
-                    <!--         img.img-circle(src='http://placehold.it/50/FA6F57/fff&text=ME', alt='User Avatar')-->
-                    <!--       .chat-body.clearfix-->
-                    <!--         .header-->
-                    <!--           small.text-muted-->
-                    <!--             span.glyphicon.glyphicon-time-->
-                    <!--             | 15 mins ago-->
-                    <!--           strong.pull-right.primary-font Bhaumik Patel-->
-                    <!--         p-->
-                    <!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare-->
-                    <!--           | dolor&comma; quis ullamcorper ligula sodales&period;-->
-                    <div class="panel-footer">
-                      <div class="input-group">
-                        <input id="btn-input" type="text" placeholder="Type your message here..." class="form-control input-sm"><span class="input-group-btn">
-                          <button id="btn-chat" class="btn btn-warning btn-sm">Send</button></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-5 col-lg-4 nosidemargin rsNoDrag chart">
-            <div class="betchart"></div><span class="countertop">
-              <div id="nextRoundTitle" class="text-center">Bitcoins Splitting In</div>
-              <div id="nextRoundTime" class="text-center"></div></span>
-          </div>
-          <div id="my_current_stats" class="col-md-3 col-lg-4 nosidemargin">
-            <div class="row summary">
-              <h4 class="summarysmall golden text-right">YOUR CHANCE<br>OF WINNING</h4>
-              <h1 id="my_win_chance" class="summarybig lightyellow text-right my_win_chance"></h1>
-            </div>
-            <!-- .row.summary-->
-            <!--   h4.summarysmall.golden.text-right TAKE HOME AMOUNT-->
-            <!--   h1.summarybig.lightyellow.text-right 0&period;00012500?-->
-            <div class="row summary">
-              <!-- TODO: Force this to be a float-->
-              <h4 class="summarysmall golden text-right">YOUR<br>CONTRIBUTION</h4>
-              <h1 id="my_contribution" class="summarybig lightyellow text-right my_contribution"></h1>
-            </div>
-            <!-- .row.netposition.loss
-            //   h4.summarysmall.golden POTENTIAL NET
-            //   h1.summarybig.lightyellow.text-right 34&period;0000
-            -->
-          </div>
-        </div>
-        <!-- Slide 2-->
-        <!-- .row-->
-        <!--   .col-md-4.nosidemargin.table-responsive-->
-        <!--     h4.fadedtext Current Participants-->
-        <!--     table#currentbets.table.table-condensed.table-hover.transltable.centered-->
-        <!--       thead-->
-        <!--         tr-->
-        <!--           th PLAYER-->
-        <!--           th CHANCE-->
-        <!--           th TOTAL BET-->
-        <!--           th &percnt; OF POT-->
-        <!--       tbody-->
-        <!--         tr-->
-        <!--           td Joey-->
-        <!--           td 45&percnt;-->
-        <!--           td 21&period;3-->
-        <!--           td 30&percnt;-->
-        <!--         tr-->
-        <!--           td Mike-->
-        <!--           td 38&percnt;-->
-        <!--           td 6&period;03-->
-        <!--           td 25&percnt;-->
-        <!--         tr-->
-        <!--           td Shawn-->
-        <!--           td 32&percnt;-->
-        <!--           td 2&period;00-->
-        <!--           td 20&percnt;-->
-        <!--         tr-->
-        <!--           td Josh-->
-        <!--           td 10&percnt;-->
-        <!--           td 1&period;3-->
-        <!--           td 10&percnt;-->
-        <!--         tr.yourposition-->
-        <!--           td You-->
-        <!--           td 3&percnt;-->
-        <!--           td 0&period;3-->
-        <!--           td 10&percnt;-->
-        <!--   .col-md-5.col-lg-4.nosidemargin.chart-->
-        <!--     .betchart-->
-        <!--     .charttarget-->
-        <!--       h4#currenrndsize.text-center CURRENT ROUND PRIZE-->
-        <!--       h1#potprize.text-center 34&period;0000-->
-        <!--   .col-md-3.col-lg-4.nosidemargin-->
-        <!--     .row.summary-->
-        <!--       h4.summarysmall.golden.text-right YOUR CHANCE OF WINNING-->
-        <!--       h1.summarybig.lightyellow.text-right 68&percnt;-->
-        <!--     .row.summary-->
-        <!--       h4.summarysmall.golden.text-right TAKE HOME AMOUNT-->
-        <!--       h1.summarybig.lightyellow.text-right 0&period;00012500-->
-        <!--     .row.summary-->
-        <!--       h4.summarysmall.golden.text-right YOUR CONTRIBUTION-->
-        <!--       h1.summarybig.lightyellow.text-right -->
-        <!--     .row.netposition.profit-->
-        <!--       h4.summarysmall.golden POTENTIAL NET-->
-        <!--       h1.summarybig.lightyellow.text-right 34&period;0000-->
-      </div>
-    </section>
-    <!-- Betting Navigation-->
-    <section class="navbar-fixed-bottom bitsplitbetnav">
-      <div class="bigcounter"></div>
-      <div class="row">
-        <div class="pull-left clearfix col-md-3 col-lg-3 bit bitbank"><a class="my_user_name welcome"></a><br>
-          <h2 class="my_balance"></h2>
-          <div class="btn-group btn-group btn-group-justified btn-group-transparent"><a id="withdraw" class="btn btn-default">Withdraw</a><a id="deposit" class="btn btn-default">Deposit</a></div>
-        </div>
-        <div class="col-md-9 col-lg-9 btcchance">
-          <!-- | Risk Chance Calculation-->
-          <!-- a  Learn about Smart API bidding-->Place Your Bet By Percentage of Prize
-          <div id="bet_amounts" class="pull-right btn-group btn-group-justified btn-group-transparent btccost">
-            <!-- a.btn.btn-default 0&period;0002300--><a percentage="50" class="btn btn-default"></a><a percentage="20" class="btn btn-default"></a><a percentage="10" class="btn btn-default"></a><a percentage="5" class="btn btn-default"></a><a percentage="1" class="btn btn-default"></a><a percentage="custom" class="btn btn-default">
-              <input type="text" value="0.00000001" id="custom_bet_input" class="form-control input-sm"></a>
-          </div>
-          <div id="bet_buttons" class="pull-right btn-group btn-group-justified"><a percentage="50" class="btn btn-success">50&percnt;</a><a percentage="20" class="btn btn-success">20&percnt;</a><a percentage="10" class="btn btn-success">10&percnt;</a><a percentage="5" class="btn btn-success">5&percnt;</a><a percentage="1" class="btn btn-success">1&percnt;</a><a percentage="custom" class="btn btn-success">Custom Bet</a></div>
-        </div>
-      </div>
-    </section>
-    <!-- FAQ Modal-->
-    <div id="account_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">Your Account Information</h4>
-          </div>
-          <div class="modal-body">
-            <h4 class="text-left">User Name</h4>
-            <h4 class="info my_user_name text-left"></h4>
-            <h4 class="text-left">Password (<span id="toggle-password-visibility" onclick="temp.toggle_password_visibility();">show</span>)</h4>
-            <h4 id="password" class="info invisible text-left"></h4>
-          </div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="howitworks" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">How It Works</h4>
-          </div>
-          <div class="modal-body">
-            <p>BitSplit is a bitcoin micro-lottery where larger total bets have a disproportionately higher chance of winning.</p>
-            <p>It&apos;s a lottery where you can consistently earn money if you play strategically.</p>
-            <p>Play around with the pretend money you received for signing up, and see the game in action!</p>
-            <p>If you&apos;re feeling feisty, try to steal some real money from the bitcoin pot with the 1 satoshi you&apos;ve been given :).</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="faqcontent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">Frequent Questions Answered</h4>
-          </div>
-          <div class="modal-body">
-            <dl class="dl-horizontal">
-              <dt>What is Bitsplit the thinking man&apos;s game&quest;</dt>
-              <dd>Long answer goes here to explain why Bitsplit is fun and smart&period;</dd>
-            </dl>
-          </div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- The Math Modal-->
-    <div id="themath" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">The Math Explained</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Verification Modal-->
-    <div id="verification" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">Verification</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- API Modal-->
-    <div id="api" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">The API Explained</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Contact Modal-->
-    <div id="contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">Contact Us</h4>
-          </div>
-          <div class="modal-body">
-            <p>We&apos;d love to hear from you!</p>
-            <p>Comments, suggestions, questions, ideas -- even complaints -- are all welcome.</p>
-            <p>You can contact us via <a href="https://www.facebook.com/bitsplit">facebook.com/bitsplit</a> or <a href="mailto:admin@bitsplit.it?Subject=Hi!">admin@bitsplit.it</a>.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Sign-In Modal-->
-    <div id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-            <h4 id="myModalLabel" class="modal-title">Sign In</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Jquery Scripts-->
-    <script type="text/javascript" src="jquery.royalslider.min.js"></script>
-    <script type="text/javascript" src="jquery.easing-1.3.js"></script>
-    <script type="text/javascript" src="jquery.nouislider.min.js"></script>
-    <!-- Main Slider Initiation Code-->
-    <script type="text/javascript" src="chart.custom.js"></script>
-    <script type="text/javascript" src="/main.js"></script>
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io.connect();
-      
-      socket.on("error", function (json) {
-        alertify.error(json.msg, "", 3000);
-      });
-      socket.on("refresh", function (json) {
-        window.location.reload();
-      });
-      socket.on("config", function (json) {
-        refresh_config(json);
-      });
-      socket.on("personal_stats", function (json) {
-        update_personal_stats(json);
-      });
-      socket.on("current_stats", function (json) {
-        refresh_current_stats(json);
-      });
-      socket.on("past_winners", function (json) {
-        refresh_past_winners(json);
-      });
-      socket.on("current_bets", function (json) {
-        // refresh_current_bets(json);
-      });
-      socket.on("round_end", function (json) {
-        end_round();
-      });
-      socket.on("round_new", function (json) {
-          alertify.success("<b>New round starting!</b>");
-      });
-      
-      var audio  = new Audio('audio/chat.mp3');
-      socket.on("chat_message", function (json) {
-        add_message_to_chat(json.user_name, json.message);
-        audio.volume = volumeLevel;
-        audio.play();
-      });
-      socket.on("chat_history", function (json) {
-        $.each(json.messages.reverse(), function(ii, message) {
-          add_message_to_chat(message.user_name, message.message);
-        });
-      });
-      
-    </script>
-    <script>
-      /* Google Analytics */
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-47822938-1', 'bitsplit.it');
-      ga('send', 'pageview');
-      
-      /* Snowplow */
-      var _snaq = _snaq || [];
-      
-      _snaq.push(['setCollectorCf', 'd1xeermhwlpt1e']);
-      _snaq.push(['setAppId', 'bitsplit.it']);
-      _snaq.push(['setCookieDomain', 'bitsplit.it']);
-      _snaq.push(['trackPageView']);
-      
-      (function() {
-      var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
-      sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
-      })();
-      /* End Snowplow */
-    </script>
-  </body>
-</html>
+<!DOCTYPE html><html><head><title>BitSplit&period;it</title><meta name="viewport" content="width=device-width"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="jquery.fittext.js"></script><script type="text/javascript" src="alertify.js"></script><script src="d3.v3.min.js"></script><link rel="stylesheet" href="main.css"><link rel="stylesheet" href="animate.css"><!--link(rel='stylesheet', href='royalslider.css')--><link rel="stylesheet" href="skins/minimal-white/rs-minimal-white.css"><link rel="stylesheet" href="alertify.core.css"><link rel="stylesheet" href="alertify.bootstrap.css"><link rel="stylesheet" href="jquery.nouislider.css"><link rel="stylesheet" href="chart.custom.css"><link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"></head><body><!-- Background--><!--#bg.overlay-solid--><!-- Navigation Bar--><div id="bitsplitnav" class="navbar transparent navbar-fixed-top navbar-inverse"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand"><img src="https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P" id="logo"></a></div><div id="bitsplitnav-buttons" class="navbar-collapse collapse"><ul class="nav navbar-nav navbar-right"><li><div style="margin-right:50px;"><a onclick="change_currency_type('fake')" class="btn btn-currency fake active">SANDBOX</a><a onclick="change_currency_type('btc')" class="btn btn-currency btc">BITCOINS</a></div></li><li><a href="#howitworks" data-toggle="modal" data-target="#howitworks">How It Works</a></li><li><a href="#contact" data-toggle="modal" data-target="#contact">Contact</a></li><li class="active"><!-- a#signinbtn(href='#signin', data-toggle='modal', data-target='#signin') Sign In--><a id="signinbtn" href="#signin" onclick="temp.login();">Sign In</a></li></ul></div></div><div id="sidebar" class="list-group"><a href="#" class="list-group-item"><i id="referral_icon" class="fa fa-btc fa-2x"></i></a><a href="#" class="list-group-item"><i id="volume_slider_icon" class="fa fa-volume-up fa-2x"></i><div id="volume_slider"></div></a><a id="account_show" href="#" class="list-group-item"><i class="fa fa-lock fa-2x"></i></a></div><div class="overlay"></div><div id="login" class="modal-dialog modal-lg absolute-center"><div class="modal-content"><div class="modal-header"><h4 id="myModalLabel" style="display:inline;" class="modal-title">Welcome to</h4><img src="https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P" style="height:50px;"><h5 id="myModalLabel" style="text-align:center;">The Thinking Man&apos;s Lottery</h5></div><div class="modal-body"><form role="form"><div class="form-group center"><input id="new_user_name" type="text" placeholder="Choose Your User Name" style="width:70%;margin-bottom:10px;" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control center-block"><input id="new_user_create" role="button" type="submit" value="Confirm" href="#" style="width:70%;margin-bottom:10px;" class="btn btn-primary disabled center-block"><a onclick="temp.login()" style="margin-left:15%;">Sign In</a></div></form></div><div class="modal-footer"><br></div></div></div><div class="overlay-solid"></div><!-- Main Screen Slider--><section id="gameslider"><div id="bitsplitgames"><!-- Slide 1--><div class="row-fluid"><div class="col-md-4 nosidemargin rsNoDrag hidden-xs"><!-- h4.fadedtext Current Participants--><ul id="myTab" style="margin-left:8%;" class="nav nav-pills"><li class="active"><a href="#current_participants_pane" data-toggle="pill"><div style="display:table;"><div style="display:table-cell;" class="visible-lg">Current&nbsp;</div><div style="display:table-cell;">Participants</div><i class="number-badge current-participants-badge"></i></div></a></li><li><a href="#past_winners_pane" data-toggle="pill"><div style="display:table;"><div style="display:table-cell;" class="visible-lg">Past&nbsp;</div><div style="display:table-cell;">Winners</div></div></a></li><li><a id="chat_pill" href="#chat_toggle2" data-toggle="pill">Chat&nbsp;<i class="number-badge chat-badge"></i></a></li></ul><div class="tab-content"><div id="current_participants_pane" class="tab-pane active"><table id="currentbets" class="table table-condensed table-hover transltable centered"><thead><tr><th>PLAYER</th><th>CHANCE</th><th>TOTAL BET</th><th>&percnt; OF POT</th></tr></thead><tbody></tbody></table><div id="no_participants"><h4 id="no_participants_msg" class="light-background"><span class="visible-lg">There are no players in the current round.</span><span class="hidden-lg">There are no players in this round.</span></h4></div></div><div id="past_winners_pane" class="tab-pane"><table id="pastwinners" class="table table-condensed table-hover transltable centered"><thead><tr><th colspan="1">POT</th><th colspan="2" id="winner">WINNER</th><th colspan="3" id="disbursements">DISBURSEMENTS</th></tr><tr><th>SIZE</th><th>NAME</th><th>CONTRIBUTION</th><th>PRIZE</th><th>NEXT JACKPOT</th><th>HOUSE</th></tr></thead><tbody></tbody></table></div><div id="chat_toggle2" class="tab-pane"><!-- http://www.bootply.com/petrb/104740--><div id="chat"><div class="panel panel-primary"><div class="panel-heading"><span class="glyphicon glyphicon-comment"></span>  Chat<div class="btn-group pull-right"><button id="chat_close" type="button" class="close pull-right">&times;</button></div><!--   button.btn.btn-default.btn-xs.dropdown-toggle(type='button', data-toggle='dropdown')--><!--     span.glyphicon.glyphicon-chevron-down--><!--   ul.dropdown-menu.slidedown--><!--     li--><!--       a(href='http://www.jquery2dotnet.com')--><!--         span.glyphicon.glyphicon-refresh--><!--         | Refresh--><!--     li--><!--       a(href='http://www.jquery2dotnet.com')--><!--         span.glyphicon.glyphicon-ok-sign--><!--         | Available--><!--     li--><!--       a(href='http://www.jquery2dotnet.com')--><!--         span.glyphicon.glyphicon-remove--><!--         | Busy--><!--     li--><!--       a(href='http://www.jquery2dotnet.com')--><!--         span.glyphicon.glyphicon-time--><!--         | Away--><!--     li.divider--><!--     li--><!--       a(href='http://www.jquery2dotnet.com')--><!--         span.glyphicon.glyphicon-off--><!--         | Sign Out--></div><div class="panel-body"><ul id="chat_body" class="chat"><!-- li.left.clearfix--><!--   .chat-body.clearfix--><!--     .header--><!--       strong.primary-font Jack Sparrow--><!--     p--><!--       | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare--><!--       | dolor&comma; quis ullamcorper ligula sodales&period;--></ul></div><!--     li.right.clearfix--><!--       span.chat-img.pull-right--><!--         img.img-circle(src='http://placehold.it/50/FA6F57/fff&text=ME', alt='User Avatar')--><!--       .chat-body.clearfix--><!--         .header--><!--           small.text-muted--><!--             span.glyphicon.glyphicon-time--><!--             | 13 mins ago--><!--           strong.pull-right.primary-font Bhaumik Patel--><!--         p--><!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare--><!--           | dolor&comma; quis ullamcorper ligula sodales&period;--><!--     li.left.clearfix--><!--       span.chat-img.pull-left--><!--         img.img-circle(src='http://placehold.it/50/55C1E7/fff&text=U', alt='User Avatar')--><!--       .chat-body.clearfix--><!--         .header--><!--           strong.primary-font Jack Sparrow--><!--           small.pull-right.text-muted--><!--             span.glyphicon.glyphicon-time--><!--             | 14 mins ago--><!--         p--><!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare--><!--           | dolor&comma; quis ullamcorper ligula sodales&period;--><!--     li.right.clearfix--><!--       span.chat-img.pull-right--><!--         img.img-circle(src='http://placehold.it/50/FA6F57/fff&text=ME', alt='User Avatar')--><!--       .chat-body.clearfix--><!--         .header--><!--           small.text-muted--><!--             span.glyphicon.glyphicon-time--><!--             | 15 mins ago--><!--           strong.pull-right.primary-font Bhaumik Patel--><!--         p--><!--           | Lorem ipsum dolor sit amet&comma; consectetur adipiscing elit&period; Curabitur bibendum ornare--><!--           | dolor&comma; quis ullamcorper ligula sodales&period;--><div class="panel-footer"><div class="input-group"><input id="btn-input" type="text" placeholder="Type your message here..." class="form-control input-sm"><span class="input-group-btn"><button id="btn-chat" class="btn btn-warning btn-sm">Send</button></span></div></div></div></div></div></div></div><div class="col-xs-12 col-md-5 col-lg-4 nosidemargin rsNoDrag chart"><div class="betchart"></div></div><div id="my_current_stats" class="col-md-3 col-lg-4 nosidemargin"><div class="row summary"><h4 class="summarysmall golden text-right">YOUR CHANCE<br>OF WINNING</h4><h1 id="my_win_chance" class="summarybig lightyellow text-right my_win_chance"></h1></div><!-- .row.summary--><!--   h4.summarysmall.golden.text-right TAKE HOME AMOUNT--><!--   h1.summarybig.lightyellow.text-right 0&period;00012500?--><div class="row summary"><!-- TODO: Force this to be a float--><h4 class="summarysmall golden text-right">YOUR<br>CONTRIBUTION</h4><h1 id="my_contribution" class="summarybig lightyellow text-right my_contribution"></h1></div><!-- .row.netposition.loss//   h4.summarysmall.golden POTENTIAL NET
+//   h1.summarybig.lightyellow.text-right 34&period;0000--></div></div><!-- Slide 2--><!-- .row--><!--   .col-md-4.nosidemargin.table-responsive--><!--     h4.fadedtext Current Participants--><!--     table#currentbets.table.table-condensed.table-hover.transltable.centered--><!--       thead--><!--         tr--><!--           th PLAYER--><!--           th CHANCE--><!--           th TOTAL BET--><!--           th &percnt; OF POT--><!--       tbody--><!--         tr--><!--           td Joey--><!--           td 45&percnt;--><!--           td 21&period;3--><!--           td 30&percnt;--><!--         tr--><!--           td Mike--><!--           td 38&percnt;--><!--           td 6&period;03--><!--           td 25&percnt;--><!--         tr--><!--           td Shawn--><!--           td 32&percnt;--><!--           td 2&period;00--><!--           td 20&percnt;--><!--         tr--><!--           td Josh--><!--           td 10&percnt;--><!--           td 1&period;3--><!--           td 10&percnt;--><!--         tr.yourposition--><!--           td You--><!--           td 3&percnt;--><!--           td 0&period;3--><!--           td 10&percnt;--><!--   .col-md-5.col-lg-4.nosidemargin.chart--><!--     .betchart--><!--     .charttarget--><!--       h4#currenrndsize.text-center CURRENT ROUND PRIZE--><!--       h1#potprize.text-center 34&period;0000--><!--   .col-md-3.col-lg-4.nosidemargin--><!--     .row.summary--><!--       h4.summarysmall.golden.text-right YOUR CHANCE OF WINNING--><!--       h1.summarybig.lightyellow.text-right 68&percnt;--><!--     .row.summary--><!--       h4.summarysmall.golden.text-right TAKE HOME AMOUNT--><!--       h1.summarybig.lightyellow.text-right 0&period;00012500--><!--     .row.summary--><!--       h4.summarysmall.golden.text-right YOUR CONTRIBUTION--><!--       h1.summarybig.lightyellow.text-right --><!--     .row.netposition.profit--><!--       h4.summarysmall.golden POTENTIAL NET--><!--       h1.summarybig.lightyellow.text-right 34&period;0000--></div></section><!-- Betting Navigation--><section class="navbar-fixed-bottom bitsplitbetnav"><div class="bigcounter"></div><div class="row"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btcchance"><!-- | Risk Chance Calculation--><!-- a  Learn about Smart API bidding-->Place Your Bet By Percentage of Prize<div id="bet_amounts" class="btn-group btn-group-justified hidden-xs btn-group-transparent btccost"><!-- a.btn.btn-default 0&period;0002300--><a percentage="50" class="btn btn-default"></a><a percentage="20" class="btn btn-default"></a><a percentage="10" class="btn btn-default"></a><a percentage="5" class="btn btn-default"></a><a percentage="1" class="btn btn-default"></a><a percentage="custom" class="btn btn-default"><input type="text" value="0.00000001" id="custom_bet_input" class="form-control input-sm"></a></div><div class="btn-group btn-group-justified hidden-xs bet_buttons"><a percentage="50" class="btn btn-success">50&percnt;</a><a percentage="20" class="btn btn-success">20&percnt;</a><a percentage="10" class="btn btn-success">10&percnt;</a><a percentage="5" class="btn btn-success">5&percnt;</a><a percentage="1" class="btn btn-success">1&percnt;</a><a percentage="custom" class="btn btn-success">Custom Bet</a></div><div class="btn-group visible-xs bet_buttons"><a percentage="50" class="btn btn-success">50&percnt;</a><a percentage="20" class="btn btn-success">20&percnt;</a><a percentage="10" class="btn btn-success">10&percnt;</a><a percentage="5" class="btn btn-success">5&percnt;</a><a percentage="1" class="btn btn-success">1&percnt;</a><a percentage="custom" class="btn btn-success">Custom Bet</a></div></div></div></section></body><footer class="navbar-fixed-bottom navbar-inverse"><div class="bit bitbank"><a class="my_user_name welcome"></a><h2 class="my_balance"></h2><div class="btn-group btn-group btn-group-justified btn-group-transparent"><a id="withdraw" class="btn btn-default">Withdraw</a><a id="deposit" class="btn btn-default">Deposit    </a></div></div></footer><!-- FAQ Modal--><div id="account_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button><h4 id="myModalLabel" class="modal-title">Your Account Information</h4></div><div class="modal-body"><h4 class="text-left">User Name</h4><h4 class="info my_user_name text-left"></h4><h4 class="text-left">Password (<span id="toggle-password-visibility" onclick="temp.toggle_password_visibility();">show</span>)</h4><h4 id="password" class="info invisible text-left"></h4></div><div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-default">Close</button></div></div></div></div><div id="howitworks" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button><h4 id="myModalLabel" class="modal-title">How It Works</h4></div><div class="modal-body"><p>BitSplit is a bitcoin micro-lottery where larger total bets have a disproportionately higher chance of winning.</p><p>It&apos;s a lottery where you can consistently earn money if you play strategically.</p><p>Play around with the pretend money you received for signing up, and see the game in action!</p><p>If you&apos;re feeling feisty, try to steal some real money from the bitcoin pot with the 1 satoshi you&apos;ve been given :).</p></div><div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-default">Close</button></div></div></div></div><div id="faqcontent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button><h4 id="myModalLabel" class="modal-title">Frequent Questions Answered</h4></div><div class="modal-body"><dl class="dl-horizontal"><dt>What is Bitsplit the thinking man&apos;s game&quest;</dt><dd>Long answer goes here to explain why Bitsplit is fun and smart&period;</dd></dl></div><div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-default">Close</button></div></div></div></div><!-- The Math Modal--><div id="themath" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button><h4 id="myModalLabel" class="modal-title">The Math Explained</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-default">Close</button></div></div></div></div><!-- Verification Modal--><div id="verification" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button><h4 id="myModalLabel" class="modal-title">Verification</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-default">Close</button></div></div></div></div><!-- API Modal--><div id="api" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button><h4 id="myModalLabel" class="modal-title">The API Explained</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-default">Close</button></div></div></div></div><!-- Contact Modal--><div id="contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button><h4 id="myModalLabel" class="modal-title">Contact Us</h4></div><div class="modal-body"><p>We&apos;d love to hear from you!</p><p>Comments, suggestions, questions, ideas -- even complaints -- are all welcome.</p><p>You can contact us via <a href="https://www.facebook.com/bitsplit">facebook.com/bitsplit</a> or <a href="mailto:admin@bitsplit.it?Subject=Hi!">admin@bitsplit.it</a>.</p></div><div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-default">Close</button></div></div></div></div><!-- Sign-In Modal--><div id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button><h4 id="myModalLabel" class="modal-title">Sign In</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-default">Close</button></div></div></div><!-- Jquery Scripts--><script type="text/javascript" src="jquery.royalslider.min.js"></script><script type="text/javascript" src="jquery.easing-1.3.js"></script><script type="text/javascript" src="jquery.nouislider.min.js"></script><!-- Main Slider Initiation Code--><script type="text/javascript" src="chart.custom.js"></script><script type="text/javascript" src="/main.js"></script><script type="text/javascript" src="/socket.io/socket.io.js"></script><script>var socket = io.connect();
+
+socket.on("error", function (json) {
+  alertify.error(json.msg, "", 3000);
+});
+socket.on("refresh", function (json) {
+  window.location.reload();
+});
+socket.on("config", function (json) {
+  refresh_config(json);
+});
+socket.on("personal_stats", function (json) {
+  update_personal_stats(json);
+});
+socket.on("current_stats", function (json) {
+  refresh_current_stats(json);
+});
+socket.on("past_winners", function (json) {
+  refresh_past_winners(json);
+});
+socket.on("current_bets", function (json) {
+  // refresh_current_bets(json);
+});
+socket.on("round_end", function (json) {
+  end_round();
+});
+socket.on("round_new", function (json) {
+  new_round();
+  
+});
+
+socket.on("chat_message", function (json) {
+  add_message_to_chat(json.user_name, json.message);
+  play_sound('audio/chat.mp3');
+});
+socket.on("chat_history", function (json) {
+  $.each(json.messages.reverse(), function(ii, message) {
+    add_message_to_chat(message.user_name, message.message);
+  });
+});
+
+socket.on("referral", function (json) {
+  alertify.log("A new user, <b>"+json.user_name+"</b>, just signed up as your referral!<br/><br/>We've added "+json.amount_satoshis+" satoshis to your bitcoin account!", "", 0);
+});
+</script><script>/* Google Analytics */
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47822938-1', 'bitsplit.it');
+ga('send', 'pageview');
+
+/* Snowplow */
+var _snaq = _snaq || [];
+
+_snaq.push(['setCollectorCf', 'd1xeermhwlpt1e']);
+_snaq.push(['setAppId', 'bitsplit.it']);
+_snaq.push(['setCookieDomain', 'bitsplit.it']);
+_snaq.push(['trackPageView']);
+
+(function() {
+var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+})();
+/* End Snowplow */</script></div></html>

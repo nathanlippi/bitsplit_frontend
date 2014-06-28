@@ -88,7 +88,7 @@ body {
     padding-top: 0%;
     bottom: 50px;
 }
-div.navbar-header { margin-top: -30px }
+div.navbar-header { margin-top: -30px}
 .dl-horizontal dt {
     text-overflow: inherit;
     white-space: normal;
@@ -693,7 +693,8 @@ a.my_user_name.welcome {
 /*Phones*/
 @media (max-width:768px) {
     img#logo {
-        max-height: 20px;
+        max-width: 230px;
+        margin-top:-10px;
     }
     #bitsplitnav {
         padding: 0 0% 0 0;
@@ -733,6 +734,17 @@ a.my_user_name.welcome {
         padding: 0px 0px 10px 0px;
         margin-bottom: 4px;
         margin-right: 5px;
+    }
+    
+    
+    div.navbar-header {
+margin-top: 0px;
+    }
+    .navbar-inverse .navbar-toggle {
+        
+        border:none;
+        opacity:0.4;
+        margin-top:26px;
     }
 }
 
@@ -781,7 +793,7 @@ a.my_user_name.welcome {
         padding: 4px 0px 18px 0px;
     }
     img#logo {
-        max-height: 50px;
+        max-width: 265px;
     }
 }
 

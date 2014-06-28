@@ -1,57 +1,66 @@
+<script>var socket = io.connect();
 
-<script>
-  var socket = io.connect("https://bitsplit.it:443");
+socket.on("error", function (json) {
+  alertify.error(json.msg, "", 3000);
+});
+socket.on("refresh", function (json) {
+  window.location.reload();
+});
+socket.on("config", function (json) {
+  refresh_config(json);
+});
+socket.on("personal_stats", function (json) {
+  update_personal_stats(json);
+});
+socket.on("current_stats", function (json) {
+  refresh_current_stats(json);
+});
+socket.on("past_winners", function (json) {
+  refresh_past_winners(json);
+});
+socket.on("current_bets", function (json) {
+  // refresh_current_bets(json);
+});
+socket.on("round_end", function (json) {
+  end_round();
+});
+socket.on("round_new", function (json) {
+  new_round();
   
-  socket.on("error", function (json) {
-    alertify.error(json.msg, "", 3000);
+});
+
+socket.on("chat_message", function (json) {
+  add_message_to_chat(json.user_name, json.message);
+  play_sound('audio/chat.mp3');
+});
+socket.on("chat_history", function (json) {
+  $.each(json.messages.reverse(), function(ii, message) {
+    add_message_to_chat(message.user_name, message.message);
   });
-  socket.on("refresh", function (json) {
-    window.location.reload();
-  });
-  socket.on("config", function (json) {
-    refresh_config(json);
-  });
-  socket.on("personal_stats", function (json) {
-    update_personal_stats(json);
-  });
-  socket.on("current_stats", function (json) {
-    refresh_current_stats(json);
-  });
-  socket.on("past_winners", function (json) {
-    refresh_past_winners(json);
-  });
-  socket.on("current_bets", function (json) {
-    // refresh_current_bets(json);
-  });
-  socket.on("jackpot_split", function (json) {
-    end_round();
-  });
-  socket.on("chat_message", function (json) {
-    add_message_to_chat(json.user_name, json.msg);
-  }); 
-  
-</script>
-<script>
-  /* Google Analytics */
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-47822938-1', 'bitsplit.it');
-  ga('send', 'pageview');
-  
-  /* Snowplow */
-  var _snaq = _snaq || [];
-  
-  _snaq.push(['setCollectorCf', 'd1xeermhwlpt1e']);
-  _snaq.push(['setAppId', 'bitsplit.it']);
-  _snaq.push(['setCookieDomain', 'bitsplit.it']);
-  _snaq.push(['trackPageView']);
-  
-  (function() {
-  var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
-  sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
-  })();
-  /* End Snowplow */
-</script>
+});
+
+socket.on("referral", function (json) {
+  alertify.log("A new user, <b>"+json.user_name+"</b>, just signed up as your referral!<br/><br/>We've added "+json.amount_satoshis+" satoshis to your bitcoin account!", "", 0);
+});
+</script><script>/* Google Analytics */
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-47822938-1', 'bitsplit.it');
+ga('send', 'pageview');
+
+/* Snowplow */
+var _snaq = _snaq || [];
+
+_snaq.push(['setCollectorCf', 'd1xeermhwlpt1e']);
+_snaq.push(['setAppId', 'bitsplit.it']);
+_snaq.push(['setCookieDomain', 'bitsplit.it']);
+_snaq.push(['trackPageView']);
+
+(function() {
+var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+})();
+/* End Snowplow */</script>

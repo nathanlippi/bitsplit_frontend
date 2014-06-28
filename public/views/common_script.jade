@@ -26,7 +26,8 @@ script.
     end_round();
   });
   socket.on("round_new", function (json) {
-      alertify.success("<b>New round starting!</b>");
+    new_round();
+    
   });
 
   socket.on("chat_message", function (json) {

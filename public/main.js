@@ -663,9 +663,16 @@ $("#bitsplitgames").addClass('animated fadeOut');
    
    //$("#bitsplitgames").delay(1900).addClass('animted fadeIn');
    alertify.log(msg, "", 4000);
-    $("#bitsplitgames").delay(4000).removeClass('animated fadeOut');
+    // $("#bitsplitgames").removeClass('animated fadeOut');
     // It would be great for the fade in to be delayed for a couple of seconds
-    $("#bitsplitgames").addClass('animated fadeIn');
+    //$("#bitsplitgames").delay(4000).addClass('animated fadeIn');
+}
+
+function new_round () {
+alertify.success("<b>Vlad New round starting!</b>");
+$("#bitsplitgames").removeClass('fadeOut');
+$("#bitsplitgames").addClass('animated fadeIn');
+  
 }
 
 function refresh_past_winners(past_winners)
@@ -865,20 +872,21 @@ function zeroPad(num, places) {
  *
  */
 $(document).ready(function() {
-  $('#bitsplitgames').royalSlider({
-     controlNavigation : 'bullets'
-   });
+  // $('#bitsplitgames').royalSlider({
+  //    controlNavigation : 'bullets'
+  //  });
   $(window).resize(function()
   {
     $('#gameslider').css(
     {
-      position: 'absolute'
+       position: 'absolute',
+       width:'100%'
     });
 
     $('#gameslider').css(
     {
-      left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
-      top: ($(window).height() - $('#gameslider').outerHeight()) / 2
+      // left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
+      top: (($(window).height() - $('#gameslider').outerHeight()) / 2  ) 
     });
 
   });
@@ -902,7 +910,7 @@ $(document).ready(function() {
     var r = 150;
     switch(bs3_size) {
       case 'xs':
-        r = 50;
+        r = 150;
         break;
       case 'sm':
         r = 100;
