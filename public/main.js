@@ -648,31 +648,36 @@ function refresh_current_stats(current_stats)
     $("#my_contribution").html(btc_format_with_style(current_player_contribution));
 }
 
-// Assuming that this is the end of the round when it is called
-// Need to set up a new event
-// TODO: Actually we only need the id of the finished round...
-function end_round(end_round_object) {
-  // Based on winner, etc., different message will be displayed
+function end_round(past_winner_data) {
+  // There was not a winner
+  if(past_winner_data.user === null) {
+
+
+  }
+  else { // There was a winner
+    var user_name                  = past_winner_data.user.name;
+    var user_contribution_satoshis = past_winner_data.contribution;
+    var jackpot_id                 = past_winner_data.jackpot_id;
+
+    // Nathan:
+    // I'd possibly like to have some data/message about what their chance of
+    // winning was and if they beat the odds or not (luck or skill).
+  }
   
   var msg = "<b>Round Over!</b>";
   
-$("#bitsplitgames").addClass('animated fadeOut');
+  $("#bitsplitgames").addClass('animated fadeOut');
+
   // TODO: If there was a winner, highlight the row in the table, switch to that
   // table.
   
-   
-   //$("#bitsplitgames").delay(1900).addClass('animted fadeIn');
-   alertify.log(msg, "", 4000);
-    // $("#bitsplitgames").removeClass('animated fadeOut');
-    // It would be great for the fade in to be delayed for a couple of seconds
-    //$("#bitsplitgames").delay(4000).addClass('animated fadeIn');
+  alertify.log(msg, "", 4000);
 }
 
 function new_round () {
-alertify.success("<b>Vlad New round starting!</b>");
-$("#bitsplitgames").removeClass('fadeOut');
-$("#bitsplitgames").addClass('animated fadeIn');
-  
+  alertify.success("<b>Vlad New round starting!</b>");
+  $("#bitsplitgames").removeClass('fadeOut');
+  $("#bitsplitgames").addClass('animated fadeIn');
 }
 
 function refresh_past_winners(past_winners)
