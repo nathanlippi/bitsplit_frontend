@@ -647,11 +647,14 @@ function refresh_current_stats(current_stats)
 }
 
 function new_round () {
+
   var svg = document.querySelector('svg#piechart');
+  lunar.removeClass(svg, 'animated flip');
   alertify.success("<b>New round starting!</b>");
   //$("svg#piechart").classList.remove('flip');
-  lunar.removeClass(svg, 'animated flip');
-
+  //lunar.removeClass(svg, 'animated flip');
+  lunar.addClass(svg,'animated flip');
+$('#bg').css('overflow','overflow-y'); 
   $(".bitsplitbetnav").removeClass('bounceOutDown');
   //lunar.addClass(svg, 'animated flip');
   //$("svg#piechart").classList.add('animated flip');
@@ -680,7 +683,8 @@ function end_round(past_winner_data) {
 
   var svg = document.querySelector('svg#piechart');
   //$("svg#piechart").classList.add('class','animated flip');
-  //lunar.removeClass(svg, 'animated flip');     
+  //lunar.removeClass(svg, 'animated flip'); 
+  $('#bg').css('overflow','none');    
   lunar.addClass(svg,'animated flip');
 
   $(".bitsplitbetnav").addClass('animated bounceOutDown');
@@ -906,7 +910,7 @@ var svg = document.querySelector('svg#piechart');
     $('#gameslider').css(
     {
       // left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
-      paddingTop: (($(window).height() - $('#gameslider').outerHeight() - $('section#betnav').outerHeight) / 2  ) 
+      paddingTop: (($(window).height() - $('#gameslider').outerHeight() - $('section#betnav').outerHeight()) / 2  ) 
     });
 
   });

@@ -176,7 +176,7 @@ polyline {
 }
 div#endofround { overflow: hidden }
 div.row.summary {
-    width: 88%;
+    width: 100%;
     border-bottom: 1px solid rgba(157, 241, 250, 0.31);
     margin-bottom: 0px;
     padding-bottom: 5px;
@@ -282,10 +282,10 @@ h4.summarysmall.golden.text-right {
     line-height: 1.21;
 }
 .nosidemargin {
-    margin-left: 0;
-    margin-right: 0;
-    padding-right: 0;
-    padding-left: 0;
+    /* margin-left: 0; */
+    /* margin-right: 0; */
+    /* padding-right: 0; */
+    /* padding-left: 0; */
 }
 .btn-group-riskscale {
     background: linear-gradient(-90deg, #FFF25F 1%, #FA3200 100%);
@@ -331,9 +331,9 @@ h4.summary {
 }
 div.row.summary:first-child { }
 div.row.summary:first-child {
-    margin-top: 50px;
-    padding-bottom: 0px;
-    padding-top: 3px;
+    /* margin-top: 50px; */
+    /* padding-bottom: 0px; */
+    /* padding-top: 3px; */
 }
  div.row.summary:first-child h1 { font-size: 60px }
 tr.yourposition {
@@ -719,13 +719,15 @@ a.my_user_name.welcome {
          margin-left: -28px;
      }
     .my_balance {
-        width: 144px;
+        width: 111px;
         height: 29px;
-        text-align: left;
-        font-size: 17px;
-        padding-top: 5px;
+        text-align: center;
+        font-size: 13px;
+        padding-top: 7px;
         display: inline-block;
-    }
+    
+        letter-spacing: 0px;
+}
     #bg { background-size: auto 100% }
     .bet_buttons > a.btn.btn-success:last-child { font-size: 14px }
     .bet_buttons > a.btn.btn-success {
