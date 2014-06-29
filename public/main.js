@@ -481,8 +481,6 @@ function get_bet_amount_from_percentage(percentage) {
 }
 
 function check_for_new_contributors(pastContributors, currentContributors)     {
-  console.log(pastContributors, currentContributors);
-
   if(pastContributors.length >= currentContributors.length) {
     return [];
   }
@@ -1067,7 +1065,6 @@ function scroll_chat_to_bottom() {
   // Basic scroll chat to bottom when message arrives.
   // TODO: Test how this works with scrolling through to look at past messages.
   var height = $(chat_body_sel).height();
-  console.log("scroll_chat_to_bottom:", height);
 
   if(height) {
     $("#chat .panel-body").animate({scrollTop: height});
