@@ -2,7 +2,7 @@ doctype html
 html
   head
     title BitSplit&period;it
-    meta(name='viewport', content='width=device-width')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css')
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
@@ -10,6 +10,7 @@ html
     script(type='text/javascript', src='jquery.fittext.js')
     script(type='text/javascript', src='alertify.js')
     script(src='d3.v3.min.js')
+
     link(rel='stylesheet', href='main.css')
     link(rel='stylesheet', href='animate.css')
     //link(rel='stylesheet', href='royalslider.css')
@@ -21,7 +22,7 @@ html
     link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
   body
     // Background
-    //#bg
+    #bg
       .overlay-solid
     // Navigation Bar
     #bitsplitnav.navbar.transparent.navbar-fixed-top.navbar-inverse
@@ -35,7 +36,7 @@ html
       .navbar-collapse.collapse#bitsplitnav-buttons
         ul.nav.navbar-nav.navbar-right
           li
-           div(style="margin-right:50px;")
+           div(style="")
             a.btn.btn-currency.fake.active(onclick="change_currency_type('fake')") SANDBOX
             a.btn.btn-currency.btc(onclick="change_currency_type('btc')") BITCOINS
           li
@@ -56,7 +57,12 @@ html
         // Slide 1
         .row-fluid
 
-          .col-md-4.nosidemargin.rsNoDrag.hidden-xs
+          
+
+          .col-xs-12.col-md-5.col-lg-4.nosidemargin.rsNoDrag.chart
+            #pie.betchart
+
+          .col-sm-4.col-md-4.nosidemargin.rsNoDrag.hidden-xs
 
             // h4.fadedtext Current Participants
             ul.nav.nav-pills#myTab(style="margin-left:8%;")
@@ -106,9 +112,8 @@ html
                   tbody
               .tab-pane#chat_toggle2
                 include chat
+                
 
-          .col-xs-12.col-md-5.col-lg-4.nosidemargin.rsNoDrag.chart
-            .betchart
           .col-md-3.col-lg-4.nosidemargin#my_current_stats
             .row.summary
               h4.summarysmall.golden.text-right YOUR CHANCE<br>OF WINNING
@@ -330,6 +335,7 @@ html
     script(type='text/javascript', src='jquery.easing-1.3.js')
     script(type='text/javascript', src='jquery.nouislider.min.js')
     // Main Slider Initiation Code
+    script(type='text/javascript', src='lunar.min.js')
     script(type='text/javascript', src='chart.custom.js')
     script(type='text/javascript', src='/main.js')
     script(type='text/javascript', src='/socket.io/socket.io.js')

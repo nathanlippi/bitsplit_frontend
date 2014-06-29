@@ -755,7 +755,21 @@ margin-top: 0px;
     .bet_buttons > a.btn.btn-success:last-child {
         font-size: 17px;
         padding-top: 11px;
+
     }
+.navbar-nav.navbar-right:last-child {
+margin-right: 0;
+
+}
+
+     .bet_buttons {
+        margin-top: 10px;
+        width: 100%;
+        float: left;
+        padding-left: 0%;
+    }
+.bet_buttons > a.btn.btn-success:last-child { font-size: 13px }
+
     .bet_buttons .btn:not([percentage="custom"]):after {
         content: "of prize";
         font-weight: normal;
@@ -819,6 +833,13 @@ margin-top: 0px;
         font-size: 22px;
         padding-top: 11px;
     }
-    #bg { background-size: 100% auto }
+    #bg { background-size: auto 100% }
     img#logo { max-width: 387px; max-height: none; }
+}
+
+/*Large Screen Minimum*/
+@media (min-width:1400px) {
+
+#bg { background-size: 100% auto }
+
 }

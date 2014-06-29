@@ -56,7 +56,8 @@ var CHART = (function()
 
     svg = d3.select(selector).append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .attr("id", "piechart");
 
     circle = svg.append("circle")
        .attr("cx", outerRadius)

@@ -648,6 +648,11 @@ function refresh_current_stats(current_stats)
     $("#my_contribution").html(btc_format_with_style(current_player_contribution));
 }
 
+
+
+
+
+
 // Assuming that this is the end of the round when it is called
 // Need to set up a new event
 // TODO: Actually we only need the id of the finished round...
@@ -655,8 +660,12 @@ function end_round(end_round_object) {
   // Based on winner, etc., different message will be displayed
   
   var msg = "<b>Round Over!</b>";
-  
-$("#bitsplitgames").addClass('animated fadeOut');
+  var svg = document.querySelector('svg#piechart');
+//$("svg#piechart").classList.add('class','animated flip');
+//lunar.removeClass(svg, 'animated flip');     
+lunar.addClass(svg,'animated flip');
+
+$(".bitsplitbetnav").addClass('animated bounceOutDown');
   // TODO: If there was a winner, highlight the row in the table, switch to that
   // table.
   
@@ -669,10 +678,15 @@ $("#bitsplitgames").addClass('animated fadeOut');
 }
 
 function new_round () {
-alertify.success("<b>Vlad New round starting!</b>");
-$("#bitsplitgames").removeClass('fadeOut');
-$("#bitsplitgames").addClass('animated fadeIn');
-  
+  var svg = document.querySelector('svg#piechart');
+alertify.success("<b>New round starting!</b>");
+//$("svg#piechart").classList.remove('flip');
+lunar.removeClass(svg, 'animated flip');
+
+$(".bitsplitbetnav").removeClass('bounceOutDown');
+//lunar.addClass(svg, 'animated flip');
+//$("svg#piechart").classList.add('animated flip');
+$(".bitsplitbetnav").addClass('animated bounceInUp');  
 }
 
 function refresh_past_winners(past_winners)
@@ -875,18 +889,21 @@ $(document).ready(function() {
   // $('#bitsplitgames').royalSlider({
   //    controlNavigation : 'bullets'
   //  });
+
+var svg = document.querySelector('svg#piechart');
+
   $(window).resize(function()
   {
     $('#gameslider').css(
     {
-       position: 'absolute',
-       width:'100%'
+      // position: 'absolute',
+      // width:'100%'
     });
 
     $('#gameslider').css(
     {
       // left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
-      top: (($(window).height() - $('#gameslider').outerHeight()) / 2  ) 
+      paddingTop: (($(window).height() - $('#gameslider').outerHeight()) / 2  ) 
     });
 
   });
@@ -913,7 +930,7 @@ $(document).ready(function() {
         r = 150;
         break;
       case 'sm':
-        r = 100;
+        r = 200;
         break;
       case 'md':
         r = 150;
