@@ -676,7 +676,7 @@ function end_round(past_winner_data) {
   
   var msg = "<b>Round Over!</b>";
   
-  $("#bitsplitgames").addClass('animated fadeOut');
+  //$("#bitsplitgames").addClass('animated fadeOut');
 
   var svg = document.querySelector('svg#piechart');
   //$("svg#piechart").classList.add('class','animated flip');
@@ -906,7 +906,7 @@ var svg = document.querySelector('svg#piechart');
     $('#gameslider').css(
     {
       // left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
-      paddingTop: (($(window).height() - $('#gameslider').outerHeight()) / 2  ) 
+      paddingTop: (($(window).height() - $('#gameslider').outerHeight() - $('section#betnav').outerHeight) / 2  ) 
     });
 
   });
