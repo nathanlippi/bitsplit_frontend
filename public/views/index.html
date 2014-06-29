@@ -22,12 +22,11 @@ socket.on("past_winners", function (json) {
 socket.on("current_bets", function (json) {
   // refresh_current_bets(json);
 });
-socket.on("round_end", function (json) {
-  end_round();
+socket.on("round_end", function (past_winner_data) {
+  end_round(past_winner_data);
 });
 socket.on("round_new", function (json) {
   new_round();
-  
 });
 
 socket.on("chat_message", function (json) {

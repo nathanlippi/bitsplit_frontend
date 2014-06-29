@@ -481,8 +481,6 @@ function get_bet_amount_from_percentage(percentage) {
 }
 
 function check_for_new_contributors(pastContributors, currentContributors)     {
-  console.log(pastContributors, currentContributors);
-
   if(pastContributors.length >= currentContributors.length) {
     return [];
   }
@@ -648,45 +646,50 @@ function refresh_current_stats(current_stats)
     $("#my_contribution").html(btc_format_with_style(current_player_contribution));
 }
 
+function new_round () {
+  var svg = document.querySelector('svg#piechart');
+  alertify.success("<b>New round starting!</b>");
+  //$("svg#piechart").classList.remove('flip');
+  lunar.removeClass(svg, 'animated flip');
+
+  $(".bitsplitbetnav").removeClass('bounceOutDown');
+  //lunar.addClass(svg, 'animated flip');
+  //$("svg#piechart").classList.add('animated flip');
+  $(".bitsplitbetnav").addClass('animated bounceInUp');  
+}
+
+function end_round(past_winner_data) {
+  // There was not a winner
+  if(past_winner_data.user === null) {
 
 
+  }
+  else { // There was a winner
+    var user_name                  = past_winner_data.user.name;
+    var user_contribution_satoshis = past_winner_data.contribution;
+    var jackpot_id                 = past_winner_data.jackpot_id;
 
-
-
-// Assuming that this is the end of the round when it is called
-// Need to set up a new event
-// TODO: Actually we only need the id of the finished round...
-function end_round(end_round_object) {
-  // Based on winner, etc., different message will be displayed
+    // Nathan:
+    // I'd possibly like to have some data/message about what their chance of
+    // winning was and if they beat the odds or not (luck or skill).
+  }
   
   var msg = "<b>Round Over!</b>";
-  var svg = document.querySelector('svg#piechart');
-//$("svg#piechart").classList.add('class','animated flip');
-//lunar.removeClass(svg, 'animated flip');     
-lunar.addClass(svg,'animated flip');
+  
+  $("#bitsplitgames").addClass('animated fadeOut');
 
-$(".bitsplitbetnav").addClass('animated bounceOutDown');
+  var svg = document.querySelector('svg#piechart');
+  //$("svg#piechart").classList.add('class','animated flip');
+  //lunar.removeClass(svg, 'animated flip');     
+  lunar.addClass(svg,'animated flip');
+
+  $(".bitsplitbetnav").addClass('animated bounceOutDown');
+
   // TODO: If there was a winner, highlight the row in the table, switch to that
   // table.
   
-   
-   //$("#bitsplitgames").delay(1900).addClass('animted fadeIn');
-   alertify.log(msg, "", 4000);
-    // $("#bitsplitgames").removeClass('animated fadeOut');
-    // It would be great for the fade in to be delayed for a couple of seconds
-    //$("#bitsplitgames").delay(4000).addClass('animated fadeIn');
-}
+  alertify.log(msg, "", 4000);
 
-function new_round () {
-  var svg = document.querySelector('svg#piechart');
-alertify.success("<b>New round starting!</b>");
-//$("svg#piechart").classList.remove('flip');
-lunar.removeClass(svg, 'animated flip');
-
-$(".bitsplitbetnav").removeClass('bounceOutDown');
-//lunar.addClass(svg, 'animated flip');
-//$("svg#piechart").classList.add('animated flip');
-$(".bitsplitbetnav").addClass('animated bounceInUp');  
 }
 
 function refresh_past_winners(past_winners)
@@ -1079,7 +1082,6 @@ function scroll_chat_to_bottom() {
   // Basic scroll chat to bottom when message arrives.
   // TODO: Test how this works with scrolling through to look at past messages.
   var height = $(chat_body_sel).height();
-  console.log("scroll_chat_to_bottom:", height);
 
   if(height) {
     $("#chat .panel-body").animate({scrollTop: height});
