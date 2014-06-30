@@ -647,17 +647,17 @@ function refresh_current_stats(current_stats)
 }
 
 function new_round () {
-
   var svg = document.querySelector('svg#piechart');
-  lunar.removeClass(svg, 'animated flip');
+  var flip_classes = 'animated flip';
+
   alertify.success("<b>New round starting!</b>");
-  //$("svg#piechart").classList.remove('flip');
-  //lunar.removeClass(svg, 'animated flip');
-  lunar.addClass(svg,'animated flip');
-$('#bg').css('overflow','overflow-y'); 
+  lunar.addClass(svg, flip_classes);
+  setTimeout(function() {
+    lunar.removeClass(svg, flip_classes);
+  }, 2000);
+
+  $('#bg').css('overflow','overflow-y'); 
   $(".bitsplitbetnav").removeClass('bounceOutDown');
-  //lunar.addClass(svg, 'animated flip');
-  //$("svg#piechart").classList.add('animated flip');
   $(".bitsplitbetnav").addClass('animated bounceInUp');  
 }
 
@@ -679,13 +679,15 @@ function end_round(past_winner_data) {
   
   var msg = "<b>Round Over!</b>";
   
-  //$("#bitsplitgames").addClass('animated fadeOut');
-
   var svg = document.querySelector('svg#piechart');
-  //$("svg#piechart").classList.add('class','animated flip');
-  //lunar.removeClass(svg, 'animated flip'); 
-  $('#bg').css('overflow','none');    
-  lunar.addClass(svg,'animated flip');
+  var flip_classes = 'animated flip';
+
+  lunar.addClass(svg, flip_classes);
+  setTimeout(function() {
+    lunar.removeClass(svg, flip_classes);
+  }, 2000);
+
+  $('#bg').css('overflow','none');
 
   $(".bitsplitbetnav").addClass('animated bounceOutDown');
 
