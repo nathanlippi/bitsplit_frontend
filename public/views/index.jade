@@ -56,22 +56,6 @@ html
       #bitsplitgames
         // Slide 1
         .row-fluid
-          .col-xs-12.col-sm-3.col-md-3.col-lg-2
-            #current_participants_pane
-                table#currentbets.table.table-condensed.table-hover.transltable.centered
-                  thead
-                    tr
-                      th PLAYER
-                      th CHANCE
-                      th TOTAL BET
-                      th &percnt; OF POT
-                  tbody
-                #no_participants
-                  h4.light-background#no_participants_msg
-                    span.visible-lg There are no players in the current round.
-                    span.hidden-lg There are no players in this round.      
-          .col-xs-12.col-sm-5.col-md-5.col-lg-6.nosidemargin.rsNoDrag.chart
-            #pie.betchart      
           .col-xs-12.col-sm-4.col-md-4.col-lg-4.nosidemargin.rsNoDrag
             .yourstats
               .row.summary
@@ -131,6 +115,23 @@ html
                       th HOUSE
                   tbody
               .tab-pane#chat_toggle2
+          .col-xs-12.col-sm-5.col-md-5.col-lg-6.nosidemargin.rsNoDrag.chart
+            #pie.betchart
+          .col-xs-12.col-sm-3.col-md-3.col-lg-2
+            #current_participants_pane
+                table#currentbets.table.table-condensed.table-hover.transltable.centered
+                  thead
+                    tr
+                      th PLAYER
+                      th CHANCE
+                      th TOTAL BET
+                      th &percnt; OF POT
+                  tbody
+                #no_participants
+                  h4.light-background#no_participants_msg
+                    span.visible-lg There are no players in the current round.
+                    span.hidden-lg There are no players in this round.            
+          
           
          // .col-md-3.col-lg-4.nosidemargin#my_current_stats
             
