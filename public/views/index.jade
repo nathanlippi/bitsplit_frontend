@@ -56,33 +56,8 @@ html
       #bitsplitgames
         // Slide 1
         .row-fluid
-
-          
-
-          .col-xs-12.col-md-5.col-lg-4.nosidemargin.rsNoDrag.chart
-            #pie.betchart
-
-          .col-sm-4.col-md-4.nosidemargin.rsNoDrag.hidden-xs
-
-            // h4.fadedtext Current Participants
-            ul.nav.nav-pills#myTab(style="margin-left:8%;")
-              li.active
-                a(href='#current_participants_pane', data-toggle='pill')
-                  div(style="display:table;")
-                    .visible-lg(style="display:table-cell;") Current&nbsp;
-                    div(style="display:table-cell;") Participants
-                    i.number-badge.current-participants-badge
-              li
-                a(href='#past_winners_pane', data-toggle='pill')
-                  div(style="display:table;")
-                    .visible-lg(style="display:table-cell;") Past&nbsp;
-                    div(style="display:table-cell;") Winners
-              li
-                a(id="chat_pill" href='#chat_toggle2', data-toggle='pill')
-                  | Chat&nbsp;
-                  i.number-badge.chat-badge
-            .tab-content
-              .tab-pane.active#current_participants_pane
+          .col-xs-12.col-sm-3.col-md-3.col-lg-2
+            #current_participants_pane
                 table#currentbets.table.table-condensed.table-hover.transltable.centered
                   thead
                     tr
@@ -94,14 +69,59 @@ html
                 #no_participants
                   h4.light-background#no_participants_msg
                     span.visible-lg There are no players in the current round.
-                    span.hidden-lg There are no players in this round.
+                    span.hidden-lg There are no players in this round.      
+          .col-xs-12.col-sm-5.col-md-5.col-lg-6.nosidemargin.rsNoDrag.chart
+            #pie.betchart      
+          .col-xs-12.col-sm-4.col-md-4.col-lg-4.nosidemargin.rsNoDrag
+            .yourstats
+              .row.summary
+                h1.summarybig.lightyellow.text-right.my_contribution#my_contribution
+                h4.summarysmall.golden.text-right CONTRIBUTION
+                
+              // .row.summary
+              //   h4.summarysmall.golden.text-right TAKE HOME AMOUNT
+              //   h1.summarybig.lightyellow.text-right 0&period;00012500?
+              .row.summary
+                // TODO: Force this to be a float
+                h1.summarybig.lightyellow.text-right.my_win_chance#my_win_chance
+                h4.summarysmall.golden.text-right YOUR CHANCE
+              
+             // .row.netposition.loss
+             //   h4.summarysmall.golden POTENTIAL NET
+             //   h1.summarybig.lightyellow.text-right 34&period;0000
+             
+              
+             // .row.netposition.loss
+             //   h4.summarysmall.golden POTENTIAL NET
+             //   h1.summarybig.lightyellow.text-right 34&period;0000
+            #currentplayers
+            #onlineusers
+            // h4.fadedtext Current Participants
+            //- ul.nav.nav-pills#myTab(style="")
+              //- li.active
+              //-   a(href='#current_participants_pane', data-toggle='pill')
+              //-     div(style="display:table;")
+              //-       .visible-lg(style="display:table-cell;") Current&nbsp;
+              //-       div(style="display:table-cell;") Participants
+              //-       i.number-badge.current-participants-badge
+              //- li
+              //-   a(href='#past_winners_pane', data-toggle='pill')
+              //-     div(style="display:table;")
+              //-       .visible-lg(style="display:table-cell;") Past&nbsp;
+              //-       div(style="display:table-cell;") Winners
+              //- li.active
+              //-   a(id="chat_pill" href='#chat_toggle2', data-toggle='pill')
+              //-     | Chat&nbsp;
+              //-     i.number-badge.chat-badge
+            .tab-content
+              
               .tab-pane#past_winners_pane
                 table#pastwinners.table.table-condensed.table-hover.transltable.centered
                   thead
-                    tr
-                      th(colspan=1) POT
-                      th(colspan=2)#winner WINNER
-                      th(colspan=3)#disbursements DISBURSEMENTS
+                    //- tr
+                    //-   th(colspan=1) POT
+                    //-   th(colspan=2)#winner WINNER
+                    //-   th(colspan=3)#disbursements DISBURSEMENTS
                     tr
                       th SIZE
                       th NAME
@@ -111,84 +131,16 @@ html
                       th HOUSE
                   tbody
               .tab-pane#chat_toggle2
-                include chat
-                
+          
+         // .col-md-3.col-lg-4.nosidemargin#my_current_stats
+            
+       
 
-          .col-md-3.col-lg-4.nosidemargin#my_current_stats
-            .row.summary
-              h4.summarysmall.golden.text-right YOUR CHANCE<br>OF WINNING
-              h1.summarybig.lightyellow.text-right.my_win_chance#my_win_chance
-            // .row.summary
-            //   h4.summarysmall.golden.text-right TAKE HOME AMOUNT
-            //   h1.summarybig.lightyellow.text-right 0&period;00012500?
-            .row.summary
-              // TODO: Force this to be a float
-              h4.summarysmall.golden.text-right YOUR<br>CONTRIBUTION
-              h1.summarybig.lightyellow.text-right.my_contribution#my_contribution
-             // .row.netposition.loss
-             //   h4.summarysmall.golden POTENTIAL NET
-             //   h1.summarybig.lightyellow.text-right 34&period;0000
-        // Slide 2
-        // .row
-        //   .col-md-4.nosidemargin.table-responsive
-        //     h4.fadedtext Current Participants
-        //     table#currentbets.table.table-condensed.table-hover.transltable.centered
-        //       thead
-        //         tr
-        //           th PLAYER
-        //           th CHANCE
-        //           th TOTAL BET
-        //           th &percnt; OF POT
-        //       tbody
-        //         tr
-        //           td Joey
-        //           td 45&percnt;
-        //           td 21&period;3
-        //           td 30&percnt;
-        //         tr
-        //           td Mike
-        //           td 38&percnt;
-        //           td 6&period;03
-        //           td 25&percnt;
-        //         tr
-        //           td Shawn
-        //           td 32&percnt;
-        //           td 2&period;00
-        //           td 20&percnt;
-        //         tr
-        //           td Josh
-        //           td 10&percnt;
-        //           td 1&period;3
-        //           td 10&percnt;
-        //         tr.yourposition
-        //           td You
-        //           td 3&percnt;
-        //           td 0&period;3
-        //           td 10&percnt;
-        //   .col-md-5.col-lg-4.nosidemargin.chart
-        //     .betchart
-        //     .charttarget
-        //       h4#currenrndsize.text-center CURRENT ROUND PRIZE
-        //       h1#potprize.text-center 34&period;0000
-        //   .col-md-3.col-lg-4.nosidemargin
-        //     .row.summary
-        //       h4.summarysmall.golden.text-right YOUR CHANCE OF WINNING
-        //       h1.summarybig.lightyellow.text-right 68&percnt;
-        //     .row.summary
-        //       h4.summarysmall.golden.text-right TAKE HOME AMOUNT
-        //       h1.summarybig.lightyellow.text-right 0&period;00012500
-        //     .row.summary
-        //       h4.summarysmall.golden.text-right YOUR CONTRIBUTION
-        //       h1.summarybig.lightyellow.text-right 
-        //     .row.netposition.profit
-        //       h4.summarysmall.golden POTENTIAL NET
-        //       h1.summarybig.lightyellow.text-right 34&period;0000
     // Betting Navigation
     section#betnav.navbar-fixed-bottom.bitsplitbetnav
       .bigcounter
         
-      .row
-        
+      .row      
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.btcchance
           // | Risk Chance Calculation
           // a  Learn about Smart API bidding
@@ -230,6 +182,16 @@ html
             a.btn.btn-default#deposit Deposit    
           
   // FAQ Modal
+  
+
+  #chat_modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog.modal-lg
+      .modal-content.transmodal
+        .modal-body.chattrans
+          include chat
+        //- .modal-footer
+        //-   button.btn.btn-default(type='button', data-dismiss='modal') Close
+
   #account_modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog.modal-lg
       .modal-content

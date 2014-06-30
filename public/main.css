@@ -7,11 +7,12 @@
 body {
     background-color: #207E81;
     min-height: 100%;
-    height: 100%;
+    /* height: 100%; */
     position: absolute;
     width: 100%;
     margin: 0;
     padding: 0;
+   /* padding-bottom: 271px;*/
 }
 #bg {
     position: fixed;
@@ -94,9 +95,10 @@ div.navbar-header { margin-top: -30px}
     white-space: normal;
 }
 table.table.table-condensed.transltable {
-    width: 84%;
-    margin-left: 8%;
+    width: 100%;
+    /* margin-left: 8%; */
     background: rgba(2, 22, 21, 0.43);
+    color: white;
 }
 thead {
     background: rgba(34, 34, 34, 0.57);
@@ -128,8 +130,8 @@ div.modal-header {
     font-weight: 100;
     border-bottom: 0;
 }
-div.modal-body { background: white }
-div.modal-content { background: none }
+div.modal-body {background: white; }
+div.modal-content {  }
 div.modal-footer {
     background: rgba(223, 223, 223, 1);
     margin-top: 0;
@@ -181,6 +183,11 @@ div.row.summary {
     margin-bottom: 0px;
     padding-bottom: 5px;
     padding-top: 8px;
+    /* display: inline-block; */
+    float: left;
+    /* margin-left: 40px; */
+    margin-right: 0;
+    margin-left: 0;
 }
 .bitbank > .btn-group-transparent > .btn {
     background: #232323;
@@ -261,18 +268,24 @@ h2 {
 }
 h1.summarybig.lightyellow.text-right {
     font-family: 'Montserrat', sans-serif;
-    font-size: 40px;
+    font-size: 41px;
     letter-spacing: -1px;
     color: #FFEBA9;
-    margin-top: 13px;
-    width: 70%;
-    float: left;
+    margin-top: 0px;
+    /* width: 70%; */
+    /* float: right; */
+    /* margin-left: 21px; */
+    /* clear: left; */
+    margin-bottom: 0px;
+    margin-top: 10px;
 }
 h4.summarysmall.golden.text-right {
-    width: 30%;
+    width: 100%;
     float: left;
     font-size: 17px;
-    margin-top: 17PX;
+    margin-top: 0PX;
+    text-align: right;
+    color: #fff;
 }
 .montlarge {
     font-family: 'Montserrat', sans-serif;
@@ -335,17 +348,22 @@ div.row.summary:first-child {
     /* padding-bottom: 0px; */
     /* padding-top: 3px; */
 }
- div.row.summary:first-child h1 { font-size: 60px }
+ div.row.summary:first-child h1 { /* font-size: 60px */}
 tr.yourposition {
     background: rgb(166, 229, 236);
     color: #333;
     background: linear-gradient(-180deg,rgb(204, 247, 252) 1%, rgb(166, 229, 236) 100%);
 }
-div.row.summary:first-child h4 { margin-top: 35px }
+div.row.summary:first-child h4 { margin-top: 0px; /* margin-left: 14px; */ /* color: #fff; */ line-height: 20px; text-align: right;}
 
 /****************************************************************
  * Other new CSS
  ****************************************************************/
+div.modal-body.chattrans {
+background: none;
+}
+
+
 .currency { }
 .my_balance {
     width: 244px;
@@ -506,8 +524,8 @@ table#pastwinners>thead>tr>th { border-top: 1px dotted black }
  ****************/
 #chat {
     z-index: 10001;
-    width: 86%;
-    margin-left: 8%;
+    width: 100%;
+    margin-left: 0%;
 }
 .chat {
     list-style: none;
@@ -519,7 +537,7 @@ table#pastwinners>thead>tr>th { border-top: 1px dotted black }
      padding-bottom: 11px;
      border-bottom: 1px dotted rgba(0, 0, 0, 0.36);
  }
- .chat li.left .chat-body { margin-left: 10px }
+ .chat li.left .chat-body { margin-left: 00px;}
  .chat li.right .chat-body { margin-right: 60px }
  .chat li .chat-body p {
      margin: 0;
@@ -529,7 +547,8 @@ table#pastwinners>thead>tr>th { border-top: 1px dotted black }
  .chat .glyphicon { margin-right: 5px }
 .panel-body {
     overflow-y: scroll;
-    height: 250px;
+    height: 300px;
+    background: rgba(6, 6, 6, 0.66);
 }
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -548,6 +567,7 @@ table#pastwinners>thead>tr>th { border-top: 1px dotted black }
 .panel-primary>.panel-heading {
     background: rgba(0, 0, 0, 0.24);
     border: none;
+    /*display: none;*/
 }
 div.panel.panel-primary {
     background: rgba(22, 22, 22, 0.31);
@@ -557,6 +577,13 @@ div.panel-footer {
     background: rgba(31, 31, 31, 0.52);
     border-top: none;
 }
+
+.transmodal {
+background: none;
+box-shadow: none;
+border: none;
+}
+
 #sidebar { z-index: 10000 }
 input#btn-input {
     background: rgba(0, 0, 0, 0.35);
@@ -580,6 +607,7 @@ span.primary-font {
     margin-right: 11px;
     font-size: 13px;
     margin-top: 2px;
+    color: rgba(255, 255, 255, 0.51);
 }
 .bet_buttons > a.btn.btn-success:last-child {
     font-size: 22px;
@@ -634,9 +662,9 @@ span.primary-font {
     background-color: #0066FF;
     color: #ffffff;
 }
-#no_participants { margin-left: 8% }
-#no_participants_msg { padding: 7px 10px }
-.light-background { background: rgba(0, 0, 0, 0.24) }
+#no_participants { /* margin-left: 8%  */ color: #fff; clear: left; height: 95px; background: rgba(255, 255, 255, 1); width: 80%; margin: 0 auto;}
+#no_participants_msg { padding: 19px 10px; margin-bottom: 0px; font-size: 16px; color: rgba(149, 149, 149, 0.64); text-align: center;}
+.light-background { /* background: rgba(0, 0, 0, 0.24); */}
 #no_participants,
 #currentbets { display: none }
 #volume_slider {
@@ -685,6 +713,20 @@ a.my_user_name.welcome {
   pointer-events: auto;
 }
 
+
+ul#myTab {
+    clear: left;
+    padding-top: 19px;
+}
+h1#my_contribution {
+    margin-top: 17px;
+    margin-bottom: 2px;
+    font-size: 31px;
+}
+div.yourstats {
+width: 84%;
+margin: 0 auto;
+}
 
 /****************************************************************
  * Responsive Breakpoint Styles
@@ -738,6 +780,14 @@ a.my_user_name.welcome {
         margin-right: 5px;
     }
     
+    h4.summarysmall.golden.text-right {
+width: 100%;
+float: left;
+font-size: 14px;
+margin-top: 0PX;
+text-align: right;
+color: rgba(187, 243, 183, 0.52);
+}
     
     div.navbar-header {
 margin-top: 0px;

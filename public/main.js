@@ -910,7 +910,7 @@ var svg = document.querySelector('svg#piechart');
     $('#gameslider').css(
     {
       // left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
-      paddingTop: (($(window).height() - $('#gameslider').outerHeight() - $('section#betnav').outerHeight()) / 2  ) 
+      paddingTop:( (($(window).height() - 171) / 2 ) - 200)
     });
 
   });
@@ -940,7 +940,7 @@ var svg = document.querySelector('svg#piechart');
         r = 200;
         break;
       case 'md':
-        r = 150;
+        r = 200;
         break;
       case 'lg':
         r = 225;
@@ -1027,6 +1027,11 @@ $("#chat_close").click(function() {
 });
 $("#account_show").click(function() {
   var sel = "#account_modal";
+  $(sel).modal({show: true});
+});
+
+$("#chat_show").click(function() {
+  var sel = "#chat_modal";
   $(sel).modal({show: true});
 });
 
