@@ -29,6 +29,10 @@ script.
     new_round();
   });
 
+  socket.on("player_list", function (user_id_names) {
+    update_player_list(user_id_names);
+  });
+
   socket.on("chat_message", function (json) {
     add_message_to_chat(json.user_name, json.message);
     play_sound('audio/chat.mp3');

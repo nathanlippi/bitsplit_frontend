@@ -437,6 +437,13 @@ $(document).ready(function() {
   });
 });
 
+function update_player_list(user_id_names) {
+  var name;
+  for(var user_id in user_id_names) {
+    name = user_id_names[user_id];
+    console.log("USER_ID_NAME:", user_id, name);
+  }
+}
 
 function refresh_bet_buttons() {
   // Update all the bet buttons with matching amounts
