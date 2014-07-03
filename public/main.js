@@ -439,9 +439,13 @@ $(document).ready(function() {
 
 function update_player_list(user_id_names) {
   var name;
+  var currentPlayers = $('ul.currentplayers');
+  currentPlayers = currentPlayers.empty();
   for(var user_id in user_id_names) {
     name = user_id_names[user_id];
-    console.log("USER_ID_NAME:", user_id, name);
+    // console.log("USER_ID_NAME:", user_id, name);
+    currentPlayers.append('<li class="animated bounceIn">' + name + '</li>');
+
   }
 }
 
@@ -650,7 +654,7 @@ function refresh_current_stats(current_stats)
     CHART.refresh();
 
     $(".my_win_chance").html(current_player_percent_win_chance);
-    $("#my_contribution").html(btc_format_with_style(current_player_contribution));
+    $(".my_contribution").html(btc_format_with_style(current_player_contribution));
 }
 
 function new_round () {
@@ -664,8 +668,18 @@ function new_round () {
   }, 2000);
 
   $('#bg').css('overflow','overflow-y'); 
+  
   $(".bitsplitbetnav").removeClass('bounceOutDown');
-  $(".bitsplitbetnav").addClass('animated bounceInUp');  
+  $(".bitsplitbetnav").addClass('animated bounceInUp');
+  
+  $("#bitsplitnav").removeClass('animated bounceOutUp');  
+  $("#bitsplitnav").addClass('animated bounceInDown');
+
+  $('.yourstats').removeClass('animated bounceOutLeft');
+  $('.yourstats').addClass('animated bounceInLeft');
+
+  $('#current_participants_pane').removeClass('animated bounceOutRight');
+  $('#current_participants_pane').addClass('animated bounceInRight');
 }
 
 function end_round(past_winner_data) {
@@ -696,7 +710,14 @@ function end_round(past_winner_data) {
 
   $('#bg').css('overflow','none');
 
+
   $(".bitsplitbetnav").addClass('animated bounceOutDown');
+  $("#bitsplitnav").addClass('animated bounceOutUp');
+  $("#sidebar").addClass('animated bounceOutLeft');
+  $('.yourstats').addClass('animated bounceOutLeft');
+  $('#current_participants_pane').addClass ('animated bounceOutRight');
+
+
 
   // TODO: If there was a winner, highlight the row in the table, switch to that
   // table.
@@ -919,7 +940,7 @@ var svg = document.querySelector('svg#piechart');
     $('#gameslider').css(
     {
       // left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
-      paddingTop:( (($(window).height() - 171) / 2 ) - 200)
+      paddingTop:( (($(window).height()) / 2 ) - 210)
     });
 
   });
@@ -946,10 +967,10 @@ var svg = document.querySelector('svg#piechart');
         r = 150;
         break;
       case 'sm':
-        r = 200;
+        r = 180;
         break;
       case 'md':
-        r = 200;
+        r = 190;
         break;
       case 'lg':
         r = 225;

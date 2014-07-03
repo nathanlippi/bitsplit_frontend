@@ -12,7 +12,7 @@
 
 div.betchart svg {
     margin: 0 auto;
-    margin-left: -36px;
+    /* margin-left: -36px; */
 }
 
 .betchart svg g.arc {

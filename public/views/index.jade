@@ -35,10 +35,10 @@ html
           img(src='https://www.filepicker.io/api/file/DTOJ2HhRjWe2nNPEVA3P')#logo
       .navbar-collapse.collapse#bitsplitnav-buttons
         ul.nav.navbar-nav.navbar-right
-          li
-           div(style="")
-            a.btn.btn-currency.fake.active(onclick="change_currency_type('fake')") SANDBOX
-            a.btn.btn-currency.btc(onclick="change_currency_type('btc')") BITCOINS
+          //- li
+          //-  div(style="")
+          //-   a.btn.btn-currency.fake.active(onclick="change_currency_type('fake')") SANDBOX
+          //-   a.btn.btn-currency.btc(onclick="change_currency_type('btc')") BITCOINS
           li
             a(href='#howitworks', data-toggle='modal', data-target='#howitworks') How It Works
           li
@@ -56,10 +56,10 @@ html
       #bitsplitgames
         // Slide 1
         .row-fluid
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4.nosidemargin.rsNoDrag
+          .col-xs-12.col-sm-4.col-md-4.col-lg-4.nosidemargin.rsNoDrag.hidden-xs
             .yourstats
               .row.summary
-                h1.summarybig.lightyellow.text-right.my_contribution#my_contribution
+                h1.summarybig.lightyellow.text-right.my_contribution.my_contribution
                 h4.summarysmall.golden.text-right CONTRIBUTION
                 
               // .row.summary
@@ -67,7 +67,7 @@ html
               //   h1.summarybig.lightyellow.text-right 0&period;00012500?
               .row.summary
                 // TODO: Force this to be a float
-                h1.summarybig.lightyellow.text-right.my_win_chance#my_win_chance
+                h1.summarybig.lightyellow.text-right.my_win_chance.my_win_chance
                 h4.summarysmall.golden.text-right YOUR CHANCE
               
              // .row.netposition.loss
@@ -78,6 +78,7 @@ html
              // .row.netposition.loss
              //   h4.summarysmall.golden POTENTIAL NET
              //   h1.summarybig.lightyellow.text-right 34&period;0000
+            
             #currentplayers
             #onlineusers
             // h4.fadedtext Current Participants
@@ -115,10 +116,16 @@ html
                       th HOUSE
                   tbody
               .tab-pane#chat_toggle2
-          .col-xs-12.col-sm-5.col-md-5.col-lg-6.nosidemargin.rsNoDrag.chart
+          .col-xs-12.col-sm-5.col-md-4.col-lg-4.nosidemargin.rsNoDrag.chart
             #pie.betchart
-          .col-xs-12.col-sm-3.col-md-3.col-lg-2
+          .col-xs-12.col-sm-3.col-md-4.col-lg-4
+            
+            
             #current_participants_pane
+                div(style="")
+                  a.btn.btn-currency.fake.active(onclick="change_currency_type('fake')") SANDBOX
+                  a.btn.btn-currency.btc(onclick="change_currency_type('btc')") BITCOINS
+                ul.currentplayers
                 table#currentbets.table.table-condensed.table-hover.transltable.centered
                   thead
                     tr
@@ -127,10 +134,10 @@ html
                       th TOTAL BET
                       th &percnt; OF POT
                   tbody
-                #no_participants
-                  h4.light-background#no_participants_msg
-                    span.visible-lg There are no players in the current round.
-                    span.hidden-lg There are no players in this round.            
+                //- #no_participants
+                //-   h4.light-background#no_participants_msg
+                //-     span.visible-lg There are no players in the current round.
+                //-     span.hidden-lg There are no players in this round.            
           
           
          // .col-md-3.col-lg-4.nosidemargin#my_current_stats
@@ -145,7 +152,13 @@ html
         .col-xs-12.col-sm-12.col-md-12.col-lg-12.btcchance
           // | Risk Chance Calculation
           // a  Learn about Smart API bidding
-          | Place Your Bet By Percentage of Prize
+          span.hidden-xs Place Your Bet By Percentage of Prize
+          span.visible-xs  Your Bet - 
+          span.visible-xs.my_contribution
+          span.visible-xs  Your Chance - 
+          span.visible-xs.my_win_chance
+           
+           
           .btn-group.btn-group-justified.hidden-xs.btn-group-transparent.btccost#bet_amounts
             // a.btn.btn-default 0&period;0002300
             a.btn.btn-default(percentage="50") 
@@ -170,7 +183,7 @@ html
             a.btn.btn-success(percentage="10") 10&percnt;
             a.btn.btn-success(percentage="5") 5&percnt;
             a.btn.btn-success(percentage="1") 1&percnt;
-            a.btn.btn-success(percentage="custom") Minimum Bet
+            a.btn.btn-success(percentage="custom") MIN
 
 
 
