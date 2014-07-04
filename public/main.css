@@ -670,6 +670,8 @@ span.primary-font {
 .light-background { /* background: rgba(0, 0, 0, 0.24); */}
 #no_participants,
 #currentbets { display: none ; margin-top: 10px;}
+#currentbets tr.player_inactive { opacity: 0.3;}
+
 #volume_slider {
     position: absolute;
     left: 60px;

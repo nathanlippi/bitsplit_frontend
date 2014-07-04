@@ -1,5 +1,6 @@
 var personalStats;
 var currentStats;
+var socketConnectedUserIdNames = [];
 var volumeLevel = 0.5;
 
 /* Simple JavaScript Inheritance
@@ -437,18 +438,6 @@ $(document).ready(function() {
   });
 });
 
-function update_player_list(user_id_names) {
-  var name;
-  var currentPlayers = $('ul.currentplayers');
-  currentPlayers = currentPlayers.empty();
-  for(var user_id in user_id_names) {
-    name = user_id_names[user_id];
-    // console.log("USER_ID_NAME:", user_id, name);
-    currentPlayers.append('<li class="animated bounceIn">' + name + '</li>');
-
-  }
-}
-
 function refresh_bet_buttons() {
   // Update all the bet buttons with matching amounts
   $(".btccost .btn").each(function(i, el)
@@ -559,10 +548,27 @@ function refresh_current_stats(current_stats)
     var chartData   = []; // Put current player at beginning of the array
     var myChartItem = null;
 
-    var max_rows = 7;
-    for(var ii = 0;
-        ii < current_stats.contributors.length && ii < max_rows;
-        ii++)
+    function add_table_row(
+      name, user_id, percent_win_chance, contribution_btc, percent_contribution)
+    {
+        console.log("ADdding ttbl row:", arguments);
+
+        var class_name = (contribution_btc === 0) ?
+          "player_inactive" : "player_active";
+
+        var str  = "<tr user_id='"+user_id+"' class='"+class_name+"'>";
+        str     += "<td>"+name+"</td>";
+        str     += "<td>"+percent_win_chance+"%</td>";
+        str     += "<td>"+btc_format_with_style(contribution_btc)+"</td>";
+        str     += "<td>"+percent_contribution+"%</td>";
+        str     += "</tr>";
+
+        $(table_body_id).append(str);
+    }
+
+    var active_user_ids = [];
+
+    for(var ii = 0; ii < current_stats.contributors.length; ii++)
     {
         var font_color = "bitcoin-symbol font-color-bitcoin";
 
@@ -571,6 +577,9 @@ function refresh_current_stats(current_stats)
         var percent_contribution = (contributor.percent.total_contribution * 100);
         var percent_win_chance   = (contributor.percent.win_chance * 100);
         var user                 = contributor.user;
+        var user_id              = user._id;
+
+        active_user_ids.push(user_id);
 
         var font_odds   = "font-color-bitcoin-lose";
         var odds_symbol = "<";
@@ -600,32 +609,37 @@ function refresh_current_stats(current_stats)
           chartData.push(chartItem);
         }
 
-        var str  = "<tr>";
-        str     += "<td>"+user.name+"</td>";
-        str     += "<td>"+percent_win_chance+"%</td>";
-        str     += "<td>"+btc_format_with_style(contribution)+"</td>";
-        str     += "<td>"+percent_contribution+"%</td>";
-        str     += "</tr>";
+        var row = add_table_row(user.name, user_id, percent_win_chance,
+                                contribution, percent_contribution);
+    }
 
-        $(table_body_id).append(str);
+    // var socketConnectedUserIdNames
+
+    for(var user_id_temp in socketConnectedUserIdNames) {
+      name_temp = socketConnectedUserIdNames[user_id_temp];
+
+      // skip bc is active user
+      if(active_user_ids.indexOf(user_id_temp) != -1) continue;
+
+      add_table_row(name_temp, user_id_temp, 0, 0, 0);
     }
 
     // No current players
-    var no_participants   = "#current_participants_pane #no_participants";
-    var participant_count = ".current-participants-badge";
-    if(current_stats.contributors.length === 0) {
-      // Hide table and show something else
-      $(table_id).hide();
-      $(no_participants).show();
+    // var no_participants   = "#current_participants_pane #no_participants";
+    // var participant_count = ".current-participants-badge";
+    // if(current_stats.contributors.length === 0) {
+    //   // Hide table and show something else
+    //   $(table_id).hide();
+    //   $(no_participants).show();
 
-      $(participant_count).html("");
-    }
-    else {
-      $(no_participants).hide();
+    //   $(participant_count).html("");
+    // }
+    // else {
+    //   $(no_participants).hide();
       $(table_id).show();
 
-      $(participant_count).html(current_stats.contributors.length);
-    }
+    //   $(participant_count).html(current_stats.contributors.length);
+    // }
 
     var not_playing = "#my_current_stats #my_current_stats_inactive";
     var am_playing  = "#my_current_stats #my_current_stats_active";

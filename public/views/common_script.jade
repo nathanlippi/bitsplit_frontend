@@ -30,7 +30,7 @@ script.
   });
 
   socket.on("player_list", function (user_id_names) {
-    update_player_list(user_id_names);
+    socketConnectedUserIdNames = user_id_names;
   });
 
   socket.on("chat_message", function (json) {
