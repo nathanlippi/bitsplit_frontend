@@ -411,8 +411,10 @@ $(document).ready(function() {
         var percentage = (1 - currentTimeLeft/maxTimeLeft)*100;
         $(".bigcounter").css("width", percentage.toString()+"%");
 
-        $("#nextRoundTime")
-          .html(seconds_to_pretty_time(Math.round(currentTimeLeft/1000)));
+        if(!is_round_intermission) {
+          $("#"+CHART.IDS.nextRoundTime)
+            .html(seconds_to_pretty_time(Math.round(currentTimeLeft/1000)));
+        }
      }
 
   }, 100);

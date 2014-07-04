@@ -19,6 +19,14 @@ var CHART = (function()
     COMBINED             : 2
   };
 
+  var IDS = {
+    circleHTML       : "chartCircleHTMLBody",
+    potprize         : "potprize",
+    currentRoundSize : "currenrndsize",
+    nextRoundTitle   : "nextRoundTitle",
+    nextRoundTime    : "nextRoundTime",
+  };
+
   var pot_prize, pot_title;
   var innerRadius_min, outerRadius;
   var width                         = 350;
@@ -71,14 +79,14 @@ var CHART = (function()
 
     circleHTML =
       foreignObject.append("xhtml:body")
-        .attr("id", "chartCircleHTMLBody");
+        .attr("id", IDS.circleHTML);
 
-    var circle_html_sel = "#chartCircleHTMLBody";
 
-    $(circle_html_sel).append("<div id='currenrndsize'>Current Round Size</div>");
-    $(circle_html_sel).append("<div id='potprize'>...</div>");
-    $(circle_html_sel).append("<div id='nextRoundTitle'>Bitcoins Splitting In</div>");
-    $(circle_html_sel).append("<div id='nextRoundTime'>...</div>");
+    var sel = "#"+IDS.circleHTML;
+    $(sel).append("<div id='"+IDS.currentRoundSize+"'>Current Round Size</div>");
+    $(sel).append("<div id='"+IDS.potprize+"'>...</div>");
+    $(sel).append("<div id='"+IDS.nextRoundTitle+"'>Bitcoins Splitting In</div>");
+    $(sel).append("<div id='"+IDS.nextRoundTime+"'>...</div>");
   }
 
    // chartData: [{contribution: 3, win_chance: 9} ...]
@@ -219,23 +227,23 @@ var CHART = (function()
       .attr("width", width)
       .attr("height", width);
 
-    // Have chartCircleHTMLBody take up this portion of the circle in height
+    // Have IDS.chartHTML take up this portion of the circle in height
     var circleHeightPortion = 0.6;
     var innerCircleTop      = outerRadius - innerRadius_min;
 
     // Center the box vertically.
-    $("#chartCircleHTMLBody").css("top", innerCircleTop+(innerRadius_min*(1-circleHeightPortion))+"px");
-    $("#chartCircleHTMLBody").css("left", innerCircleTop+"px");
+    var sel = "#"+IDS.circleHTML;
+    $(sel).css("top", innerCircleTop+(innerRadius_min*(1-circleHeightPortion))+"px");
+    $(sel).css("left", innerCircleTop+"px");
     // Make the height of the inner box appropriate
-    $("#chartCircleHTMLBody").css("height", innerRadius_min*2*circleHeightPortion+"px");
-    $("#chartCircleHTMLBody").css("width", innerRadius_min*2+"px");
-
+    $(sel).css("height", innerRadius_min*2*circleHeightPortion+"px");
+    $(sel).css("width", innerRadius_min*2+"px");
 
     // This only needs to be called... but after document.ready
-    $("#currenrndsize").fitText(1.6);
-    $("#potprize").fitText(0.75);
-    $("#nextRoundTitle").fitText(1.5);
-    $("#nextRoundTime").fitText(0.63);
+    $("#"+IDS.currentRoundSize).fitText(1.6);
+    $("#"+IDS.potprize).fitText(0.75);
+    $("#"+IDS.nextRoundTitle).fitText(1.5);
+    $("#"+IDS.nextRoundTime).fitText(0.63);
 
     // Should really be done with .enter???
     if(highlightFirstSegment) {
@@ -244,7 +252,6 @@ var CHART = (function()
     else {
       $(".arc:eq(0)").attr("class", "arc");
     }
-
 
     var path = d3.selectAll(".arc > path")
         .data(my_data);
@@ -313,8 +320,12 @@ var CHART = (function()
     setData : function(data) {
       chartData = data;
     },
-    setPotPrize: function(amount) {
-      $("#potprize").html(amount);
+    setPotPrize: function(amount, is_money) {
+      if(typeof is_money === "undefined") is_money = true;
+
+      if(is_money) amount = "฿"+amount;
+
+      $("#"+IDS.potprize).html(amount);
     },
     refresh : function() {
       transition();
@@ -324,6 +335,7 @@ var CHART = (function()
 
       transition();
     },
+    IDS: IDS,
     VIEWS : VIEWS
   };
 })();

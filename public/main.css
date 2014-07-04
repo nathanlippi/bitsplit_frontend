@@ -380,7 +380,6 @@ background: none;
     content: "฿";
     color: rgba(240, 207, 92, 0.92);
 }
-#potprize:before { content: "฿" }
 .my_current_bet:before {
     // Does not work because this is an input form: ;
     content: "฿";
