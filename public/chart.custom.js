@@ -243,7 +243,7 @@ var CHART = (function()
     $("#"+IDS.currentRoundSize).fitText(1.6);
     $("#"+IDS.potprize).fitText(0.75);
     $("#"+IDS.nextRoundTitle).fitText(1.5);
-    $("#"+IDS.nextRoundTime).fitText(0.63);
+    $("#"+IDS.nextRoundTime).fitText(0.75);
 
     // Should really be done with .enter???
     if(highlightFirstSegment) {

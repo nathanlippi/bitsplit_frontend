@@ -383,8 +383,10 @@ $(document).ready(function() {
       past_is_round_intermission = is_round_intermission;
       is_round_intermission = (isNaN(currentTimeLeft) || currentTimeLeft < 0);
 
-      if(past_is_round_intermission !== is_round_intermission)
+      if(past_is_round_intermission !== is_round_intermission) {
         refresh_bet_buttons();
+          set_time_left(0);
+      }
 
       if(typeof window.next_split_ms !== "number") {
         return false;
@@ -412,8 +414,7 @@ $(document).ready(function() {
         $(".bigcounter").css("width", percentage.toString()+"%");
 
         if(!is_round_intermission) {
-          $("#"+CHART.IDS.nextRoundTime)
-            .html(seconds_to_pretty_time(Math.round(currentTimeLeft/1000)));
+          set_time_left(Math.round(currentTimeLeft/1000));
         }
      }
 
@@ -510,6 +511,17 @@ function check_for_new_contributors(pastContributors, currentContributors)     {
   return new_users;
 }
 
+function set_pot_prize() {
+  if(typeof currentStats === "undefined") return;
+
+  CHART.setPotPrize(to_btc_str_with_style(currentStats.prize));
+}
+// TODO: Should be in chart.custom.js
+function set_time_left(seconds) {
+  $("#"+CHART.IDS.nextRoundTime) .html(seconds_to_pretty_time(seconds));
+}
+
+
 function refresh_current_stats(current_stats)
 {
     var pastCurrentStats = $.extend(true, {}, currentStats);
@@ -544,7 +556,9 @@ function refresh_current_stats(current_stats)
     var latency          = 150; // Assumption
     window.next_split_ms = new Date().getTime()+retr-latency;
 
-    CHART.setPotPrize(to_btc_str_with_style(current_stats.prize));
+    if(!is_round_intermission) {
+      set_pot_prize();
+    }
 
     refresh_bet_buttons();
 
@@ -557,8 +571,6 @@ function refresh_current_stats(current_stats)
     function add_table_row(
       name, user_id, percent_win_chance, contribution_btc, percent_contribution)
     {
-        console.log("ADdding ttbl row:", arguments);
-
         var class_name = (contribution_btc === 0) ?
           "player_inactive" : "player_active";
 
@@ -681,14 +693,16 @@ function new_round () {
   var svg = document.querySelector('svg#piechart');
   var flip_classes = 'animated flip';
 
-  $('#currenrndsize').html('CURRENT ROUND SIZE');
-  $('#nextRoundTitle').html('Bitcoins Splitting In');
+  $("#"+CHART.IDS.currentRoundSize).html('CURRENT ROUND SIZE');
+  $("#"+CHART.IDS.nextRoundTitle).html('Bitcoins Splitting In');
 
   alertify.success("<b>New round starting!</b>");
   lunar.addClass(svg, flip_classes);
   setTimeout(function() {
     lunar.removeClass(svg, flip_classes);
   }, 2000);
+
+  set_pot_prize();
 
   $('#bg').css('overflow','overflow-y'); 
   
@@ -708,29 +722,29 @@ function new_round () {
   $("#sidebar").removeClass('animated bounceInLeft');
 }
 
-function end_round(past_winner_data) {
-  // There was not a winner
-  if(past_winner_data.user === null) {
+function end_round(past_winner_data)
+{
+  var jackpot_id                 = past_winner_data.jackpot_id;
 
+  if(past_winner_data.user === null) { // No winner
 
   }
   else { // There was a winner
+
     var user_name                  = past_winner_data.user.name;
     var user_contribution_satoshis = past_winner_data.contribution;
-    var jackpot_id                 = past_winner_data.jackpot_id;
-    var winnings                    = past_winner_data.disbursements.winner;
+    var winnings                   = past_winner_data.disbursements.winner;
 
-
-
-
-    // Nathan:
-    // I'd possibly like to have some data/message about what their chance of
-    // winning was and if they beat the odds or not (luck or skill).
+    $("#"+CHART.IDS.currentRoundSize).html('Congratulations!');
+    $("#"+CHART.IDS.potprize).html(user_name);
+    CHART.setPotPrize(user_name, false);
+    $("#"+CHART.IDS.nextRoundTitle).html('YOU WIN');
+    $("#"+CHART.IDS.nextRoundTime).html("฿"+to_btc_str_with_style(winnings));
   }
   
   var msg = "<b>Round Over!</b>";
   
-  var svg = document.querySelector('svg#piechart');
+  var svg          = document.querySelector('svg#piechart');
   var flip_classes = 'animated flip';
 
   lunar.addClass(svg, flip_classes);
@@ -747,23 +761,10 @@ function end_round(past_winner_data) {
   $('.yourstats').addClass('animated bounceOutLeft');
   $('#current_participants_pane').addClass ('animated bounceOutRight');
 
-  $('#currenrndsize').html('Congratulations!');
-  console.log(user_name);
-  console.log(winnings);
-  $('#potprize').innerHTML = user_name;
-  $('#nextRoundTitle').html('YOU WIN');
-  $('#nextRoundTime').innerHTML = winnings;
-  // $('').html(user_contribution_satoshis);
-  // $('').html(jackpot_id);
-  // $('').html(jackpot);
-
-
-
   // TODO: If there was a winner, highlight the row in the table, switch to that
   // table.
   
   alertify.log(msg, "", 4000);
-
 }
 
 function refresh_past_winners(past_winners)
@@ -982,7 +983,6 @@ var svg = document.querySelector('svg#piechart');
       // left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
       paddingTop:( (($(window).height()) / 2 ) - 210)
     });
-
   });
 
   // call `resize` to center elements
