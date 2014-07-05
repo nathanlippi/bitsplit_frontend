@@ -677,6 +677,9 @@ function new_round () {
   var svg = document.querySelector('svg#piechart');
   var flip_classes = 'animated flip';
 
+  $('#currenrndsize').html('CURRENT ROUND SIZE');
+  $('#nextRoundTitle').html('Bitcoins Splitting In');
+
   alertify.success("<b>New round starting!</b>");
   lunar.addClass(svg, flip_classes);
   setTimeout(function() {
@@ -711,6 +714,10 @@ function end_round(past_winner_data) {
     var user_name                  = past_winner_data.user.name;
     var user_contribution_satoshis = past_winner_data.contribution;
     var jackpot_id                 = past_winner_data.jackpot_id;
+    var winnings                    = past_winner_data.disbursements.winner;
+
+
+
 
     // Nathan:
     // I'd possibly like to have some data/message about what their chance of
@@ -735,6 +742,16 @@ function end_round(past_winner_data) {
   $("#sidebar").addClass('animated bounceOutLeft');
   $('.yourstats').addClass('animated bounceOutLeft');
   $('#current_participants_pane').addClass ('animated bounceOutRight');
+
+  $('#currenrndsize').html('Congratulations!');
+  console.log(user_name);
+  console.log(winnings);
+  $('#potprize').innerHTML = user_name;
+  $('#nextRoundTitle').html('YOU WIN');
+  $('#nextRoundTime').innerHTML = winnings;
+  // $('').html(user_contribution_satoshis);
+  // $('').html(jackpot_id);
+  // $('').html(jackpot);
 
 
 
