@@ -519,7 +519,11 @@ function refresh_current_stats(current_stats)
       pastCurrentStats.contributors : [];
     var currentContributors = currentStats.contributors;
 
-    var current_user_name = personalStats.name;
+    var current_user_name = null;
+    if(typeof personalStats !== "undefined") {
+      current_user_name = personalStats.name;
+    }
+
     var new_users         = check_for_new_contributors(
       pastContributors, currentContributors);
 
