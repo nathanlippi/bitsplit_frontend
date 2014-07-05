@@ -6,6 +6,8 @@
 
 var CHART = (function()
 {
+  var is_intermission = false;
+
   var arc, pie, svg, circle, foreignObject, circleHTML;
 
   var chartData                          = [];
@@ -320,11 +322,11 @@ var CHART = (function()
     setData : function(data) {
       chartData = data;
     },
-    setPotPrize: function(amount, is_money) {
-      if(typeof is_money === "undefined") is_money = true;
+    setPotPrize: function(amount)
+    {
+      if(is_intermission) return false;
 
-      if(is_money) amount = "฿"+amount;
-
+      amount = "฿"+amount;
       $("#"+IDS.potprize).html(amount);
     },
     refresh : function() {
@@ -334,6 +336,15 @@ var CHART = (function()
       resize(outerRadius);
 
       transition();
+    },
+    setIntermission: function(is_intermission_param) {
+      is_intermission = is_intermission_param;
+
+      var ch = $("#"+IDS.circleHTML);
+      if(is_intermission) {
+        return ch.addClass("intermission");
+      }
+      ch.removeClass("intermission");
     },
     IDS: IDS,
     VIEWS : VIEWS

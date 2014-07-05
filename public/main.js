@@ -345,8 +345,6 @@ $(document).ready(function() {
       {
         var title_changed = tooltip_title !== res.msg;
 
-        console.log("titlechanged:", title_changed);
-
         $(new_user_name_sel)
           .attr("title", res.msg)
           .tooltip('fixTitle');
@@ -381,7 +379,7 @@ $(document).ready(function() {
         Math.floor((next_split_ms - new Date().getTime()));
 
       past_is_round_intermission = is_round_intermission;
-      is_round_intermission = (isNaN(currentTimeLeft) || currentTimeLeft < 0);
+      is_round_intermission      = (isNaN(currentTimeLeft) || currentTimeLeft < 0);
 
       if(past_is_round_intermission !== is_round_intermission) {
         refresh_bet_buttons();
@@ -556,9 +554,7 @@ function refresh_current_stats(current_stats)
     var latency          = 150; // Assumption
     window.next_split_ms = new Date().getTime()+retr-latency;
 
-    if(!is_round_intermission) {
-      set_pot_prize();
-    }
+    set_pot_prize();
 
     refresh_bet_buttons();
 
@@ -690,6 +686,8 @@ function refresh_current_stats(current_stats)
 }
 
 function new_round () {
+  CHART.setIntermission(false);
+
   var svg = document.querySelector('svg#piechart');
   var flip_classes = 'animated flip';
 
@@ -724,6 +722,8 @@ function new_round () {
 
 function end_round(past_winner_data)
 {
+  CHART.setIntermission(true);
+
   var jackpot_id                 = past_winner_data.jackpot_id;
 
   if(past_winner_data.user === null) { // No winner
@@ -735,11 +735,11 @@ function end_round(past_winner_data)
     var user_contribution_satoshis = past_winner_data.contribution;
     var winnings                   = past_winner_data.disbursements.winner;
 
-    $("#"+CHART.IDS.currentRoundSize).html('Congratulations!');
-    $("#"+CHART.IDS.potprize).html(user_name);
-    CHART.setPotPrize(user_name, false);
-    $("#"+CHART.IDS.nextRoundTitle).html('YOU WIN');
-    $("#"+CHART.IDS.nextRoundTime).html("฿"+to_btc_str_with_style(winnings));
+    var presel = "#"+CHART.IDS.circleHTML+".intermission ";
+    $(presel+"#"+CHART.IDS.currentRoundSize).html('Congratulations!');
+    $(presel+"#"+CHART.IDS.potprize).html(user_name);
+    $(presel+"#"+CHART.IDS.nextRoundTitle).html('YOU WIN');
+    $(presel+"#"+CHART.IDS.nextRoundTime).html("฿"+to_btc_str_with_style(winnings));
   }
   
   var msg = "<b>Round Over!</b>";
