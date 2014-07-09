@@ -1108,6 +1108,11 @@ $("#chat_show").click(function() {
   setTimeout(scroll_chat_to_bottom, 250);
 });
 
+$("#past_winners_show").click(function() {
+  var sel = "#past_winners_pane";
+  $(sel).toggle();
+});
+
 $("#btn-chat").click(function() {
   send_chat_msg();
 });
