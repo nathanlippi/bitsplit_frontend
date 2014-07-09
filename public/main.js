@@ -718,8 +718,8 @@ function new_round () {
   $('#current_participants_pane').removeClass('animated bounceOutRight');
   $('#current_participants_pane').addClass('animated bounceInRight');
 
-  $("#sidebar").removeClass('animated bounceOutLeft');
-  $("#sidebar").removeClass('animated bounceInLeft');
+  // $("#sidebar").removeClass('animated bounceOutLeft');
+  // $("#sidebar").removeClass('animated bounceInLeft');
 }
 
 function end_round(past_winner_data)
@@ -759,7 +759,7 @@ function end_round(past_winner_data)
 
   $(".bitsplitbetnav").addClass('animated bounceOutDown');
   $("#bitsplitnav").addClass('animated bounceOutUp');
-  $("#sidebar").addClass('animated bounceOutLeft');
+  // $("#sidebar").addClass('animated bounceOutLeft');
   $('.yourstats').addClass('animated bounceOutLeft');
   $('#current_participants_pane').addClass ('animated bounceOutRight');
 
