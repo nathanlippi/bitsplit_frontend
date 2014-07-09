@@ -456,6 +456,8 @@ function refresh_bet_buttons() {
 
     var sel = ".bet_buttons .btn[percentage='"+percentage+"']";
     if(is_round_intermission ||
+       typeof personalStats === "undefined" ||
+       typeof personalStats.balance === "undefined" ||
        bet_amt_satoshis > personalStats.balance ||
        bet_amt_satoshis <= 0 || isNaN(bet_amt_satoshis))
     {
