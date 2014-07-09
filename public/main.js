@@ -1105,6 +1105,7 @@ $("#account_show").click(function() {
 $("#chat_show").click(function() {
   var sel = "#chat_modal";
   $(sel).modal({show: true});
+  setTimeout(scroll_chat_to_bottom, 250);
 });
 
 $("#btn-chat").click(function() {
