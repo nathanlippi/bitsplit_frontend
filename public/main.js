@@ -312,6 +312,46 @@ function play_sound(src) {
   audio.play();
 }
 
+
+// Refreshes our countdown timer
+var lastTimeLeft;
+function refreshCountDownTimer() {
+    if(typeof currentStats === "undefined") return;
+    var maxTimeLeft     = currentStats.round_duration;
+    var next_split_ms   = window.next_split_ms;
+    var currentTimeLeft =
+      Math.floor((next_split_ms - new Date().getTime()));
+
+    past_is_round_intermission = is_round_intermission;
+    is_round_intermission      = (isNaN(currentTimeLeft) || currentTimeLeft < 0);
+
+    if(past_is_round_intermission !== is_round_intermission) {
+      refresh_bet_buttons();
+        set_time_left(0);
+    }
+
+    if(typeof window.next_split_ms !== "number") {
+      return false;
+    }
+
+    if(typeof lastTimeLeft !== "number") {
+      lastTimeLeft = currentTimeLeft;
+    }
+
+    // Update timer every second
+    if(Math.abs((currentTimeLeft - lastTimeLeft) / 1000) >= 1)
+    {
+      lastTimeLeft = currentTimeLeft;
+
+      var percentage = (1 - currentTimeLeft/maxTimeLeft)*100;
+      $(".bigcounter").css("width", percentage.toString()+"%");
+
+      if(!is_round_intermission) {
+        set_time_left(Math.round(currentTimeLeft/1000));
+      }
+   }
+}
+
 $(document).ready(function() {
   var new_user_name_sel      = '#new_user_name';
   var new_user_create_sel    = '#new_user_create';
@@ -371,45 +411,7 @@ $(document).ready(function() {
     });
   });
 
-  // Refreshes our countdown timer
-  var lastTimeLeft;
-  setInterval(function() {
-      if(typeof currentStats === "undefined") return;
-      var maxTimeLeft     = currentStats.round_duration;
-      var next_split_ms   = window.next_split_ms;
-      var currentTimeLeft =
-        Math.floor((next_split_ms - new Date().getTime()));
-
-      past_is_round_intermission = is_round_intermission;
-      is_round_intermission      = (isNaN(currentTimeLeft) || currentTimeLeft < 0);
-
-      if(past_is_round_intermission !== is_round_intermission) {
-        refresh_bet_buttons();
-          set_time_left(0);
-      }
-
-      if(typeof window.next_split_ms !== "number") {
-        return false;
-      }
-
-      if(typeof lastTimeLeft !== "number") {
-        lastTimeLeft = currentTimeLeft;
-      }
-
-      // Update timer every second
-      if(Math.abs((currentTimeLeft - lastTimeLeft) / 1000) >= 1)
-      {
-        lastTimeLeft = currentTimeLeft;
-
-        var percentage = (1 - currentTimeLeft/maxTimeLeft)*100;
-        $(".bigcounter").css("width", percentage.toString()+"%");
-
-        if(!is_round_intermission) {
-          set_time_left(Math.round(currentTimeLeft/1000));
-        }
-     }
-
-  }, 100);
+  setInterval(refreshCountDownTimer, 100);
 
   $("#volume_slider_icon").click(function() {
     $("#volume_slider").toggle();
@@ -519,6 +521,8 @@ function refresh_current_stats(current_stats)
 {
     var pastCurrentStats = $.extend(true, {}, currentStats);
     currentStats         = current_stats;
+
+    refreshCountDownTimer();
 
     var pastContributors = typeof pastCurrentStats.contributors === "object" ?
       pastCurrentStats.contributors : [];
