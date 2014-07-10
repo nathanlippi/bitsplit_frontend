@@ -83,9 +83,8 @@ var CHART = (function()
       foreignObject.append("xhtml:body")
         .attr("id", IDS.circleHTML);
 
-
     var sel = "#"+IDS.circleHTML;
-    $(sel).append("<div id='"+IDS.currentRoundSize+"'>Current Round Size</div>");
+    $(sel).append("<div id='"+IDS.currentRoundSize+"'>CURRENT ROUND PRIZE</div>");
     $(sel).append("<div id='"+IDS.potprize+"'>...</div>");
     $(sel).append("<div id='"+IDS.nextRoundTitle+"'>Bitcoins Splitting In</div>");
     $(sel).append("<div id='"+IDS.nextRoundTime+"'>...</div>");

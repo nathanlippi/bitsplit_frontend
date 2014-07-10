@@ -693,7 +693,7 @@ function new_round () {
   var svg = document.querySelector('svg#piechart');
   var flip_classes = 'animated flip';
 
-  $("#"+CHART.IDS.currentRoundSize).html('CURRENT ROUND SIZE');
+  $("#"+CHART.IDS.currentRoundSize).html('CURRENT ROUND PRIZE');
   $("#"+CHART.IDS.nextRoundTitle).html('Bitcoins Splitting In');
 
   alertify.success("<b>New round starting!</b>");
