@@ -28,7 +28,9 @@ script.
   socket.on("round_new", function (json) {
     new_round();
   });
-
+  socket.on("time_added", function (time_added_seconds) {
+    alertify.log("<b>"+time_added_seconds+" second"+(time_added_seconds === 1 ? "" : "s")+"</b> added to round.");
+  });
   socket.on("player_list", function (user_id_names) {
     socketConnectedUserIdNames = user_id_names;
   });

@@ -372,8 +372,10 @@ $(document).ready(function() {
   });
 
   // Refreshes our countdown timer
-  var maxTimeLeft, lastTimeLeft;
+  var lastTimeLeft;
   setInterval(function() {
+      if(typeof currentStats === "undefined") return;
+      var maxTimeLeft     = currentStats.round_duration;
       var next_split_ms   = window.next_split_ms;
       var currentTimeLeft =
         Math.floor((next_split_ms - new Date().getTime()));
@@ -392,15 +394,6 @@ $(document).ready(function() {
 
       if(typeof lastTimeLeft !== "number") {
         lastTimeLeft = currentTimeLeft;
-      }
-      if(typeof maxTimeLeft !== "number") {
-        maxTimeLeft = currentTimeLeft;
-
-      }
-
-      // Reset max time left to accomodate changing round lengths.
-      if(currentTimeLeft > lastTimeLeft) {
-        maxTimeLeft = currentTimeLeft;
       }
 
       // Update timer every second
