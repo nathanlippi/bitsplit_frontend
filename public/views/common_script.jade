@@ -7,9 +7,6 @@ script.
   socket.on("refresh", function (json) {
     window.location.reload();
   });
-  socket.on("config", function (json) {
-    refresh_config(json);
-  });
   socket.on("personal_stats", function (json) {
     update_personal_stats(json);
   });

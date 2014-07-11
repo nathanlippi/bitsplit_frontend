@@ -119,12 +119,7 @@ html
           .col-xs-12.col-sm-5.col-md-4.col-lg-4.nosidemargin.rsNoDrag.chart
             #pie.betchart
           .col-xs-12.col-sm-3.col-md-4.col-lg-4
-            
-            
             #current_participants_pane
-                div(style="")
-                  a.btn.btn-currency.fake.active(onclick="change_currency_type('fake')") SANDBOX
-                  a.btn.btn-currency.btc(onclick="change_currency_type('btc')") BITCOINS
                 ul.currentplayers
                 table#currentbets.table.table-condensed.table-hover.transltable.centered
                   thead
@@ -228,13 +223,13 @@ html
           button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
           h4#myModalLabel.modal-title How It Works
         .modal-body
-          p BitSplit is a bitcoin micro-lottery where larger total bets have a disproportionately higher chance of winning.
+          p BitSplit is a bitcoin micro-lottery where larger total bets have a disproportionately higher chance of winning; your chance of winning is proportional to the square of your bet.
 
-          p It&apos;s a lottery where you can consistently earn money if you play strategically.
+          p 50% of your bet goes into the current prize, 48% goes into the next jackpot, and 2% goes to the house.
 
-          p Play around with the pretend money you received for signing up, and see the game in action!
+          p If no one else is playing, 1 satoshi is all it takes to win!
 
-          p If you&apos;re feeling feisty, try to steal some real money from the bitcoin pot with the 1 satoshi you&apos;ve been given :).
+          p If you want an alternate way to earn money, refer some of your friends using the referral link which you can find by clicking the bitcoin symbol in the left sidebar.
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Close
   #faqcontent.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

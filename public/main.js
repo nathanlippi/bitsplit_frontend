@@ -865,21 +865,6 @@ function to_satoshis(btc) {
   return Math.round(btc*Math.pow(10,8));
 }
 
-function change_currency_type(currencyType) {
-  socket.emit("user:change_currency_type", currencyType);
-  // TODO: Wait for callback
-  change_currency_type_ui(currencyType);
-}
-function change_currency_type_ui(currencyType) {
-  $("select#currency_type").val(currencyType);
-  BitSplit.currency.setType(currencyType);
-}
-
-function refresh_config(config_data) {
-  // TODO: Store refresh duration
-  if(typeof config_data.round_length_seconds !== "undefined") {
-  }
-}
 function update_personal_stats(personal_stats) {
   personalStats = personal_stats;
 
@@ -888,7 +873,7 @@ function update_personal_stats(personal_stats) {
   var password = "";
   var name     = "";
 
-  change_currency_type_ui(currencyType);
+  BitSplit.currency.setType(currencyType);
 
   if(personalStats.name !== null) {
     balance  = personalStats.balance;
