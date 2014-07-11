@@ -1073,11 +1073,10 @@ Number.prototype.noExponents= function() {
 ////////////////////////////////////////////////////////////////
 // Chat stuff
 
-var chat_sel = "#chat";
+var chat_sel = "#chat_modal";
 $("#chat_close").click(function() {
-  //$(chat_sel).hide();
+  $(chat_sel).modal("hide");
   $('#myTab a[href="#home"]').tab('show');
-
 });
 $("#account_show").click(function() {
   var sel = "#account_modal";
