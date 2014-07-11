@@ -550,7 +550,7 @@ function refresh_current_stats(current_stats)
     $(table_body_id).html("");
 
     var retr             = current_stats.round_time_left;
-    var latency          = 150; // Assumption
+    var latency          = 0; // Assumption
     window.next_split_ms = new Date().getTime()+retr-latency;
 
     set_pot_prize();
