@@ -566,10 +566,20 @@ function refresh_current_stats(current_stats)
     function add_table_row(
       name, user_id, percent_win_chance, contribution_btc, percent_contribution)
     {
-        var class_name = (contribution_btc === 0) ?
+        var class_names = (contribution_btc === 0) ?
           "player_inactive" : "player_active";
 
-        var str  = "<tr user_id='"+user_id+"' class='"+class_name+"'>";
+         // console.log("PWC, PCB:", typeof percent_win_chance, typeof percent_contribution);
+
+        if(percent_win_chance > percent_contribution)
+          class_names += " advantage";
+        else if(percent_win_chance < percent_contribution)
+          class_names += " disadvantage";
+
+        percent_win_chance   = percent_win_chance.toPrecision(3);
+        percent_contribution = percent_contribution.toPrecision(3);
+
+        var str  = "<tr user_id='"+user_id+"' class='"+class_names+"'>";
         str     += "<td>"+name+"</td>";
         str     += "<td>"+percent_win_chance+"%</td>";
         str     += "<td>"+btc_format_with_style(contribution_btc)+"</td>";
@@ -594,26 +604,14 @@ function refresh_current_stats(current_stats)
 
         active_user_ids.push(user_id);
 
-        var font_odds   = "font-color-bitcoin-lose";
-        var odds_symbol = "<";
-        if(percent_win_chance > percent_contribution) {
-            font_odds   = "font-color-bitcoin-win";
-            odds_symbol = ">";
-        }
-        else if(percent_win_chance === percent_contribution) {
-            font_odds   = "font-color-bitcoin-neutral";
-            odds_symbol = "=";
-        }
-
         // Convert to string of specific length, for display
-        percent_win_chance   = percent_win_chance.toPrecision(3);
-        percent_contribution = percent_contribution.toPrecision(3);
+        percent_win_chance_str   = percent_win_chance.toPrecision(3);
 
         var chartItem =
           {win_chance: percent_win_chance, contribution: contribution};
 
         if(current_user_name === user.name) {
-          current_player_percent_win_chance = percent_win_chance;
+          current_player_percent_win_chance = percent_win_chance_str;
           current_player_contribution       = contribution;
 
           myChartItem = chartItem;

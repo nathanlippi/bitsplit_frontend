@@ -752,6 +752,13 @@ ul.currentplayers {
     margin-top: 10px;
 }
 
+.player_active.advantage td:nth-child(2){
+  color: #33aa33;
+}
+.player_active.disadvantage td:nth-child(2) {
+  color: #CC1414;
+}
+
 
 /****************************************************************
  * Responsive Breakpoint Styles
