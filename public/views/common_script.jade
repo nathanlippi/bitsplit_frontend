@@ -55,17 +55,11 @@ script.
   ga('create', 'UA-47822938-1', 'bitsplit.it');
   ga('send', 'pageview');
 
-  /* Snowplow */
-  var _snaq = _snaq || [];
-
-  _snaq.push(['setCollectorCf', 'd1xeermhwlpt1e']);
-  _snaq.push(['setAppId', 'bitsplit.it']);
-  _snaq.push(['setCookieDomain', 'bitsplit.it']);
-  _snaq.push(['trackPageView']);
-
-  (function() {
-  var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
-  sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
-  })();
-  /* End Snowplow */
+  /* SessionCam Client Integration v6.0 */
+  //<![CDATA[
+  var scRec=document.createElement('SCRIPT');
+  scRec.type='text/javascript';
+  scRec.src="//d2oh4tlt9mrke9.cloudfront.net/Record/js/sessioncam.recorder.js";
+  document.getElementsByTagName('head')[0].appendChild(scRec);
+  //]]>
+  /* End SessionCam */
