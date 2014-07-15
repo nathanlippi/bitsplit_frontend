@@ -46,6 +46,34 @@ script.
     alertify.log("A new user, <b>"+json.user_name+"</b>, just signed up as your referral!<br/><br/>We've added "+json.amount_satoshis+" satoshis to your bitcoin account!", "", 0);
   });
 
+  socket.on("deposit_confirmations", function (json) {
+    var cc  = json.current_confirmations;
+    var nc  = json.needed_confirmations;
+    var amt = json.amount;
+
+    var time_ms = 20000;
+    var msg     = "<b>Your deposit of ฿"+to_btc_str(amt)+" ";
+
+    if(cc >= nc) {
+      msg += "has been added to your account!";
+      time_ms = 0;
+    }
+    else {
+      if(cc === 0) {
+        msg     += "has been received. ";
+        time_ms  = 0;
+      }
+      else {
+        msg += "is in the process of being confirmed. ";
+      }
+      msg += "<br/><br/>"+cc+"/"+nc+" confirmations completed."
+    }
+    msg += "</b>";
+
+    alertify.success(msg, time_ms);
+  });
+
+
 script#inspectletjs.
   /* Begin Inspectlet Embed Code */
   window.__insp = window.__insp || [];
