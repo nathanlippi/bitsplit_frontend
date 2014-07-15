@@ -304,7 +304,7 @@ var BitSplit = {
   }
 };
 
-var is_round_intermission = false, past_is_round_intermission = false;
+var is_round_intermission = false;
 
 function play_sound(src) {
   var audio  = new Audio(src);
@@ -321,14 +321,6 @@ function refreshCountDownTimer() {
     var next_split_ms   = window.next_split_ms;
     var currentTimeLeft =
       Math.floor((next_split_ms - new Date().getTime()));
-
-    past_is_round_intermission = is_round_intermission;
-    is_round_intermission      = (isNaN(currentTimeLeft) || currentTimeLeft < 0);
-
-    if(past_is_round_intermission !== is_round_intermission) {
-      refresh_bet_buttons();
-      set_time_left(0);
-    }
 
     if(typeof window.next_split_ms !== "number") {
       return false;
@@ -682,7 +674,10 @@ function refresh_current_stats(current_stats)
 }
 
 function new_round () {
+  is_round_intermission = false;
   CHART.setIntermission(false);
+
+  refresh_bet_buttons();
 
   var svg = document.querySelector('svg#piechart');
   var flip_classes = 'animated flip';
@@ -718,7 +713,10 @@ function new_round () {
 
 function end_round(past_winner_data)
 {
+  is_round_intermission = true;
   CHART.setIntermission(true);
+
+  refresh_bet_buttons();
 
   var jackpot_id                 = past_winner_data.jackpot_id;
 
