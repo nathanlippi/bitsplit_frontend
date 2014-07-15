@@ -327,7 +327,7 @@ function refreshCountDownTimer() {
 
     if(past_is_round_intermission !== is_round_intermission) {
       refresh_bet_buttons();
-        set_time_left(0);
+      set_time_left(0);
     }
 
     if(typeof window.next_split_ms !== "number") {
@@ -511,11 +511,10 @@ function set_pot_prize() {
 
   CHART.setPotPrize(to_btc_str_with_style(currentStats.prize));
 }
-// TODO: Should be in chart.custom.js
-function set_time_left(seconds) {
-  $("#"+CHART.IDS.nextRoundTime) .html(seconds_to_pretty_time(seconds));
-}
 
+function set_time_left(seconds) {
+  CHART.setNextRoundTime(seconds_to_pretty_time(seconds));
+}
 
 function refresh_current_stats(current_stats)
 {

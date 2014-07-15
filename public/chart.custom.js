@@ -328,6 +328,12 @@ var CHART = (function()
       amount = "฿"+amount;
       $("#"+IDS.potprize).html(amount);
     },
+    setNextRoundTime: function(pretty_time)
+    {
+      if(is_intermission) return false;
+
+      $("#"+IDS.nextRoundTime).html(pretty_time);
+    },
     refresh : function() {
       transition();
     },
