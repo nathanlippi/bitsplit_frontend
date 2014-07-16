@@ -1130,7 +1130,7 @@ function add_message_to_chat(user_name, message) {
   }
 }
 
-$("#chat_pill").click(function() {
+$("#chat_show").click(function() {
   chat_message_count = 0;
   update_chat_badge();
 
