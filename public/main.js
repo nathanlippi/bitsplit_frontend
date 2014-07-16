@@ -344,6 +344,11 @@ function refreshCountDownTimer() {
    }
 }
 
+function inspectlet_tag(tag_str_or_obj) {
+  if(typeof __insp !== "object") return;
+  __insp.push(["tagSession", tag_str_or_obj]);
+}
+
 $(document).ready(function() {
   var new_user_name_sel      = '#new_user_name';
   var new_user_create_sel    = '#new_user_create';
@@ -559,8 +564,6 @@ function refresh_current_stats(current_stats)
     {
         var class_names = (contribution_btc === 0) ?
           "player_inactive" : "player_active";
-
-         // console.log("PWC, PCB:", typeof percent_win_chance, typeof percent_contribution);
 
         if(percent_win_chance > percent_contribution)
           class_names += " advantage";
@@ -871,9 +874,13 @@ function update_personal_stats(personal_stats) {
   BitSplit.currency.setType(currencyType);
 
   if(personalStats.name !== null) {
-    balance  = personalStats.balance;
-    password = personalStats.password;
-    name     = personalStats.name;
+    var user_id = personalStats.user_id;
+    balance     = personalStats.balance;
+    password    = personalStats.password;
+    name        = personalStats.name;
+
+    inspectlet_tag(
+      {user_id: user_id, user_name: name, last_balance: balance});
   }
   $(".my_balance").html(to_btc_str_with_style(balance));
   refresh_bet_buttons();
@@ -890,19 +897,28 @@ function update_personal_stats(personal_stats) {
 var user = {
   create: function(user_name) {
     socket.emit("user:create", user_name);
+    inspectlet_tag({user_create: user_name});
   },
   login: function(user_name, password) {
     socket.emit("user:login", {user_name: user_name, password: password});
+    inspectlet_tag({login_attempt: ""});
   }
 };
 
 var temp = {
   login: function() {
     alertify.prompt("What is your user name?", function (e, user_name) {
-      if (!e) return false;
+      if (!e) {
+        inspectlet_tag({login_attempt: "incomplete:no_name"});
+        return false;
+      }
+
 
       alertify.prompt("What is your password?", function (e, password) {
-          if (!e) return false;
+          if (!e) {
+            inspectlet_tag({login_attempt: "incomplete:no_pass"});
+            return false;
+          }
 
           user.login(user_name, password);
       }, "");
@@ -1026,6 +1042,8 @@ $(".bet_buttons").on("click", ".btn", function() {
   BitSplit.currency.bet(amt, function(err, res) {
     var msg = "Placing bet: "+to_btc_str_with_style(to_satoshis(amt));
     alertify.success(msg, "", 2000);
+
+    inspectlet_tag("placed_bet");
   });
 });
 
@@ -1105,8 +1123,8 @@ function send_chat_msg()
   var msg = $(sel).val();
 
   $(sel).val("");
-
-   socket.emit("user:send_chat_message", {msg: msg});
+  socket.emit("user:send_chat_message", {msg: msg});
+  inspectlet_tag({last_chat_message: msg});
  }
 
 
