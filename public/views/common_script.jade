@@ -37,6 +37,9 @@ script.
     play_sound('audio/chat.mp3');
   });
   socket.on("chat_history", function (json) {
+    var chat_body_sel = "#chat_body"; // TODO: DRY
+    $(chat_body_sel).html("");
+
     $.each(json.messages.reverse(), function(ii, message) {
       add_message_to_chat(message.user_name, message.message);
     });
