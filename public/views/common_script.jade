@@ -1,7 +1,7 @@
 script.
   var socket = io.connect(!{socket_address});
 
-  socket.on("error", function (json) {
+  socket.on("error_msg", function (json) {
     alertify.error(json.msg, "", 3000);
   });
   socket.on("refresh", function (json) {
