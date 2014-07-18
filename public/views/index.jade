@@ -187,6 +187,7 @@ html
   footer.navbar-fixed-bottom.navbar-inverse
     .bit.bitbank
           a.my_user_name.welcome
+          i.fa.fa-edit(style="display:inline-block;float:left;padding:7px;margin-top:8px;")#edit_user_name
           h2.my_balance
           .btn-group.btn-group.btn-group-justified.btn-group-transparent
             a.btn.btn-default#withdraw Withdraw
@@ -216,6 +217,21 @@ html
             span#toggle-password-visibility(onclick="temp.toggle_password_visibility();") show
             |)
           h4.info#password.invisible.text-left
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
+  #name_change_modal.create_or_change_name.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog.modal-md
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+          h4#myModalLabel.modal-title Change Your User Name
+        .modal-body
+          form(role="form")
+           .form-group.center
+             input#new_user_name.form-control.center-block(type="text", placeholder="New User Name", style="width:70%;margin-bottom:10px;", autocomplete="off", autocorrect="off", autocapitalize="off", autofocus)
+             input#user_name_change.btn.btn-primary.disabled.center-block(role="button", type="button", value="Change It!", href='#', style="width:70%;margin-bottom:10px;")
+
+
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Close
   #howitworks.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

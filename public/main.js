@@ -351,7 +351,7 @@ function inspectlet_tag(tag_str_or_obj) {
 
 $(document).ready(function() {
   var new_user_name_sel      = '#new_user_name';
-  var new_user_create_sel    = '#new_user_create';
+  var new_user_create_sel    = '#new_user_create, #user_name_change';
 
   var tooltip_is_visible = false;
   var tooltip_title      = "";
@@ -901,6 +901,10 @@ var user = {
     socket.emit("user:create", user_name);
     inspectlet_tag({user_create: user_name});
   },
+  change_name: function(new_user_name) {
+    socket.emit("user:change_name", new_user_name);
+    inspectlet_tag("user_change_name");
+  },
   login: function(user_name, password) {
     socket.emit("user:login", {user_name: user_name, password: password});
     inspectlet_tag({login_attempt: ""});
@@ -1064,6 +1068,22 @@ $("#login form").submit(function(e) {
   user.create($('#new_user_name').val());
 });
 
+var user_name_change_btn = "#user_name_change";
+$("#new_user_name").keyup(function(e) { // Submit on enter
+  if(e.keyCode != 13) return;
+  e.preventDefault();
+  $(user_name_change_btn).click();
+});
+$(user_name_change_btn).click(function(e) {
+  user.change_name($('#new_user_name').val());
+  $("#name_change_modal").modal("hide"); // TODO: DRY
+});
+
+function login_form_hide() {
+  var sels = "#login,.overlay";
+  $(sels).hide();
+}
+
 // http://stackoverflow.com/questions/16139452/how-to-convert-big-negative-scientific-notation-number-into-decimal-notation-str
 Number.prototype.noExponents= function() {
     var data= String(this).split(/[eE]/);
@@ -1106,6 +1126,10 @@ $("#chat_show").click(function() {
 $("#past_winners_show").click(function() {
   var sel = "#past_winners_pane";
   $(sel).toggle();
+});
+
+$("#edit_user_name").click(function() {
+  $("#name_change_modal").modal('show');
 });
 
 $("#btn-chat").click(function() {

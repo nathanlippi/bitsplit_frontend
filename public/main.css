@@ -678,14 +678,14 @@ span.primary-font {
     width: 150px;
     display: none;
 }
-#login .tooltip-inner {
+.create_or_change_name .tooltip-inner,  {
     min-width: 300px;
     max-width: 300px;
     font-size: 1.2em;
 }
-#login .tooltip { opacity: 1 !important }
-#login .tooltip.top > .tooltip-inner { background-color: #ed6565 }
-#login .tooltip.top > .tooltip-arrow { border-top-color: #ed6565 }
+.create_or_change_name .tooltip { opacity: 1 !important }
+.create_or_change_name .tooltip.top > .tooltip-inner { background-color: #ed6565 }
+.create_or_change_name .tooltip.top > .tooltip-arrow { border-top-color: #ed6565 }
 footer {
     position: absolute;
     bottom: 0;
@@ -697,7 +697,7 @@ a.my_user_name.welcome {
     float: left;
     min-height: 34px;
     margin-top: 12px;
-    font-size: 13px;
+    font-size: 16px;
 }
 .bitbank > div.btn-group.btn-group.btn-group-justified.btn-group-transparent {
     display: inline-block;
