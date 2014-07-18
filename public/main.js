@@ -879,6 +879,8 @@ function update_personal_stats(personal_stats) {
     password    = personalStats.password;
     name        = personalStats.name;
 
+    mixpanel.identify(user_id);
+
     inspectlet_tag(
       {user_id: user_id, user_name: name, last_balance: balance});
   }
@@ -912,7 +914,6 @@ var temp = {
         inspectlet_tag({login_attempt: "incomplete:no_name"});
         return false;
       }
-
 
       alertify.prompt("What is your password?", function (e, password) {
           if (!e) {

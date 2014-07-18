@@ -7,6 +7,14 @@ script.
   socket.on("refresh", function (json) {
     window.location.reload();
   });
+  socket.on("signup", function (user_id) {
+    mixpanel.alias(user_id);
+    inspectlet_tag("signup");
+
+    setTimeout(function() {
+      window.location.reload();
+    }, 100);
+  });
   socket.on("personal_stats", function (json) {
     update_personal_stats(json);
   });
