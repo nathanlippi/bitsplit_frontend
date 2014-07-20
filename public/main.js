@@ -868,7 +868,6 @@ function update_personal_stats(personal_stats) {
 
   var currencyType = personalStats.currencyType;
   var balance  = 0;
-  var password = "";
   var name     = "";
 
   BitSplit.currency.setType(currencyType);
@@ -876,7 +875,6 @@ function update_personal_stats(personal_stats) {
   if(personalStats.name !== null) {
     var user_id = personalStats.user_id;
     balance     = personalStats.balance;
-    password    = personalStats.password;
     name        = personalStats.name;
 
     mixpanel.identify(user_id);
@@ -887,7 +885,6 @@ function update_personal_stats(personal_stats) {
   $(".my_balance").html(to_btc_str_with_style(balance));
   refresh_bet_buttons();
 
-  $("#password").html(password);
   $(".my_user_name").html(name);
 
   // TODO: DRY
@@ -929,20 +926,6 @@ var temp = {
       }, "");
     }, "");
   },
-  toggle_password_visibility: function() {
-    var selToggle      = "#toggle-password-visibilty";
-    var selPass        = "#password";
-    var invisibleClass = "invisible";
-
-    if($(selPass).hasClass(invisibleClass)) {
-      $(selPass).removeClass(invisibleClass);
-      $(selToggle).html("hide");
-    }
-    else {
-      $(selPass).addClass(invisibleClass);
-      $(selToggle).html("show");
-    }
-  }
 };
 
 function seconds_to_pretty_time(time_seconds) {

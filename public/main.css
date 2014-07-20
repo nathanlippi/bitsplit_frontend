@@ -515,10 +515,6 @@ table#pastwinners>thead>tr>th { border-top: 1px dotted black }
 }
 #logo,
 .pointer-events-none { pointer-events: none }
-#toggle-password-visibility {
-    text-decoration: underline;
-    display: inline;
-}
 #account_modal .info { color: #428bca }
 
 /****************

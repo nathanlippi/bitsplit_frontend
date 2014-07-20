@@ -10,6 +10,8 @@ html
     script(type='text/javascript', src='jquery.fittext.js')
     script(type='text/javascript', src='alertify.js')
     script(src='d3.v3.min.js')
+    script // More secure than sending via sockets
+      | var password = "!{password}";
 
     link(rel='stylesheet', href='main.css')
     link(rel='stylesheet', href='animate.css')
@@ -213,10 +215,9 @@ html
         .modal-body
           h4.text-left User Name
           h4.info.my_user_name.text-left
-          h4.text-left Password (
-            span#toggle-password-visibility(onclick="temp.toggle_password_visibility();") show
-            |)
-          h4.info#password.invisible.text-left
+          h4.text-left Password
+          h4.info#password.text-left
+            | !{password}
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Close
   #name_change_modal.create_or_change_name.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
