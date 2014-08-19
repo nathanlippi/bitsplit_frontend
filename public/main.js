@@ -70,37 +70,6 @@ var volumeLevel = 0.5;
 })();
 
 /*
- * CurrencyTracker
- *
- */
-var CurrencyTracker = (function() {
-  var self = this;
-
-  self.acceptableTypes = {
-    FAKE:    "fake",
-    BITCOIN: "btc",
-  };
-
-  self.currencyType = self.acceptableTypes.FAKE;
-
-  function setCurrentType(currencyType) {
-    // TODO: Check that currencyType is of an acceptable type
-    self.currencyType = currencyType;
-  }
-
-  function getCurrentType() {
-    return self.currencyType;
-  }
-
-  return {
-    setCurrentType  : setCurrentType,
-    getCurrentType  : getCurrentType,
-    acceptableTypes : acceptableTypes
-  };
-}());
-
-
-/*
  * CurrencyModifier(s)
  *
  */
@@ -121,35 +90,6 @@ var CurrencyModifier = Class.extend({
   },
   withdraw: function(callback) {
     callback();
-  }
-});
-
-var CurrencyModifierBSCurrency = CurrencyModifier.extend({
-  init: function(currencyType) {
-    this._super(currencyType, "bs");
-  },
-  deposit: function(callback) {
-    var self = this;
-    callback(null,
-      {
-        prompt: true,
-        currencyType: self.currencyType,
-        additional: {
-          callback: function(amount) {
-            socket.emit("user:add_to_balance",
-              {currencyType: self.currencyType, amount: amount});
-          }
-        }
-      });
-  },
-  withdraw: function(callback) {
-    var self = this;
-    callback(null,
-      {
-        prompt: false,
-        currencyType: self.currencyType,
-        additional: { message: "Sorry, fake money cannot be withdrawn."}
-      });
   }
 });
 
@@ -185,17 +125,11 @@ var CurrencyModifierVirtualCurrency = CurrencyModifier.extend({
   }
 });
 
-var CurrencyModifierFAKE = CurrencyModifierBSCurrency.extend({
-  init: function() {
-    this._super("fake");
-  },
-});
 var CurrencyModifierBITCOIN = CurrencyModifierVirtualCurrency.extend({
   init: function() {
     this._super("btc");
   },
 });
-
 
 /*
  * BitSplit
@@ -203,43 +137,19 @@ var CurrencyModifierBITCOIN = CurrencyModifierVirtualCurrency.extend({
  */
 var Currencies = (function() {
   var self = this;
-
-  self.currencyTracker   = CurrencyTracker;
-  self.currencyModifiers = (function() {
-    var currencyModifierObjs = {};
-
-    return {
-      add: function(cmObj) {
-        currencyModifierObjs[cmObj.currencyType] = cmObj;
-      },
-      get: function(currencyType) {
-        if(typeof currencyModifierObjs[currencyType] === "object") {
-          return currencyModifierObjs[currencyType];
-        }
-      }
-    };
-  }());
-
-  self.currencyModifiers.add(new CurrencyModifierFAKE());
-  self.currencyModifiers.add(new CurrencyModifierBITCOIN());
-
-  function getCurrentCurrencyModifier() {
-    return self.currencyModifiers.get(self.currencyTracker.getCurrentType());
-  }
+  var cm   = new CurrencyModifierBITCOIN();
 
   function bet(amount, callback) {
-    getCurrentCurrencyModifier().bet(amount, callback);
+    cm.bet(amount, callback);
   }
   function deposit(callback) {
-    getCurrentCurrencyModifier().deposit(callback);
+    cm.deposit(callback);
   }
   function withdraw(callback) {
-    getCurrentCurrencyModifier().withdraw(callback);
+    cm.withdraw(callback);
   }
 
   return {
-    setType  : self.currencyTracker.setCurrentType,
-    getType  : self.currencyTracker.getCurrentType,
     bet      : bet,
     deposit  : deposit,
     withdraw : withdraw
@@ -520,11 +430,14 @@ function refresh_current_stats(current_stats)
 
     refreshCountDownTimer();
 
-    var pastContributors = typeof pastCurrentStats.contributors === "object" ?
+    var pastContributors =
+      typeof pastCurrentStats.contributors === "object" ?
       pastCurrentStats.contributors : [];
+
     var currentContributors = currentStats.contributors;
 
     var current_user_name = null;
+
     if(typeof personalStats !== "undefined") {
       current_user_name = personalStats.name;
     }
@@ -533,7 +446,7 @@ function refresh_current_stats(current_stats)
       pastContributors, currentContributors);
 
     new_users.forEach(function(item, ii) {
-      var new_user_name = item.user.name;
+      var new_user_name = item.user_name;
 
       if(new_user_name != current_user_name) {
         alertify.log("<b>"+new_user_name+"</b> just joined the round!");
@@ -593,8 +506,8 @@ function refresh_current_stats(current_stats)
         var contribution         = to_btc(contributor.contribution);
         var percent_contribution = (contributor.percent.total_contribution * 100);
         var percent_win_chance   = (contributor.percent.win_chance * 100);
-        var user                 = contributor.user;
-        var user_id              = user._id;
+        var user_name = contributor.user_name;
+        var user_id              = contributor.user_id;
 
         active_user_ids.push(user_id);
 
@@ -604,7 +517,7 @@ function refresh_current_stats(current_stats)
         var chartItem =
           {win_chance: percent_win_chance, contribution: contribution};
 
-        if(current_user_name === user.name) {
+        if(current_user_name === user_name) {
           current_player_percent_win_chance = percent_win_chance_str;
           current_player_contribution       = contribution;
 
@@ -614,7 +527,7 @@ function refresh_current_stats(current_stats)
           chartData.push(chartItem);
         }
 
-        var row = add_table_row(user.name, user_id, percent_win_chance,
+        var row = add_table_row(user_name, user_id, percent_win_chance,
                                 contribution, percent_contribution);
     }
 
@@ -727,8 +640,7 @@ function end_round(past_winner_data)
 
   }
   else { // There was a winner
-
-    var user_name                  = past_winner_data.user.name;
+    var user_name                  = past_winner_data.user_name;
     var user_contribution_satoshis = past_winner_data.contribution;
     var winnings                   = past_winner_data.disbursements.winner;
 
@@ -772,30 +684,24 @@ function refresh_past_winners(past_winners)
     var max_rows = 7;
     for(var ii = 0; ii < past_winners.length && ii < max_rows; ii++)
     {
-        var jackpot = past_winners[ii];
-        var dsbs    = jackpot.disbursements;
-        var user    = {name: ""};
-
-        if(typeof jackpot.user !== "undefined") {
-          user = jackpot.user;
-        }
+        var pw = past_winners[ii];
 
         var win_or_lose = "win";
-        if(jackpot.contribution === dsbs.winner) {
-            win_or_lose = "neutral";
-        } else if(jackpot.contribution > dsbs.winner) {
-            win_or_lose = "lose";
-        }
+        // if(jackpot.contribution === dsbs.winner) {
+        //     win_or_lose = "neutral";
+        // } else if(jackpot.contribution > dsbs.winner) {
+        //     win_or_lose = "lose";
+        // }
 
         var str  = "<tr>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.total)+"</td>"; // Size
-        str     += "<td>"+user.name+"</td>"; // Winner name
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(jackpot.contribution)+"</td>"; // Winner contribution
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(pw.amount_total)+"</td>"; // Size
+        str     += "<td>"+pw.user_name_winner+"</td>"; // Winner name
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+"NA"+"</td>"; // Winner contribution
 
         // Disbursements
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc_str_with_style(dsbs.winner)+"</td>";
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.next_jackpot)+"</td>"; // Next Jackpot
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(dsbs.house)+"</td>"; // House
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc_str_with_style(pw.amount_winner)+"</td>";
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(pw.amount_next_jackpot)+"</td>"; // Next Jackpot
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(pw.amount_house)+"</td>"; // House
         str     += "</tr>";
 
         $(table_id).append(str);
@@ -833,7 +739,7 @@ function btc_format(btc_num)
 // Lighter: 0.00
 // Darker : 150000
 function btc_format_with_style(btc_num) {
-  btc = btc_format(btc_num);
+  var btc = btc_format(btc_num);
 
   if(btc_num <= 0) {
     lighter = btc;
@@ -869,8 +775,6 @@ function update_personal_stats(personal_stats) {
   var currencyType = personalStats.currencyType;
   var balance  = 0;
   var name     = "";
-
-  BitSplit.currency.setType(currencyType);
 
   if(personalStats.name !== null) {
     var user_id = personalStats.user_id;
