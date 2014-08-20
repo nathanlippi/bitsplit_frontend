@@ -21,11 +21,9 @@ app.get(/^\/([^.]*)$/, function(req, res) {
   });
 });
 
-app.configure(function() {
-  app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
-  app.set('view engine', 'jade');
-  app.set('views', __dirname + '/public/views');
-});
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/public/views');
 
 server.listen(3001);
