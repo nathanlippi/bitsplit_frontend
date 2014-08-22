@@ -26,31 +26,7 @@ html
     // Background
     #bg
       .overlay-solid
-    // Navigation Bar
-    #bitsplitnav.navbar.transparent.navbar-fixed-top.navbar-inverse
-      .navbar-header
-        button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        a.navbar-brand(href='#')
-          img(src='images/BitSplitLogo.png')#logo
-      .navbar-collapse.collapse#bitsplitnav-buttons
-        ul.nav.navbar-nav.navbar-right
-          //- li
-          //-  div(style="")
-          //-   a.btn.btn-currency.fake.active(onclick="change_currency_type('fake')") SANDBOX
-          //-   a.btn.btn-currency.btc(onclick="change_currency_type('btc')") BITCOINS
-          li
-            a(href='#').referral_popup Referral Program
-          li
-            a(href='#howitworks', data-toggle='modal', data-target='#howitworks') How It Works
-          li
-            a(href='#contact', data-toggle='modal', data-target='#contact') Contact
-          li.active
-            // a#signinbtn(href='#signin', data-toggle='modal', data-target='#signin') Sign In
-            a#signinbtn(href='#signin', onclick="temp.login();") Sign In
-    
+    include menu    
     include sidebar
 
     block content
