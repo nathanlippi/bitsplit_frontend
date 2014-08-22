@@ -1,5 +1,8 @@
 var express = require('express');
 var app     = express();
+var favicon = require('serve-favicon');
+var path    = require("path");
+
 var server  = require("http").createServer(app);
 var io      = require("socket.io").listen(server);
 
@@ -14,16 +17,19 @@ app.get(/^\/([^.]*)$/, function(req, res) {
   var file = req.params[0]+".jade";
 
   res.render(file, jade_values, function(err, html) {
-    if (err) {
-        return res.render('404');
-    }
+    if (err) { return res.render('404'); }
+
     res.send(html);
   });
 });
 
+app.use(favicon(path.join(
+  __dirname, "public", "images", "favicon.ico")));
 app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/public/views');
 
-server.listen(3001);
+var port = 3001;
+server.listen(port);
+console.log("App listening on port "+port);
