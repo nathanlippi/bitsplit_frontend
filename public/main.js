@@ -631,12 +631,9 @@ function end_round(past_winner_data)
 {
   is_round_intermission = true;
   CHART.setIntermission(true);
-
   refresh_bet_buttons();
 
-  var jackpot_id                 = past_winner_data.jackpot_id;
-
-  if(past_winner_data.user === null) { // No winner
+  if(!past_winner_data || !past_winner_data.user_name) { // No winner
 
   }
   else { // There was a winner
