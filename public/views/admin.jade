@@ -1,0 +1,27 @@
+h1 Admin
+
+h2 Satoshis Income Per Day
+table#income_per_day(border=1)
+  tr
+    td Year
+    td Month
+    td Day
+    td Satoshis
+  each row in income_per_day
+    tr
+      td= row.year
+      td= row.month
+      td= row.day
+      td= row.sum
+
+h2 Deposits
+table#deposits(border=1)
+  tr
+    td Timestamp
+    td User Name
+    td Satoshis
+  each row in deposits
+    tr
+      td= row.transaction_time
+      td= row.user_name
+      td= row.transaction_amount
