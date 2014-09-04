@@ -325,7 +325,7 @@ $(document).ready(function() {
   });
 
   $(".referral_popup").click(function() {
-    alertify.alert("Your referral URL is:<br/><b>https://bitsplit.it/?ref="+personalStats.user_id+"</b><br/><br/>You will receive 1000 satoshis for every user that signs up from a unique ip address!");
+    alertify.alert("Your referral URL is:<br/><b>https://bitsplit.it/?ref="+personalStats.user_id+"</b><br/><br/>You will receive 1% of the jackpot every time one of your referred users wins!");
   });
 
   var vsSel = "#volume_slider";
