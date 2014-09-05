@@ -679,7 +679,7 @@ function refresh_past_winners(past_winners)
     $(table_id).html("");
 
     var max_rows = 7;
-    for(var ii = 0; ii < past_winners.length && ii < max_rows; ii++)
+    for(var ii = 0; past_winners && ii < past_winners.length && ii < max_rows; ii++)
     {
         var pw = past_winners[ii];
 
@@ -699,6 +699,9 @@ function refresh_past_winners(past_winners)
         str     += "<td class='bitcoin-symbol font-color-bitcoin-"+win_or_lose+"'>"+to_btc_str_with_style(pw.amount_winner)+"</td>";
         str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(pw.amount_next_jackpot)+"</td>"; // Next Jackpot
         str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(pw.amount_house)+"</td>"; // House
+
+        var amount_referral = pw.amount_referral || 0;
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(amount_referral)+"</td>"; // Referral
         str     += "</tr>";
 
         $(table_id).append(str);
