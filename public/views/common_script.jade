@@ -56,8 +56,24 @@ script.
     });
   });
 
-  socket.on("referral", function (json) {
-    alertify.log("A new user, <b>"+json.user_name+"</b>, just signed up as your referral!<br/><br/>We've added "+json.amount_satoshis+" satoshis to your bitcoin account!", "", 0);
+  socket.on("referral_signup", function (json) {
+    var msg = "";
+
+    msg += "A new user, <b><i>"+json.user_name+"</i></b> ";
+    msg += "just signed up as your referral!<br/><br/>";
+    msg += "Now you will earn a commission every time they win!";
+
+    alertify.log(msg, "", 0);
+  });
+
+  socket.on("referral_commission", function (json) {
+    var msg = "";
+
+      msg += "A user you referred, <b><i>"+json.winner_name+"</i></b> ";
+      msg += "just won!<br/><br/>";
+      msg += "We've added <b>"+json.amount+"</b> satoshis to your account!";
+
+    alertify.log(msg, "", 0);
   });
 
   socket.on("deposit_confirmations", function (json) {

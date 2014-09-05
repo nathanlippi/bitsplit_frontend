@@ -325,7 +325,13 @@ $(document).ready(function() {
   });
 
   $(".referral_popup").click(function() {
-    alertify.alert("Your referral URL is:<br/><b>https://bitsplit.it/?ref="+personalStats.user_id+"</b><br/><br/>You will receive 1% of the jackpot every time one of your referred users wins!");
+    var msg  = "Your referral URL is:<br/>";
+    msg     += "<b>https://bitsplit.it/?ref="+personalStats.user_id+"</b>";
+    msg     += "<br/><br/>You will receive 1% of the jackpot every time ";
+    msg     += "one of your referred users wins! <br/><br/>";
+    msg     += "Note: commissions are rounded to the nearest satoshi.";
+
+    alertify.alert(msg);
   });
 
   var vsSel = "#volume_slider";
@@ -700,8 +706,8 @@ function refresh_past_winners(past_winners)
         str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(pw.amount_next_jackpot)+"</td>"; // Next Jackpot
         str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(pw.amount_house)+"</td>"; // House
 
-        var amount_referral = pw.amount_referral || 0;
-        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(amount_referral)+"</td>"; // Referral
+        var amount_referrer = pw.amount_referrer || 0;
+        str     += "<td class='bitcoin-symbol font-color-bitcoin-neutral'>"+to_btc_str_with_style(amount_referrer)+"</td>"; // Referral
         str     += "</tr>";
 
         $(table_id).append(str);
