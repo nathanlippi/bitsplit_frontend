@@ -420,9 +420,11 @@ function check_for_new_contributors(pastContributors, currentContributors)     {
 }
 
 function set_pot_prize() {
-  if(typeof currentStats === "undefined") return;
+  if(!currentStats) return;
 
-  CHART.setPotPrize(to_btc_str_with_style(currentStats.prize));
+  var prize = currentStats.prize;
+  CHART.setPotPrize(to_btc_str_with_style(prize));
+  $("title").html("BitSplit ("+prize+")");
 }
 
 function set_time_left(seconds) {
