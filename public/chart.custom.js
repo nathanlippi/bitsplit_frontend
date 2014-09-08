@@ -84,9 +84,10 @@ var CHART = (function()
         .attr("id", IDS.circleHTML);
 
     var sel = "#"+IDS.circleHTML;
-    $(sel).append("<div id='"+IDS.currentRoundSize+"'>CURRENT ROUND PRIZE</div>");
+
+    $(sel).append("<div id='"+IDS.currentRoundSize+"'>PRIZE</div>");
     $(sel).append("<div id='"+IDS.potprize+"'>...</div>");
-    $(sel).append("<div id='"+IDS.nextRoundTitle+"'>Bitcoins Splitting In</div>");
+    $(sel).append("<div id='"+IDS.nextRoundTitle+"'>Winner When Prize Exceeds</div>");
     $(sel).append("<div id='"+IDS.nextRoundTime+"'>...</div>");
   }
 
@@ -244,7 +245,7 @@ var CHART = (function()
     $("#"+IDS.currentRoundSize).fitText(1.6);
     $("#"+IDS.potprize).fitText(0.75);
     $("#"+IDS.nextRoundTitle).fitText(1.5);
-    $("#"+IDS.nextRoundTime).fitText(0.75);
+    $("#"+IDS.nextRoundTime).fitText(1.1);
 
     // Should really be done with .enter???
     if(highlightFirstSegment) {

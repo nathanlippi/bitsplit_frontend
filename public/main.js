@@ -249,7 +249,7 @@ function refreshCountDownTimer() {
       $(".bigcounter").css("width", percentage.toString()+"%");
 
       if(!is_round_intermission) {
-        set_time_left(Math.round(currentTimeLeft/1000));
+        // set_time_left(Math.round(currentTimeLeft/1000));
       }
    }
 }
@@ -438,6 +438,8 @@ function refresh_current_stats(current_stats)
 
     refreshCountDownTimer();
 
+    CHART.setNextRoundTime("฿"+to_btc_str_with_style(current_stats.split_prize_size));
+
     var pastContributors =
       typeof pastCurrentStats.contributors === "object" ?
       pastCurrentStats.contributors : [];
@@ -606,8 +608,9 @@ function new_round () {
   var svg = document.querySelector('svg#piechart');
   var flip_classes = 'animated flip';
 
-  $("#"+CHART.IDS.currentRoundSize).html('CURRENT ROUND PRIZE');
-  $("#"+CHART.IDS.nextRoundTitle).html('Bitcoins Splitting In');
+  $("#"+CHART.IDS.currentRoundSize).html('PRIZE');
+  // $("#"+CHART.IDS.nextRoundTitle).html('Bitcoins Splitting In');
+  $("#"+CHART.IDS.nextRoundTitle).html('Winner When Prize Exceeds');
 
   alertify.success("<b>New round starting!</b>");
   lunar.addClass(svg, flip_classes);
