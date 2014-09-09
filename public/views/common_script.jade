@@ -52,8 +52,9 @@ script.
     $(chat_body_sel).html("");
 
     $.each(json.messages.reverse(), function(ii, message) {
-      add_message_to_chat(message.user_name, message.message);
+      add_message_to_chat(message.user_name, message.message, false);
     });
+    scroll_chat_to_bottom();
   });
 
   socket.on("referral_signup", function (json) {

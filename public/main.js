@@ -1049,8 +1049,10 @@ function send_chat_msg()
 
 
 var chat_message_count = 0;
-function add_message_to_chat(user_name, message) {
+function add_message_to_chat(user_name, message, auto_scroll) {
   var str;
+
+  if(typeof auto_scroll === "undefined") auto_scroll = true;
 
   str  = "<li class='left clearfix'>";
   str += "<div class='chat-body clearfix'>";
@@ -1060,7 +1062,9 @@ function add_message_to_chat(user_name, message) {
   str += "</li>";
 
   $(chat_body_sel).append(str);
-  scroll_chat_to_bottom();
+
+  if(auto_scroll) {
+    scroll_chat_to_bottom(); }
 
   if(!is_chat_open()) {
     chat_message_count++;
