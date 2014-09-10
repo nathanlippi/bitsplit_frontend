@@ -1064,8 +1064,13 @@ function add_message_to_chat(data, auto_scroll) {
   if(class_str.length) class_str = " " + class_str;
 
   str  = "<li class='left clearfix"+class_str+"'>";
+
   str += "<div class='chat-body clearfix'>";
-  str += "<div class='header'><span class='primary-font'>"+data.user_name+"</span></div>";
+  str += "<div class='header'>";
+  if(is_admin) {
+    str += "<p><span class='btn btn-xs btn-primary' style='float:left;margin-right:10px;' onclick=\"admin_mute_toggle('"+data.user_id+"');\">Toggle Mute</span></p>";
+  }
+  str += "<span class='primary-font'>"+data.user_name+"</span></div>";
   str += "<p>"+data.message+"</p>";
   str += "</div>";
   str += "</li>";
@@ -1079,6 +1084,10 @@ function add_message_to_chat(data, auto_scroll) {
     chat_message_count++;
     update_chat_badge();
   }
+}
+
+function admin_mute_toggle(user_id) {
+  socket.emit("admin:mute_toggle", user_id);
 }
 
 $("#chat_show").click(function() {
