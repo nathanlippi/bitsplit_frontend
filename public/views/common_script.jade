@@ -44,6 +44,7 @@ script.
   });
 
   socket.on("chat_message", function (json) {
+    if(!json.user_name || !json.message) return;
     add_message_to_chat(json.user_name, json.message);
     play_sound('audio/chat.mp3');
   });
