@@ -10,8 +10,9 @@ html
     script(type='text/javascript', src='jquery.fittext.js')
     script(type='text/javascript', src='alertify.js')
     script(src='d3.v3.min.js')
-    script // More secure than sending via sockets
+    script // More secure (and quick) than sending via sockets
       | var password = "!{password}";
+      | var is_admin = !{is_admin};
 
     link(rel='stylesheet', href='main.css')
     link(rel='stylesheet', href='animate.css')

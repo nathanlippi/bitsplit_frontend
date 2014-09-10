@@ -1049,15 +1049,24 @@ function send_chat_msg()
 
 
 var chat_message_count = 0;
-function add_message_to_chat(user_name, message, auto_scroll) {
+function add_message_to_chat(data, auto_scroll) {
   var str;
+
+  if(!is_admin && data.is_muted) return;
+
+  var class_list = [];
+  if(data.is_muted) { class_list.push("is_muted"); }
+  if(data.is_admin) { class_list.push("is_admin"); }
 
   if(typeof auto_scroll === "undefined") auto_scroll = true;
 
-  str  = "<li class='left clearfix'>";
+  var class_str  = class_list.join(" ");
+  if(class_str.length) class_str = " " + class_str;
+
+  str  = "<li class='left clearfix"+class_str+"'>";
   str += "<div class='chat-body clearfix'>";
-  str += "<div class='header'><span class='primary-font'>"+user_name+"</span></div>";
-  str += "<p>"+message+"</p>";
+  str += "<div class='header'><span class='primary-font'>"+data.user_name+"</span></div>";
+  str += "<p>"+data.message+"</p>";
   str += "</div>";
   str += "</li>";
 

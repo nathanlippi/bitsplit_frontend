@@ -530,19 +530,26 @@ table#pastwinners>thead>tr>th { border-top: 1px dotted black }
     margin: 0;
     padding: 0;
 }
- .chat li {
-     margin-bottom: 10px;
-     padding-bottom: 11px;
-     border-bottom: 1px dotted rgba(0, 0, 0, 0.36);
- }
- .chat li.left .chat-body { margin-left: 00px;}
- .chat li.right .chat-body { margin-right: 60px }
- .chat li .chat-body p {
-     margin: 0;
-     color: #FFEC87;
- }
- .panel .slidedown .glyphicon,
- .chat .glyphicon { margin-right: 5px }
+.chat li {
+   margin-bottom: 10px;
+   padding-bottom: 11px;
+   border-bottom: 1px dotted rgba(0, 0, 0, 0.36);
+}
+.chat li.left .chat-body { margin-left: 00px;}
+.chat li.right .chat-body { margin-right: 60px }
+.chat li .chat-body p {
+   margin: 0;
+   color: #FFEC87;
+}
+.chat .is_muted {
+  opacity: 0.5;
+}
+.chat .is_admin .primary-font {
+  color: green;
+}
+
+.panel .slidedown .glyphicon,
+.chat .glyphicon { margin-right: 5px }
 .panel-body {
     overflow-y: scroll;
     height: 300px;
