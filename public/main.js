@@ -641,13 +641,13 @@ function end_round(past_winner_data)
   CHART.setIntermission(true);
   refresh_bet_buttons();
 
-  if(!past_winner_data || !past_winner_data.user_name) { // No winner
+  // No winner
+  if(!past_winner_data || !past_winner_data.user_name_winner) {
 
   }
-  else { // There was a winner
-    var user_name                  = past_winner_data.user_name;
-    var user_contribution_satoshis = past_winner_data.contribution;
-    var winnings                   = past_winner_data.disbursements.winner;
+  if(past_winner_data && past_winner_data.user_name_winner) {
+    var user_name = past_winner_data.user_name_winner;
+    var winnings  = past_winner_data.amount_winner;
 
     var presel = "#"+CHART.IDS.circleHTML+".intermission ";
     $(presel+"#"+CHART.IDS.currentRoundSize).html('Congratulations!');
