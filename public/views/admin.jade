@@ -1,27 +1,47 @@
-h1 Admin
+html
+  head
+    title Admin Panel
+    link(rel='stylesheet', href='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+  body
+    h1 Admin
 
-h2 Satoshis Income Per Day
-table#income_per_day(border=1)
-  tr
-    td Year
-    td Month
-    td Day
-    td Satoshis
-  each row in income_per_day
-    tr
-      td= row.year
-      td= row.month
-      td= row.day
-      td= row.sum
-
-h2 Deposits
-table#deposits(border=1)
-  tr
-    td Timestamp
-    td User Name
-    td Satoshis
-  each row in deposits
-    tr
-      td= row.transaction_time
-      td= row.user_name
-      td= row.transaction_amount
+    h2 Satoshis Income Per Day
+    table#income_per_day(border=1)
+      tr
+        td Year
+        td Month
+        td Day
+        td Satoshis
+      each row in income_per_day
+        tr
+          td= row.year
+          td= row.month
+          td= row.day
+          td= row.sum
+    hr
+    hr
+    .row
+      .col-xs-6.col-lg-4
+        h2 Deposits
+        table#deposits(border=1)
+          tr
+            td Timestamp
+            td User Name
+            td Satoshis
+          each row in deposits
+            tr
+              td= row.transaction_time
+              td= row.user_name
+              td= row.transaction_amount
+      .col-xs-6.col-lg-4
+        h2 Withdrawals
+        table#deposits(border=1)
+          tr
+            td Timestamp
+            td User Name
+            td Satoshis
+          each row in withdrawals
+            tr
+              td= row.transaction_time
+              td= row.user_name
+              td= row.transaction_amount
