@@ -858,38 +858,8 @@ function zeroPad(num, places) {
  * Misc Scripts (document ready, etc.)
  *
  */
-$(document).ready(function() {
-  // $('#bitsplitgames').royalSlider({
-  //    controlNavigation : 'bullets'
-  //  });
-
-var svg = document.querySelector('svg#piechart');
-
-  $(window).resize(function()
-  {
-    $('#gameslider').css(
-    {
-      // position: 'absolute',
-      // width:'100%'
-    });
-
-    $('#gameslider').css(
-    {
-      // left: ($(window).width() - $('#gameslider').outerWidth()) / 2,
-      paddingTop:( (($(window).height()) / 2 ) - 210)
-    });
-  });
-
-  // call `resize` to center elements
-  $(window).resize();
-  // Fade overlay which hides the jumble before royalSlider is activated.
-  // $(".overlay-solid").fadeOut(300);
-
-//   $("div#endofround").center(true);
-// $("#gameslider").center(true);
-  
-  $('#bg').addClass('animated fadeIn');
-
+function initChart()
+{
   var sel = "div.betchart";
   CHART.init(sel);
 
@@ -913,9 +883,21 @@ var svg = document.querySelector('svg#piechart');
     }
     CHART.resize(r);
   }, 1000);
+}
 
+$(document).ready(function() {
+  $(window).resize(function()
+  {
+    $('#gameslider').css({
+      paddingTop :((($(window).height()) / 2 ) - 210)
+    });
+  });
 
-  $('.overlay-solid').addClass('animated fadeOut').delay(11300);
+  // call `resize` to center elements
+  $(window).resize();
+  
+  $('#bg').addClass('animated fadeIn');
+  $('.overlay-solid').addClass('animated fadeOut');
 });
 
 $("#deposit").on("click", function(e) {

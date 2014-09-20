@@ -4,6 +4,15 @@ script.
   socket.on("error", function(err) {
     console.log("socket.io error: ", err);
   });
+
+  socket.on("isOnlyOneUserConnection", function(isOnlyOneUserConnection) {
+    if(!isOnlyOneUserConnection) {
+      return alert("You have a connection open in another tab."); }
+
+    if(jQuery.isReady) { return initChart(); }
+    $(document).ready(initChart);
+  });
+
   socket.on("error_msg", function (json) {
     alertify.error(json.msg, "", 3000);
   });
