@@ -1,32 +1,12 @@
 doctype html
 html
   head
-    title BitSplit
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css')
-    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
-    script(type='text/javascript', src='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
-    script(type='text/javascript', src='jquery.fittext.js')
-    script(type='text/javascript', src='alertify.js')
-    script(src='d3.v3.min.js')
+    include includes
     script // More secure (and quick) than sending via sockets
       | var password = "!{password}";
       | var is_admin = !{is_admin};
-
-    link(rel='stylesheet', href='main.css')
-    link(rel='stylesheet', href='animate.css')
-    //link(rel='stylesheet', href='royalslider.css')
-    link(rel='stylesheet', href='skins/minimal-white/rs-minimal-white.css')
-    link(rel='stylesheet', href='alertify.core.css')
-    link(rel='stylesheet', href='alertify.bootstrap.css')
-    link(rel='stylesheet', href='jquery.nouislider.css')
-    link(rel='stylesheet', href='chart.custom.css')
-    link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
   body
-    // Background
-    #bg
-      .overlay-solid
+    include background
     include menu    
     include sidebar
 
